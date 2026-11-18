@@ -1,0 +1,17 @@
+## Interface: 120105, 120107, 120100, 16001, 16002, 16003
+## Title: |cff00e5ccRonin|r
+## Notes: One add-on for both worlds: tank macros for GSE (Retail + WoW: Forever). Type /ronin.
+## Author: Ronin
+## Version: 2.0.1
+## IconTexture: Interface\AddOns\Ronin\Media\Icon.tga
+## X-Website: https://ron1n.cc
+## X-Donate: https://ko-fi.com/ron1n90c
+## X-License: Free to use and share with credit. Do not resell.
+## Dependencies: GSE
+## OptionalDeps: GSE_Utils
+## SavedVariables: RoninDB
+## Category-enUS: Combat
+
+Data_Retail.lua
+Data_Forever.lua
+Ronin.lua

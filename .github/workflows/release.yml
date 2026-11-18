@@ -1,0 +1,36 @@
+name: Package and release
+
+# Tag a version (for example v2.0.2) to package the Ronin folder and upload it
+# to CurseForge and GitHub Releases. "Run workflow" with dry_run = true only
+# builds the zip and uploads nothing, so you can check it first.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (build only, no upload)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: BigWigsMods/packager@v2
+        with:
+          args: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '-d' || '' }} -p ${{ vars.CF_PROJECT_ID }}
+      - if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Ronin-dry-run
+          path: .release/*.zip

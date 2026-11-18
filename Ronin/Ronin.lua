@@ -1,0 +1,972 @@
+--[[
+    Ronin - one add-on for both worlds (Retail + WoW: Forever)
+    Tank macros for GSE. Type /ronin to open the installer.
+    Welcome screen -> pick Retail or Forever -> installer -> thank-you panel.
+    Resizable: drag the bottom-right corner.
+]]
+
+local addonName, Ronin = ...
+
+RoninDB = RoninDB or {}
+local DB = RoninDB
+
+local ADDON_VERSION = "2.0.1"
+local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
+local WHITE = "Interface\\Buttons\\WHITE8x8"
+
+local ACCENT = "|cff00e5cc"
+local GOLD   = "|cffe0b84a"
+local GREEN  = "|cff7cfc00"
+local RED    = "|cffff5555"
+local DIM    = "|cff9aa5b8"
+local VIOLET = "|cffb48cff"
+
+local C = {
+    bg     = { 0.035, 0.050, 0.095, 0.985 },
+    row    = { 0.050, 0.070, 0.120, 0.95 },
+    gold   = { 0.82, 0.65, 0.24, 1 },
+    cyanDim= { 0.00, 0.45, 0.50, 0.55 },
+}
+
+local LINKS = {
+    { "Ko-fi",   "https://ko-fi.com/ron1n90c" },
+    { "Website", "https://ron1n.cc" },
+    { "Patreon", "https://www.patreon.com/RON1N90C" },
+}
+
+local THANKS = "|cffffd100From one tank to another:|r\nmay Azeroth watch over you, may your cooldowns be ready\nand may every pull end with the whole group standing.\n\n"
+    .. "These macros are free. A coffee, a follow or a share keeps the updates coming. Thank you."
+
+local KEYS_RETAIL = "|cff00e5ccYour keys (Retail)|r\n"
+    .. "|cffffd100Shift|r  heal / self-sustain\n"
+    .. "|cffffd100Alt|r  crowd control (stun)\n"
+    .. "Interrupt: bind it on a separate key.\n\n"
+    .. "Hold the button: the Priority list picks the spell."
+local KEYS_FOREVER = "|cff00e5ccYour keys (WoW: Forever)|r\n"
+    .. "|cffffd100Shift|r  heal\n"
+    .. "|cffffd100Alt|r  crowd control\n"
+    .. "|cffffd100Ctrl|r  interrupt\n\n"
+    .. "Pick Leveling 1-20, 20-40 or 60 in GSE."
+local BLESS = "|cffffd100From one tank to another:|r\nmay Azeroth watch over you, may your cooldowns be ready\nand may every pull end with the whole group standing.\n\n"
+local THANKS_BY = {
+    retail  = BLESS .. KEYS_RETAIL,
+    forever = BLESS .. KEYS_FOREVER,
+}
+
+local function Print(msg)
+    print(ACCENT .. "[Ronin]|r " .. tostring(msg))
+end
+
+local function IsRetailClient()
+    if WOW_PROJECT_ID and WOW_PROJECT_MAINLINE then
+        return WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+    end
+    return (tonumber((select(4, GetBuildInfo()))) or 0) >= 100000
+end
+
+-- ---------------------------------------------------------------------------
+-- The two packs
+-- ---------------------------------------------------------------------------
+
+local PACKS = {
+    retail = {
+        key = "retail", name = "Retail", version = "5.2.1",
+        sub = "Midnight 12.0",
+        seqs = Ronin.RetailSequences or {},
+        regkey = "RoninRetail",
+        art = "W",
+        groups = {
+            { name = "Protection Warrior", color = "|cffc69b6d", sub = "Mountain Thane  |  Colossus", seqs = { "RoninWarrior_Thane", "RoninWarrior_Colossus" }, specID = 73 },
+            { name = "Protection Paladin", color = "|cfff48cba", sub = "Lightsmith  |  Templar", seqs = { "RoninPaladin_Lightsmith", "RoninPaladin_Templar" }, specID = 66 },
+            { name = "Guardian Druid", color = "|cffff7c0a", sub = "Elune's Chosen  |  Druid of the Claw", seqs = { "RoninDruid_Elune", "RoninDruid_Claw" }, specID = 104 },
+            { name = "Brewmaster Monk", color = "|cff00ff98", sub = "Master of Harmony  |  Shado-Pan", seqs = { "RoninBrewmaster_Harmony", "RoninBrewmaster_ShadoPan" }, specID = 268 },
+            { name = "Vengeance Demon Hunter", color = "|cffa330c9", sub = "Aldrachi Reaver  |  Annihilator", seqs = { "RoninDH_Vengeance_Aldrachi", "RoninDH_Vengeance_Annihil" }, specID = 581 },
+            { name = "Blood Death Knight", color = "|cffc41e3a", sub = "Deathbringer  |  San'layn", seqs = { "RoninDK_Blood_Deathbringer", "RoninDK_Blood_Sanlayn" }, specID = 250 },
+        },
+    },
+    forever = {
+        key = "forever", name = "Forever", version = "1.7.0",
+        sub = "WoW: Forever",
+        seqs = Ronin.ForeverSequences or {},
+        regkey = "RoninForever",
+        art = "infinity",
+        groups = {
+            { name = "Protection Warrior", color = "|cffc69b6d", sub = "Leveling 1-20  |  20-40  |  60", seqs = { "RoninForever_Warrior" }, icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance" },
+            { name = "Protection Paladin", color = "|cfff48cba", sub = "Leveling 1-20  |  20-40  |  60", seqs = { "RoninForever_Paladin" }, icon = "Interface\\Icons\\Spell_Holy_DevotionAura" },
+            { name = "Feral Druid (Bear)", color = "|cffff7c0a", sub = "Leveling 1-20  |  20-40  |  60", seqs = { "RoninForever_Druid" }, icon = "Interface\\Icons\\Ability_Racial_BearForm" },
+        },
+    },
+}
+
+Ronin.Sequences = {}
+local PACK_OF = {}
+for pk, pack in pairs(PACKS) do
+    for name, seq in pairs(pack.seqs) do
+        Ronin.Sequences[name] = seq
+        PACK_OF[name] = pack
+    end
+end
+
+-- ---------------------------------------------------------------------------
+-- Finding what GSE already has (GSE changed how it stores sequences, so every
+-- way we know is tried; a probe that is missing is never a "not installed")
+-- ---------------------------------------------------------------------------
+
+local function EnsureGSE()
+    return type(GSE) == "table"
+        and (type(GSE.ImportSerialisedSequence) == "function" or type(GSE.RegisterAddon) == "function")
+end
+
+-- returns found (true / false / nil = no way to look), sequence table (or nil)
+local function Lookup(name)
+    if type(GSE) ~= "table" then return nil end
+    local probed = false
+
+    if type(GSE.FindSequenceId) == "function" then
+        probed = true
+        -- GSE cuts names to 28 characters, so a long name is also tried cut
+        local ok, id, cid = pcall(GSE.FindSequenceId, name, nil, true)
+        if ok and id == nil and #name > 28 then
+            ok, id, cid = pcall(GSE.FindSequenceId, name:sub(1, 28), nil, true)
+        end
+        if ok and id ~= nil then
+            local seq
+            if type(GSE.GetSequence) == "function" then
+                local ok2, s = pcall(GSE.GetSequence, id, cid)
+                if ok2 and type(s) == "table" then seq = s end
+            end
+            if not seq and cid ~= nil and type(GSE.Library) == "table" and type(GSE.Library[cid]) == "table" then
+                seq = GSE.Library[cid][id]
+            end
+            return true, seq
+        end
+    end
+
+    if type(GSE.Library) == "table" then
+        probed = true
+        for _, t in pairs(GSE.Library) do
+            if type(t) == "table" and type(t[name]) == "table" then return true, t[name] end
+        end
+    end
+
+    if type(GSEStore) == "table" and type(GSEStore.sequence) == "table" then
+        probed = true
+        for _, envs in pairs(GSEStore.sequence) do
+            if type(envs) == "table" then
+                for _, env in pairs(envs) do
+                    if type(env) == "table" and env.Name == name then return true, nil end
+                end
+            end
+        end
+    end
+
+    if type(GSESequences) == "table" then
+        probed = true
+        for _, t in pairs(GSESequences) do
+            if type(t) == "table" and t[name] ~= nil then
+                local v = t[name]
+                return true, type(v) == "table" and v or nil
+            end
+        end
+    end
+
+    if probed then return false end
+    return nil
+end
+
+-- Fingerprint of a sequence = hash of all macro texts in order
+local function Collect(node, out, depth)
+    if type(node) ~= "table" or depth > 14 then return end
+    if type(node.macro) == "string" then out[#out + 1] = node.macro end
+    local keys = {}
+    for k in pairs(node) do
+        if type(k) == "number" then keys[#keys + 1] = k end
+    end
+    table.sort(keys)
+    for _, k in ipairs(keys) do Collect(node[k], out, depth + 1) end
+end
+
+local function Fingerprint(seq)
+    if type(seq) ~= "table" or type(seq.Versions) ~= "table" then return nil end
+    local vk, out = {}, {}
+    for k in pairs(seq.Versions) do
+        if type(k) == "number" then vk[#vk + 1] = k end
+    end
+    table.sort(vk)
+    for _, k in ipairs(vk) do
+        out[#out + 1] = "V" .. k
+        local v = seq.Versions[k]
+        if type(v) == "table" then Collect(v.Actions, out, 0) end
+    end
+    if #out == 0 then return nil end
+    local str = table.concat(out, "\n")
+    local h = 5381
+    for i = 1, #str do h = (h * 33 + str:byte(i)) % 4294967296 end
+    return string.format("%08x", h) .. ":" .. #str
+end
+
+-- "none" | "current" | "present" | "old" | "modified" | "other"
+local function StatusOf(key)
+    local found, lib = Lookup(key)
+    if found == false then return "none" end
+    local pkg = Fingerprint(Ronin.Sequences[key])
+    local rec = DB.imported and DB.imported[key]
+    local cur = Fingerprint(lib)
+    if cur and pkg and cur == pkg then return "current" end
+    if rec and pkg and rec.fp == pkg then
+        if cur == nil or cur == rec.lib then return "current" end
+        return "modified"
+    end
+    if found == nil and not rec then return "none" end
+    if rec then return "old", rec.v end
+    if cur then return "other" end
+    return "present"
+end
+Ronin.StatusOf = StatusOf
+
+local function RecordImport(keys)
+    DB.imported = DB.imported or {}
+    for _, key in ipairs(keys) do
+        local _, lib = Lookup(key)
+        DB.imported[key] = {
+            v = PACK_OF[key] and PACK_OF[key].version or ADDON_VERSION,
+            fp = Fingerprint(Ronin.Sequences[key]),
+            lib = Fingerprint(lib),
+        }
+    end
+end
+
+-- ---------------------------------------------------------------------------
+-- Import logic
+-- ---------------------------------------------------------------------------
+
+local function DeepCopy(t)
+    if type(t) ~= "table" then return t end
+    local c = {}
+    for k, v in pairs(t) do c[k] = DeepCopy(v) end
+    return c
+end
+
+function Ronin.InstallBatch(keys, overwrite, regkey)
+    local gseVersion = tonumber(GSE.VersionNumber) or 3400
+    local toc = tonumber((select(4, GetBuildInfo())))
+    local members, names = {}, {}
+    for _, key in ipairs(keys) do
+        local src = Ronin.Sequences[key]
+        if src then
+            local seq = DeepCopy(src)
+            seq.MetaData.GSEVersion = gseVersion
+            seq.MetaData.TOC = toc
+            members[key] = seq
+            names[#names + 1] = key
+        end
+    end
+    if #names == 0 then
+        return false, "no matching sequences"
+    end
+
+    local collection = { type = "COLLECTION", payload = { Sequences = members } }
+
+    if type(GSE.ImportSerialisedSequence) == "function" then
+        local ok, err = pcall(GSE.ImportSerialisedSequence, collection, overwrite and true or false)
+        if not ok then return false, err end
+        return true
+    end
+
+    local ok, res = pcall(GSE.RegisterAddon, regkey, ADDON_VERSION .. "-" .. tostring(time()), names, { collection })
+    if not ok then return false, res end
+    return true
+end
+
+-- ---------------------------------------------------------------------------
+-- UI helpers (every call that might not exist on one client is wrapped)
+-- ---------------------------------------------------------------------------
+
+local function clamp(v, lo, hi)
+    if v < lo then return lo elseif v > hi then return hi end
+    return v
+end
+
+local function NewGroup(region, looping)
+    local ok, ag = pcall(region.CreateAnimationGroup, region)
+    if not ok or not ag then return nil end
+    if looping then pcall(ag.SetLooping, ag, looping) end
+    return ag
+end
+
+local function AddAnim(ag, kind, order, duration, setup)
+    if not ag then return nil end
+    local ok, a = pcall(ag.CreateAnimation, ag, kind)
+    if not ok or not a then return nil end
+    pcall(a.SetOrder, a, order)
+    pcall(a.SetDuration, a, duration)
+    if setup then pcall(setup, a) end
+    return a
+end
+
+local function PlayGroup(ag) if ag then pcall(ag.Play, ag) end end
+
+local function Pulse(region, from, to, dur)
+    local ag = NewGroup(region, "BOUNCE")
+    AddAnim(ag, "Alpha", 1, dur, function(a)
+        a:SetFromAlpha(from); a:SetToAlpha(to); a:SetSmoothing("IN_OUT")
+    end)
+    PlayGroup(ag)
+    return ag
+end
+
+local function Float(region, dy, dur)
+    local ag = NewGroup(region, "BOUNCE")
+    AddAnim(ag, "Translation", 1, dur, function(a)
+        a:SetOffset(0, dy); a:SetSmoothing("IN_OUT")
+    end)
+    PlayGroup(ag)
+    return ag
+end
+
+local function Spin(region, seconds)
+    local ag = NewGroup(region, "REPEAT")
+    AddAnim(ag, "Rotation", 1, seconds, function(a)
+        a:SetDegrees(-360); a:SetOrigin("CENTER", 0, 0)
+    end)
+    PlayGroup(ag)
+    return ag
+end
+
+local function FadeIn(frame)
+    local ag = NewGroup(frame)
+    AddAnim(ag, "Alpha", 1, 0.30, function(a)
+        a:SetFromAlpha(0); a:SetToAlpha(1); a:SetSmoothing("OUT")
+    end)
+    return ag
+end
+
+local function MakeButton(parent, text, w, h, primary)
+    local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
+    b:SetSize(w, h)
+    b:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
+    local base  = primary and { 0.46, 0.34, 0.08, 1 } or { 0.07, 0.11, 0.19, 1 }
+    local hover = primary and { 0.62, 0.47, 0.12, 1 } or { 0.10, 0.17, 0.28, 1 }
+    local edge  = primary and C.gold or C.cyanDim
+    b:SetBackdropColor(unpack(base))
+    b:SetBackdropBorderColor(unpack(edge))
+    local fs = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    fs:SetPoint("CENTER", 0, 0)
+    fs:SetText(text)
+    fs:SetTextColor(primary and 1 or 0.78, primary and 0.92 or 0.95, primary and 0.70 or 1)
+    b.label = fs
+    b:SetScript("OnEnter", function(self)
+        self:SetBackdropColor(unpack(hover))
+        self:SetBackdropBorderColor(0.0, 0.9, 0.85, 1)
+    end)
+    b:SetScript("OnLeave", function(self)
+        self:SetBackdropColor(unpack(base))
+        self:SetBackdropBorderColor(unpack(edge))
+    end)
+    b:SetScript("OnMouseDown", function(self) self.label:SetPoint("CENTER", 0, -1) end)
+    b:SetScript("OnMouseUp", function(self) self.label:SetPoint("CENTER", 0, 0) end)
+    return b
+end
+
+local function GroupIcon(g)
+    if g.specID and type(GetSpecializationInfoByID) == "function" then
+        local ok, _, _, _, icon = pcall(GetSpecializationInfoByID, g.specID)
+        if ok and icon then return icon end
+    end
+    return g.icon or "Interface\\Icons\\INV_Misc_QuestionMark"
+end
+
+-- the art of a world: Retail = violet W, Forever = glowing infinity (additive, black = transparent)
+local function MakeArt(parent, pack, layer)
+    local t = parent:CreateTexture(nil, layer or "ARTWORK")
+    t:SetBlendMode("ADD")
+    if pack.art == "W" then
+        t:SetTexture(MEDIA .. "W.tga")
+        t.ratio = 1
+    else
+        t:SetTexture(MEDIA .. "Infinity.tga")
+        t.ratio = 2
+    end
+    return t
+end
+
+local function MakeHalo(parent, pack)
+    local h = parent:CreateTexture(nil, "BACKGROUND")
+    h:SetTexture(MEDIA .. "Spark.tga")
+    h:SetBlendMode("ADD")
+    if pack.art == "W" then h:SetVertexColor(0.55, 0.30, 1.0, 0.55) else h:SetVertexColor(0.20, 0.60, 1.0, 0.50) end
+    return h
+end
+
+-- ---------------------------------------------------------------------------
+-- UI
+-- ---------------------------------------------------------------------------
+
+local frame, UI = nil, { pages = {} }
+local overwrite = true
+local owButtons = {}
+
+local function SetMsg(page, text)
+    if page and page.msg then page.msg:SetText(text or "") end
+end
+
+local function RefreshStatus(page)
+    local pack = page.pack
+    local needs = 0
+    for _, r in ipairs(page.rows) do
+        local n = #r.group.seqs
+        local cur, present, upd, none, old = 0, 0, 0, 0, nil
+        for _, key in ipairs(r.group.seqs) do
+            local st, v = StatusOf(key)
+            if st == "current" then cur = cur + 1
+            elseif st == "present" then present = present + 1
+            elseif st == "none" then none = none + 1
+            else upd = upd + 1; old = old or v end
+        end
+        if cur == n then
+            r.status:SetText(GREEN .. "Up to date|r  |TInterface\\Buttons\\UI-CheckBox-Check:16:16|t")
+        elseif upd > 0 then
+            needs = needs + 1
+            r.status:SetText(GOLD .. "Update available|r" .. (old and (DIM .. "\nyou have V" .. tostring(old) .. "|r") or (DIM .. "\ndifferent version|r")))
+        elseif none == n then
+            r.status:SetText(DIM .. "Not installed|r")
+        elseif none > 0 then
+            needs = needs + 1
+            r.status:SetText(GOLD .. "Incomplete|r" .. DIM .. "\nimport to finish|r")
+        else
+            r.status:SetText(GREEN .. "Installed|r  |TInterface\\Buttons\\UI-CheckBox-Check:16:16|t" .. DIM .. "\nimport to refresh|r")
+        end
+    end
+    return needs
+end
+
+local function ShowPage(name)
+    for _, p in pairs(UI.pages) do p:Hide() end
+    local p = UI.pages[name]
+    if not p then return end
+    p:Show()
+    PlayGroup(p.fade)
+    if p.pack then
+        DB.last = p.pack.key
+        local needs = RefreshStatus(p)
+        local wrongWorld = (p.pack.key == "retail") ~= IsRetailClient()
+        if not EnsureGSE() then
+            SetMsg(p, RED .. "GSE is not loaded or too old. Install/enable GSE first.|r")
+        elseif wrongWorld then
+            SetMsg(p, GOLD .. "Note: this pack is for " .. p.pack.name .. " but you are not playing it.|r")
+        elseif needs > 0 then
+            SetMsg(p, GOLD .. needs .. " row(s) can be installed or updated.|r " .. DIM .. "Keep Overwrite ON and press Import Selected.|r")
+        else
+            SetMsg(p, GREEN .. "Everything here is up to date.|r")
+        end
+    end
+end
+
+local SPARKS = {
+    { -0.30, -0.28, 0.0 }, { 0.32, -0.18, 0.6 }, { -0.42, 0.10, 1.3 }, { 0.40, 0.22, 1.9 },
+    { -0.10, 0.40, 2.5 }, { 0.12, -0.42, 3.1 }, { -0.36, -0.40, 3.8 }, { 0.46, -0.02, 4.4 },
+}
+
+local function BuildLogo(parent)
+    local box = CreateFrame("Frame", nil, parent)
+    box:SetSize(200, 200)
+
+    local halo = box:CreateTexture(nil, "BACKGROUND", nil, 0)
+    halo:SetTexture(MEDIA .. "Spark.tga")
+    halo:SetBlendMode("ADD")
+    halo:SetVertexColor(0.25, 0.55, 1.0, 0.55)
+    halo:SetPoint("CENTER")
+    box.halo = halo
+    Pulse(halo, 0.35, 0.9, 2.4)
+
+    local logo = box:CreateTexture(nil, "ARTWORK")
+    logo:SetTexture(MEDIA .. "Logo.tga")
+    logo:SetAllPoints(box)
+
+    local glow = box:CreateTexture(nil, "OVERLAY")
+    glow:SetTexture(MEDIA .. "Logo.tga")
+    glow:SetBlendMode("ADD")
+    glow:SetAllPoints(box)
+    Pulse(glow, 0.0, 0.38, 1.9)
+
+    box.sparks = {}
+    Float(box, 7, 2.6)
+    return box
+end
+
+local function LayoutBox(box, size)
+    box:SetSize(size, size)
+    box.halo:SetSize(size * 1.9, size * 1.9)
+    for _, s in ipairs(box.sparks) do
+        s.tex:ClearAllPoints()
+        s.tex:SetPoint("CENTER", box, "CENTER", s.fx * size, s.fy * size)
+    end
+end
+
+-- a clickable card on the welcome screen: art + name + version
+local function MakeWorldCard(parent, pack)
+    local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
+    b:SetSize(230, 104)
+    b:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
+    b:SetBackdropColor(unpack(C.row))
+    b:SetBackdropBorderColor(0.10, 0.25, 0.35, 1)
+
+    local halo = MakeHalo(b, pack)
+    halo:SetSize(130, 130)
+    halo:SetPoint("CENTER", b, "LEFT", 54, 0)
+    Pulse(halo, 0.4, 1.0, 2.2)
+
+    local art = MakeArt(b, pack, "ARTWORK")
+    if pack.art == "W" then
+        art:SetSize(62, 62)
+        art:SetPoint("CENTER", b, "LEFT", 54, 0)
+    else
+        art:SetSize(92, 46)
+        art:SetPoint("CENTER", b, "LEFT", 54, 0)
+    end
+    Pulse(art, 0.65, 1.0, 1.8)
+
+    local name = b:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    name:SetPoint("LEFT", b, "LEFT", 112, 10)
+    name:SetText((pack.art == "W" and VIOLET or ACCENT) .. pack.name .. "|r")
+    local sub = b:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    sub:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -3)
+    sub:SetText(DIM .. pack.sub .. "|r")
+    local ver = b:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    ver:SetPoint("TOPLEFT", sub, "BOTTOMLEFT", 0, -2)
+    ver:SetText(DIM .. "V" .. pack.version .. "|r")
+
+    b:SetScript("OnEnter", function(self)
+        self:SetBackdropBorderColor(0.0, 0.9, 0.85, 1)
+        self:SetBackdropColor(0.07, 0.11, 0.20, 1)
+    end)
+    b:SetScript("OnLeave", function(self)
+        self:SetBackdropBorderColor(0.10, 0.25, 0.35, 1)
+        self:SetBackdropColor(unpack(C.row))
+    end)
+    b:SetScript("OnClick", function() ShowPage(pack.key) end)
+    return b
+end
+
+local function BuildThanks()
+    local t = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+    t:SetPoint("TOPLEFT", 14, -14)
+    t:SetPoint("BOTTOMRIGHT", -14, 14)
+    t:SetFrameLevel(frame:GetFrameLevel() + 30)
+    t:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
+    t:SetBackdropColor(0.03, 0.045, 0.09, 0.985)
+    t:SetBackdropBorderColor(unpack(C.gold))
+    t:EnableMouse(true)
+    t:Hide()
+    t.fade = FadeIn(t)
+
+    local mini = t:CreateTexture(nil, "ARTWORK")
+    mini:SetTexture(MEDIA .. "Logo.tga")
+    mini:SetSize(64, 64)
+    mini:SetPoint("TOP", 0, -18)
+
+    local title = t:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    title:SetPoint("TOP", mini, "BOTTOM", 0, -8)
+    title:SetText(GOLD .. "Support Ronin|r")
+
+    local body = t:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    body:SetPoint("TOP", title, "BOTTOM", 0, -12)
+    body:SetPoint("LEFT", 36, 0); body:SetPoint("RIGHT", -36, 0)
+    body:SetJustifyH("CENTER")
+    body:SetText(THANKS)
+    body:SetSpacing(2)
+    t.body = body
+
+    local hint = t:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    hint:SetTextColor(0.6, 0.67, 0.78)
+    hint:SetText("Click a box, press Ctrl+C, then paste it in your browser.")
+
+    local prev
+    for _, l in ipairs(LINKS) do
+        local lab = t:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        lab:SetText(ACCENT .. l[1] .. "|r")
+        lab:SetWidth(64); lab:SetJustifyH("LEFT")
+
+        local eb = CreateFrame("EditBox", nil, t, "BackdropTemplate")
+        eb:SetAutoFocus(false)
+        eb:SetFontObject("GameFontHighlightSmall")
+        eb:SetHeight(26)
+        eb:SetTextInsets(8, 8, 0, 0)
+        eb:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
+        eb:SetBackdropColor(0.02, 0.03, 0.06, 1)
+        eb:SetBackdropBorderColor(unpack(C.cyanDim))
+        eb:SetText(l[2]); eb:SetCursorPosition(0)
+        eb:SetScript("OnEditFocusGained", function(self) self:HighlightText() end)
+        eb:SetScript("OnEditFocusLost", function(self) self:HighlightText(0, 0) end)
+        eb:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+        eb:SetScript("OnTextChanged", function(self)
+            if self:GetText() ~= l[2] then self:SetText(l[2]); self:HighlightText() end
+        end)
+        if prev then
+            lab:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -14)
+        else
+            lab:SetPoint("TOPLEFT", body, "BOTTOMLEFT", 40, -22)
+        end
+        eb:SetPoint("LEFT", lab, "RIGHT", 10, 0)
+        eb:SetPoint("RIGHT", t, "RIGHT", -60, 0)
+        prev = lab
+    end
+    hint:SetPoint("TOP", prev, "BOTTOM", 0, -22)
+    hint:SetPoint("LEFT", 36, 0); hint:SetPoint("RIGHT", -36, 0)
+
+    local back = MakeButton(t, "Back", 120, 30, true)
+    back:SetPoint("BOTTOM", 0, 22)
+    back:SetScript("OnClick", function() t:Hide() end)
+    return t
+end
+
+local function OpenThanks(key)
+    if UI.thanks.body then UI.thanks.body:SetText(THANKS_BY[key] or THANKS) end
+    UI.thanks:Show(); PlayGroup(UI.thanks.fade)
+end
+
+-- one installer page per world
+local function BuildInstallPage(inner, pack)
+    local page = CreateFrame("Frame", nil, inner)
+    page:SetAllPoints(inner)
+    page.fade = FadeIn(page)
+    page.pack = pack
+    page.rows = {}
+
+    local header = CreateFrame("Frame", nil, page)
+    header:SetPoint("TOPLEFT", 0, 0)
+    header:SetPoint("TOPRIGHT", 0, 0)
+    header:SetHeight(130)
+    pcall(header.SetClipsChildren, header, true)
+    page.header = header
+
+    page.halo = MakeHalo(header, pack)
+    page.art = MakeArt(header, pack, "ARTWORK")
+    Pulse(page.halo, 0.45, 1.0, 2.4)
+    Pulse(page.art, 0.70, 1.0, 2.0)
+    Float(page.art, 5, 2.8)
+
+    local ver = header:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    ver:SetPoint("BOTTOMLEFT", 16, 8)
+    ver:SetText(DIM .. "Ronin " .. pack.name .. "  V" .. pack.version .. "|r")
+
+    local back = CreateFrame("Button", nil, page)
+    back:SetSize(36, 36)
+    back:SetPoint("TOPLEFT", 10, -8)
+    back:SetNormalTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Up")
+    back:SetPushedTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Down")
+    back:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
+    back:SetScript("OnClick", function() ShowPage("welcome") end)
+
+    local sep = page:CreateTexture(nil, "ARTWORK")
+    sep:SetColorTexture(0.82, 0.65, 0.24, 0.35)
+    sep:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 22, 0)
+    sep:SetPoint("TOPRIGHT", header, "BOTTOMRIGHT", -22, 0)
+    sep:SetHeight(1)
+
+    for _, g in ipairs(pack.groups) do
+        local row = CreateFrame("Button", nil, page, "BackdropTemplate")
+        row:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
+        row:SetBackdropColor(unpack(C.row))
+        row:SetBackdropBorderColor(0.10, 0.20, 0.30, 1)
+        row.group = g
+
+        local cb = CreateFrame("CheckButton", nil, row, "UICheckButtonTemplate")
+        cb:SetSize(26, 26)
+        cb:SetPoint("LEFT", 8, 0)
+        cb:SetChecked(true)
+        cb:EnableMouse(false)
+        row.cb = cb
+
+        local icon = row:CreateTexture(nil, "ARTWORK")
+        icon:SetPoint("LEFT", cb, "RIGHT", 8, 0)
+        icon:SetTexture(GroupIcon(g))
+        icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+        row.icon = icon
+
+        local name = row:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+        name:SetPoint("LEFT", icon, "RIGHT", 12, 5)
+        name:SetText(g.color .. g.name .. "|r")
+        local sub = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        sub:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -2)
+        sub:SetText(DIM .. (g.sub or "") .. "|r")
+
+        local status = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        status:SetPoint("RIGHT", -14, 0)
+        status:SetJustifyH("RIGHT")
+        row.status = status
+
+        row:SetScript("OnClick", function() cb:SetChecked(not cb:GetChecked()) end)
+        row:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(0.0, 0.8, 0.78, 0.9) end)
+        row:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(0.10, 0.20, 0.30, 1) end)
+        page.rows[#page.rows + 1] = row
+    end
+
+    -- bottom bar
+    local bar = CreateFrame("Frame", nil, page)
+    bar:SetPoint("BOTTOMLEFT", 0, 0)
+    bar:SetPoint("BOTTOMRIGHT", 0, 0)
+    bar:SetHeight(92)
+
+    page.msg = bar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    page.msg:SetPoint("BOTTOM", bar, "TOP", 0, 2)
+
+    local importBtn = MakeButton(bar, "Import Selected", 170, 38, true)
+    importBtn:SetPoint("BOTTOMRIGHT", -24, 22)
+    local noneBtn = MakeButton(bar, "Select None", 116, 38, false)
+    noneBtn:SetPoint("RIGHT", importBtn, "LEFT", -18, 0)
+    local allBtn = MakeButton(bar, "Select All", 116, 38, false)
+    allBtn:SetPoint("RIGHT", noneBtn, "LEFT", -18, 0)
+    local thanksBtn = MakeButton(bar, "Thank you", 116, 38, false)
+    thanksBtn:SetPoint("BOTTOMLEFT", 24, 22)
+    thanksBtn:SetScript("OnClick", function() OpenThanks(pack.key) end)
+
+    local owBtn = MakeButton(bar, "", 160, 38, false)
+    owBtn:SetPoint("LEFT", thanksBtn, "RIGHT", 18, 0)
+    owBtn:SetScript("OnClick", function()
+        overwrite = not overwrite
+        for _, b in ipairs(owButtons) do
+            b.label:SetText("Overwrite: " .. (overwrite and (GREEN .. "ON|r") or (RED .. "OFF|r")))
+        end
+    end)
+    owBtn.label:SetText("Overwrite: " .. (overwrite and (GREEN .. "ON|r") or (RED .. "OFF|r")))
+    owButtons[#owButtons + 1] = owBtn
+
+    allBtn:SetScript("OnClick", function() for _, r in ipairs(page.rows) do r.cb:SetChecked(true) end end)
+    noneBtn:SetScript("OnClick", function() for _, r in ipairs(page.rows) do r.cb:SetChecked(false) end end)
+
+    importBtn:SetScript("OnClick", function()
+        if not EnsureGSE() then
+            SetMsg(page, RED .. "GSE is not loaded or too old.|r"); return
+        end
+        if InCombatLockdown() then
+            SetMsg(page, RED .. "Leave combat first.|r"); return
+        end
+        local selected = {}
+        for _, r in ipairs(page.rows) do
+            if r.cb:GetChecked() then
+                for _, key in ipairs(r.group.seqs) do
+                    if overwrite or StatusOf(key) == "none" then selected[#selected + 1] = key end
+                end
+            end
+        end
+        if #selected == 0 then
+            SetMsg(page, DIM .. "Nothing to import (tick a row, or turn Overwrite ON to replace).|r"); return
+        end
+        local ok, err = Ronin.InstallBatch(selected, overwrite, pack.regkey)
+        if ok then
+            SetMsg(page, GREEN .. "Imported " .. #selected .. " sequence(s).|r " .. DIM .. "Bind them in GSE and place the macro on your bar.|r")
+            Print(GREEN .. "Imported " .. #selected .. " sequence(s).|r Bind them in GSE.")
+            RecordImport(selected)
+            RefreshStatus(page)
+            if type(C_Timer) == "table" and C_Timer.After then
+                C_Timer.After(1.5, function() RecordImport(selected); RefreshStatus(page) end)
+            end
+        else
+            SetMsg(page, RED .. "Import failed: " .. tostring(err) .. "|r")
+            Print(RED .. "Import failed: " .. tostring(err))
+        end
+    end)
+
+    return page
+end
+
+local function LayoutInstall(page, w, h)
+    local headerH = clamp(h * 0.27, 112, 210)
+    page.header:SetHeight(headerH)
+    local hs = headerH - 20
+    page.art:ClearAllPoints(); page.halo:ClearAllPoints()
+    page.art:SetPoint("CENTER", page.header, "CENTER", 0, 2)
+    page.halo:SetPoint("CENTER", page.header, "CENTER", 0, 2)
+    if page.art.ratio == 2 then
+        page.art:SetSize(hs * 3.0, hs * 1.5)
+        page.halo:SetSize(hs * 3.4, hs * 2.0)
+    else
+        page.art:SetSize(hs * 0.95, hs * 0.95)
+        page.halo:SetSize(hs * 2.0, hs * 2.0)
+    end
+
+    local rows = page.rows
+    local n = #rows
+    local top = headerH + 10
+    local bottom = 92
+    local avail = h - top - bottom
+    local gap = 6
+    local rh = clamp(avail / n - gap, 34, 56)
+    local usedH = n * rh + (n - 1) * gap
+    local startY = top + math.max(0, (avail - usedH) / 2)
+    for i, r in ipairs(rows) do
+        r:ClearAllPoints()
+        r:SetPoint("TOPLEFT", page, "TOPLEFT", 22, -(startY + (i - 1) * (rh + gap)))
+        r:SetPoint("TOPRIGHT", page, "TOPRIGHT", -22, -(startY + (i - 1) * (rh + gap)))
+        r:SetHeight(rh)
+        r.icon:SetSize(rh - 12, rh - 12)
+    end
+end
+
+local function Layout()
+    if not frame then return end
+    local w, h = frame:GetWidth(), frame:GetHeight()
+
+    -- welcome: logo on the left of centre, two world cards on the right
+    local ls = clamp(math.min((w - 300) * 0.80, h * 0.56), 150, 440)
+    LayoutBox(UI.wlogo, ls)
+    UI.wlogo:ClearAllPoints()
+    UI.wlogo:SetPoint("CENTER", UI.welcome, "CENTER", -125, h * 0.05)
+
+    for _, p in pairs(UI.pages) do
+        if p.pack then LayoutInstall(p, w, h) end
+    end
+end
+
+local function CreateFrameUI()
+    if frame then return frame end
+
+    frame = CreateFrame("Frame", "RoninFrame", UIParent, "BackdropTemplate")
+    frame:SetSize(840, 620)
+    frame:SetPoint("CENTER")
+    frame:SetFrameStrata("DIALOG")
+    frame:SetMovable(true)
+    frame:SetResizable(true)
+    frame:EnableMouse(true)
+    frame:SetClampedToScreen(true)
+    frame:RegisterForDrag("LeftButton")
+    frame:SetScript("OnDragStart", frame.StartMoving)
+    frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+    frame:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 2 })
+    frame:SetBackdropColor(unpack(C.bg))
+    frame:SetBackdropBorderColor(unpack(C.gold))
+    tinsert(UISpecialFrames, "RoninFrame") -- Esc closes it
+
+    if frame.SetResizeBounds then
+        frame:SetResizeBounds(780, 540, 1200, 900)
+    else
+        if frame.SetMinResize then frame:SetMinResize(780, 540) end
+        if frame.SetMaxResize then frame:SetMaxResize(1200, 900) end
+    end
+
+    local inner = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+    inner:SetPoint("TOPLEFT", 6, -6)
+    inner:SetPoint("BOTTOMRIGHT", -6, 6)
+    inner:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
+    inner:SetBackdropColor(0.02, 0.03, 0.07, 0.55)
+    inner:SetBackdropBorderColor(0.0, 0.55, 0.60, 0.40)
+
+    local close = MakeButton(frame, "X", 24, 24, false)
+    close:SetPoint("TOPRIGHT", -12, -12)
+    close:SetFrameLevel(frame:GetFrameLevel() + 20)
+    close:SetScript("OnClick", function() frame:Hide() end)
+
+    ---------------------------------------------------------------- WELCOME
+    local welcome = CreateFrame("Frame", nil, inner)
+    welcome:SetAllPoints(inner)
+    welcome.fade = FadeIn(welcome)
+    UI.welcome = welcome
+    UI.pages.welcome = welcome
+
+    UI.wlogo = BuildLogo(welcome)
+
+    local wtitle = welcome:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    wtitle:SetPoint("BOTTOM", welcome, "BOTTOM", -125, 78)
+    wtitle:SetText(ACCENT .. "Welcome|r")
+    local wsub = welcome:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    wsub:SetPoint("TOP", wtitle, "BOTTOM", 0, -6)
+    wsub:SetText(DIM .. "One add-on for both worlds  -  V" .. ADDON_VERSION .. "|r")
+
+    local cardForever = MakeWorldCard(welcome, PACKS.forever)
+    local cardRetail  = MakeWorldCard(welcome, PACKS.retail)
+    cardRetail:SetPoint("RIGHT", welcome, "RIGHT", -30, -62)
+    cardForever:SetPoint("RIGHT", welcome, "RIGHT", -30, 62)
+
+    local pick = welcome:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    pick:SetPoint("BOTTOM", cardForever, "TOP", 0, 10)
+    pick:SetText(GOLD .. "Choose your world|r")
+
+    local skip = CreateFrame("CheckButton", nil, welcome, "UICheckButtonTemplate")
+    skip:SetSize(24, 24)
+    skip:SetPoint("BOTTOMLEFT", 20, 18)
+    skip:SetChecked(DB.skipWelcome and true or false)
+    skip:SetScript("OnClick", function(self) DB.skipWelcome = self:GetChecked() and true or false end)
+    local skipTxt = welcome:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    skipTxt:SetPoint("LEFT", skip, "RIGHT", 4, 1)
+    skipTxt:SetTextColor(0.6, 0.67, 0.78)
+    skipTxt:SetText("Skip this screen next time")
+
+    local wthanks = MakeButton(welcome, "Thank you", 120, 34, false)
+    wthanks:SetPoint("BOTTOMRIGHT", -30, 18)
+    wthanks:SetScript("OnClick", function() OpenThanks(nil) end)
+
+    ---------------------------------------------------------------- INSTALLER PAGES
+    UI.pages.retail  = BuildInstallPage(inner, PACKS.retail)
+    UI.pages.forever = BuildInstallPage(inner, PACKS.forever)
+
+    UI.thanks = BuildThanks()
+
+    ---------------------------------------------------------------- RESIZE GRIP
+    local grip = CreateFrame("Button", nil, frame)
+    grip:SetSize(20, 20)
+    grip:SetPoint("BOTTOMRIGHT", -3, 3)
+    grip:SetFrameLevel(frame:GetFrameLevel() + 40)
+    grip:SetNormalTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up")
+    grip:SetPushedTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Down")
+    grip:SetHighlightTexture("Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight")
+    grip:SetScript("OnMouseDown", function() frame:StartSizing("BOTTOMRIGHT") end)
+    grip:SetScript("OnMouseUp", function() frame:StopMovingOrSizing() Layout() end)
+
+    frame:SetScript("OnSizeChanged", Layout)
+    frame:SetScript("OnShow", function()
+        Layout()
+        if UI.wanted then
+            ShowPage(UI.wanted); UI.wanted = nil
+        elseif DB.skipWelcome then
+            ShowPage(DB.last or (IsRetailClient() and "retail" or "forever"))
+        else
+            ShowPage("welcome")
+        end
+    end)
+    Layout()
+    frame:Hide()
+    return frame
+end
+
+local function Toggle(which)
+    local f = CreateFrameUI()
+    if which then
+        UI.wanted = which
+        if f:IsShown() then ShowPage(which) else f:Show() end
+        return
+    end
+    if f:IsShown() then f:Hide() else f:Show() end
+end
+
+local function Debug()
+    Print("GSE: " .. tostring(type(GSE) == "table" and (GSE.VersionString or GSE.VersionNumber) or "not loaded"))
+    Print("FindSequenceId=" .. tostring(type(GSE) == "table" and type(GSE.FindSequenceId)) ..
+        "  GetSequence=" .. tostring(type(GSE) == "table" and type(GSE.GetSequence)) ..
+        "  Library=" .. tostring(type(GSE) == "table" and type(GSE.Library)) ..
+        "  GSEStore=" .. tostring(type(GSEStore)) .. "  GSESequences=" .. tostring(type(GSESequences)))
+    local n = 0
+    for key in pairs(Ronin.Sequences) do
+        if n >= 3 then break end
+        local found, lib = Lookup(key)
+        Print(key .. ": found=" .. tostring(found) .. " decoded=" .. tostring(lib ~= nil) ..
+            " status=" .. tostring((StatusOf(key))) .. " fp=" .. tostring(Fingerprint(lib)) ..
+            " pkg=" .. tostring(Fingerprint(Ronin.Sequences[key])))
+        n = n + 1
+    end
+end
+
+SLASH_RONIN1 = "/ronin"
+SLASH_RONIN2 = "/roninforever"
+SLASH_RONIN3 = "/roninretail"
+SlashCmdList["RONIN"] = function(msg, editbox)
+    msg = (msg or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
+    if msg == "debug" then Debug(); return end
+    if msg == "retail" or msg == "forever" then Toggle(msg); return end
+    Toggle(nil)
+end
+
+local seqCount = 0
+for _ in pairs(Ronin.Sequences) do seqCount = seqCount + 1 end
+Print(ACCENT .. "Ronin V" .. ADDON_VERSION .. "|r loaded (" .. seqCount .. " sequences: Retail V" .. PACKS.retail.version ..
+    ", Forever V" .. PACKS.forever.version .. "). Type |cffffffff/ronin|r")
