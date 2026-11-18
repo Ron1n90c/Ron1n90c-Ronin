@@ -1,3 +1,14 @@
+RONIN (add-on) 2.1.0 - 2026-11-18
+ * Forever macros now use spell IDs instead of names: they work on any client language and the macros are shorter.
+ * Same keys as before: Shift = heal, Alt = CC, Ctrl = interrupt.
+
+RONIN FOREVER pack 1.8.0
+ * Spell IDs (rank 1). The client casts the highest rank you know. Tested on Protection Paladin and Protection Warrior.
+ * Feral Druid uses the same method; Rebuke, Hammer of the Righteous and Faerie Fire (Feral) stay by name.
+ * Import with Overwrite ON to replace the old sequences.
+
+RONIN RETAIL pack 5.2.1 - unchanged.
+
 RONIN (add-on) 2.0.1 - 2026-11-17
  * Fixed: Vengeance Demon Hunter showed "Incomplete" (GSE cuts sequence names to 28 characters).
  * Welcome screen is cleaner: the orbiting ring and sparks around the logo are gone (soft glow stays).
