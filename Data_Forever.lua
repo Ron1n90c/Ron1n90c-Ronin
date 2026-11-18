@@ -1,7 +1,7 @@
--- Ronin Forever V1.8.0 - Tank macros for WoW: Forever (GSE)
+-- Ronin Forever V1.9.0 - Tank macros for WoW: Forever (GSE)
 --
--- Same style for all three classes (built from the Paladin "Prot_Leveling" that
--- works): SEQUENTIAL steps, spell IDs (rank 1 ID; the client casts the highest rank you know). The source below uses names, the build replaces them with IDs, short
+-- Same style for all three classes: PRIORITY mode like Ronin Retail (the list order below is the
+-- priority order), spell IDs (rank 1 ID; the client casts the highest rank you know). The source below uses names, the build replaces them with IDs, short
 -- macros, one /castsequence for the refresh spells (seal, shouts, roars).
 -- Three versions per class: "Leveling 1-20", "Leveling 20-40", "60".
 -- Modifiers (every step): Shift = heal, Alt = CC (stun), Ctrl = interrupt.
@@ -23,7 +23,13 @@ local function Flat(name, specID, default, versions)
         for j, m in ipairs(x[2]) do
             acts[j] = { Type = "Action", type = "macro", macro = table.concat(m, "\n"), Interval = "3" }
         end
-        v[i] = { Label = x[1], Actions = acts, InbuiltVariables = { Combat = true } }
+        -- ONE Loop with StepFunction "Priority" (like Retail): the first steps come up
+        -- most often. A step that appears twice in the list is kept only once.
+        local seen, loop = {}, { Type = "Loop", StepFunction = "Priority", Repeat = "1" }
+        for _, a in ipairs(acts) do
+            if not seen[a.macro] then seen[a.macro] = true; loop[#loop + 1] = a end
+        end
+        v[i] = { Label = x[1], Actions = { loop }, InbuiltVariables = { Combat = true } }
     end
     return {
         MetaData = {

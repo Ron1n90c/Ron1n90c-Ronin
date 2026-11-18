@@ -1,3 +1,13 @@
+RONIN (add-on) 2.2.0 - 2026-11-18
+ * Forever now runs in Priority mode, like Retail.
+
+RONIN FOREVER pack 1.9.0
+ * Priority mode: one Priority loop per version, the most important spells come up most often. Tested on Protection Paladin and Protection Warrior.
+ * Same keys (Shift = heal, Alt = CC, Ctrl = interrupt) and spell IDs as 1.8.0.
+ * Import with Overwrite ON to replace the old sequences, then put the macro on the bar again.
+
+RONIN RETAIL pack 5.2.1 - unchanged.
+
 RONIN (add-on) 2.1.0 - 2026-11-18
  * Forever macros now use spell IDs instead of names: they work on any client language and the macros are shorter.
  * Same keys as before: Shift = heal, Alt = CC, Ctrl = interrupt.

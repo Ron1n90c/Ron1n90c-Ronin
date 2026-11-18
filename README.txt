@@ -1,4 +1,4 @@
-RONIN - one add-on for both worlds                              V2.1.0
+RONIN - one add-on for both worlds                              V2.2.0
 Tank macros for GSE (Gnome Sequencer Enhanced): Retail AND WoW: Forever in one add-on.
 Website: https://ron1n.cc   |   Ko-fi: https://ko-fi.com/ron1n90c   |   Patreon: https://www.patreon.com/RON1N90C
 
@@ -32,7 +32,7 @@ RONIN RETAIL V5.2.1 (Midnight 12.0.x) - 12 sequences
  Note: the Annihilator sequence is now called RoninDH_Vengeance_Annihil (GSE cuts longer names). If you
  have the old "RoninDH_Vengeance_Annihilato", delete it in GSE and bind the new one.
 
-RONIN FOREVER V1.8.0 (WoW: Forever) - 3 classes x 3 versions
+RONIN FOREVER V1.9.0 (WoW: Forever) - 3 classes x 3 versions
  Protection Paladin, Protection Warrior, Feral Druid (Bear), each with Leveling 1-20, Leveling 20-40, 60.
  Modifiers: Shift = heal, Alt = CC (stun), Ctrl = interrupt.
  Plain spell names (no ranks, no IDs). Druid uses Bear Form while leveling, Dire Bear Form at 60.
