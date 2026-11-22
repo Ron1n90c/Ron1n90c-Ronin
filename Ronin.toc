@@ -6,6 +6,7 @@
 ## IconTexture: Interface\AddOns\Ronin\Media\Icon.tga
 ## X-Website: https://ron1n.cc
 ## X-Discord: https://discord.gg/Trf4vkzbq
+## X-Build: 3.0.1
 ## X-Donate: https://ko-fi.com/ron1n90c
 ## X-License: All rights reserved. Free to use; share unmodified with credit; do not resell or republish under another name.
 ## Dependencies: GSE
