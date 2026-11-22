@@ -1,3 +1,7 @@
+RONIN - GSE SUITE 3.0.1 - 2026-11-22
+ * Authorship protection: every imported sequence carries an invisible Ronin signature. New LICENSE file.
+ * No macro changes.
+
 RONIN - GSE SUITE 3.0.0 - 2026-11-22
  * New name: Ronin - GSE SUITE. Now Tank AND DPS in one add-on.
  * RETAIL 6.0.0: 32 DPS sequences (Unholy/Frost DK, Havoc DH, Ret, Fury, Arms, WW, Feral, Balance), single target + AoE per hero tree.

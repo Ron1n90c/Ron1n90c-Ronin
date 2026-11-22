@@ -10,7 +10,7 @@ local addonName, Ronin = ...
 RoninDB = RoninDB or {}
 local DB = RoninDB
 
-local ADDON_VERSION = "3.0.0"
+local ADDON_VERSION = "3.0.1"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -285,6 +285,17 @@ local function DeepCopy(t)
     return c
 end
 
+function Ronin.Sign(name)
+    local h1, h2 = 5381, 52711
+    local str = "Ron1n90c|RONIN-GSE-SUITE|" .. tostring(name)
+    for i = 1, #str do
+        local c = string.byte(str, i)
+        h1 = (h1 * 33 + c) % 4294967296
+        h2 = (h2 * 31 + c * i) % 4294967296
+    end
+    return string.format("R1N-%08X%08X", h1, h2)
+end
+
 function Ronin.InstallBatch(keys, overwrite, regkey)
     local gseVersion = tonumber(GSE.VersionNumber) or 3400
     local toc = tonumber((select(4, GetBuildInfo())))
@@ -295,6 +306,14 @@ function Ronin.InstallBatch(keys, overwrite, regkey)
             local seq = DeepCopy(src)
             seq.MetaData.GSEVersion = gseVersion
             seq.MetaData.TOC = toc
+            -- authorship mark (invisible in game, does not change the macro)
+            local sig = Ronin.Sign(key)
+            seq.MetaData.RoninSig = sig
+            if type(seq.Versions) == "table" then
+                for _, ver in pairs(seq.Versions) do
+                    if type(ver) == "table" then ver.RoninSig = sig end
+                end
+            end
             members[key] = seq
             names[#names + 1] = key
         end

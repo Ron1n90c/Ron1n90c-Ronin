@@ -50,5 +50,5 @@ RULES OF THE PACK
  No trinkets. Big defensives are in the Beginner and Leveling versions only (otherwise you press them).
  Every macro step stays under GSE's 255-character limit after compiling.
 
-License: free to use and share with credit. Please do not resell.
+License: free to use. Share the unmodified add-on with credit; do not resell or republish it (or exported strings) under another name. See LICENSE.txt.
 World of Warcraft is a trademark of Blizzard Entertainment. Ronin is not affiliated with Blizzard.

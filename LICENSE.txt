@@ -1,0 +1,9 @@
+RONIN - GSE SUITE
+Copyright (c) 2026 Ron1n90c (Ron1n). All rights reserved.
+
+You may use these macros and share the unmodified add-on, with credit to "Ronin - GSE SUITE by Ron1n"
+and a link to https://ron1n.cc.
+You may NOT resell them, publish them or any part of them (including exported GSE strings) under another
+name, or remove the author information.
+Original releases: https://www.curseforge.com/wow/addons/ronin and https://github.com/Ron1n90c/Ron1n90c-Ronin
+Discord: https://discord.gg/Trf4vkzbq
