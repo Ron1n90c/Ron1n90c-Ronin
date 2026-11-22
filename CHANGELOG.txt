@@ -1,3 +1,12 @@
+RONIN - GSE SUITE 3.0.0 - 2026-11-22
+ * New name: Ronin - GSE SUITE. Now Tank AND DPS in one add-on.
+ * RETAIL 6.0.0: 32 DPS sequences (Unholy/Frost DK, Havoc DH, Ret, Fury, Arms, WW, Feral, Balance), single target + AoE per hero tree.
+ * New LEVELING version in every Retail macro (tank and DPS) for the way to level 90. Pick it by hand in GSE.
+ * Midnight 12.1.5 spell check on every spec. No /startattack anywhere.
+ * FOREVER 3.0.0: new level ranges 1-10 / 10-40 / 40-60. DPS added: Ret Paladin, Arms + Fury Warrior, Feral Cat, Enhancement + Elemental Shaman.
+ * Forever keys: Shift = heal, Ctrl = interrupt (Paladin Hammer of Justice), Alt = class extra. Prot Paladin: Exorcism removed. Prot/Arms Warrior: Rend added.
+ * Discord: https://discord.gg/Trf4vkzbq
+
 RONIN (add-on) 2.2.0 - 2026-11-18
  * Forever now runs in Priority mode, like Retail.
 

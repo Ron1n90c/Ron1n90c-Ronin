@@ -1,10 +1,11 @@
 ## Interface: 120105, 120107, 120100, 16001, 16002, 16003
-## Title: |cff00e5ccRonin|r
-## Notes: One add-on for both worlds: tank macros for GSE (Retail + WoW: Forever). Type /ronin.
+## Title: |cff00e5ccRonin - GSE SUITE|r
+## Notes: Ronin - GSE SUITE: tank and DPS macros for GSE, Retail and WoW: Forever, with a Leveling version. Type /ronin. Discord: discord.gg/Trf4vkzbq
 ## Author: Ronin
-## Version: 2.2.0
+## Version: 3.0.0
 ## IconTexture: Interface\AddOns\Ronin\Media\Icon.tga
 ## X-Website: https://ron1n.cc
+## X-Discord: https://discord.gg/Trf4vkzbq
 ## X-Donate: https://ko-fi.com/ron1n90c
 ## X-License: Free to use and share with credit. Do not resell.
 ## Dependencies: GSE
@@ -14,4 +15,6 @@
 
 Data_Retail.lua
 Data_Forever.lua
+DPS\Data_DPS.lua
+Heal\Data_Heal.lua
 Ronin.lua

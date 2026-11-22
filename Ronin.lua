@@ -1,6 +1,6 @@
 --[[
     Ronin - one add-on for both worlds (Retail + WoW: Forever)
-    Tank macros for GSE. Type /ronin to open the installer.
+    Ronin - GSE SUITE: tank and DPS macros for GSE. Type /ronin to open the installer.
     Welcome screen -> pick Retail or Forever -> installer -> thank-you panel.
     Resizable: drag the bottom-right corner.
 ]]
@@ -10,7 +10,7 @@ local addonName, Ronin = ...
 RoninDB = RoninDB or {}
 local DB = RoninDB
 
-local ADDON_VERSION = "2.2.0"
+local ADDON_VERSION = "3.0.0"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -29,24 +29,28 @@ local C = {
 }
 
 local LINKS = {
+    { "Discord", "https://discord.gg/Trf4vkzbq" },
     { "Ko-fi",   "https://ko-fi.com/ron1n90c" },
     { "Website", "https://ron1n.cc" },
     { "Patreon", "https://www.patreon.com/RON1N90C" },
 }
 
-local THANKS = "|cffffd100From one tank to another:|r\nmay Azeroth watch over you, may your cooldowns be ready\nand may every pull end with the whole group standing.\n\n"
+local THANKS = "|cffffd100Made by a tank, for every tank.|r\nNo macro plays the game for you: mechanics and positioning are still yours.\nMay your cooldowns be ready and every pull end with the whole group standing.\n\n"
     .. "These macros are free. A coffee, a follow or a share keeps the updates coming. Thank you."
 
 local KEYS_RETAIL = "|cff00e5ccYour keys (Retail)|r\n"
     .. "|cffffd100Shift|r  heal / self-sustain\n"
     .. "|cffffd100Alt|r  crowd control (stun)\n"
-    .. "Interrupt: bind it on a separate key.\n\n"
+    .. "Interrupt: bind it on a separate key.\n"
+    .. "DPS: every spec also has a separate AoE macro.\n"
+    .. "Leveling: every macro has a |cffffd100Leveling|r version for the way to 90 (pick it in GSE).\n\n"
     .. "Hold the button: the Priority list picks the spell."
 local KEYS_FOREVER = "|cff00e5ccYour keys (WoW: Forever)|r\n"
     .. "|cffffd100Shift|r  heal\n"
-    .. "|cffffd100Alt|r  crowd control\n"
-    .. "|cffffd100Ctrl|r  interrupt\n\n"
-    .. "Pick Leveling 1-20, 20-40 or 60 in GSE."
+    .. "|cffffd100Ctrl|r  interrupt (Paladin: Hammer of Justice, Warrior: Shield Bash / Pummel)\n"
+    .. "|cffffd100Alt|r  class extra (Consecration, totems, Concussion Blow, Bash)\n"
+    .. "Tank and DPS for every class. "
+    .. "Pick your level range in GSE: 1-10, 10-40 or 40-60."
 local BLESS = "|cffffd100From one tank to another:|r\nmay Azeroth watch over you, may your cooldowns be ready\nand may every pull end with the whole group standing.\n\n"
 local THANKS_BY = {
     retail  = BLESS .. KEYS_RETAIL,
@@ -70,7 +74,7 @@ end
 
 local PACKS = {
     retail = {
-        key = "retail", name = "Retail", version = "5.2.1",
+        key = "retail", world = "retail", name = "Retail", version = "6.0.0",
         sub = "Midnight 12.0",
         seqs = Ronin.RetailSequences or {},
         regkey = "RoninRetail",
@@ -85,18 +89,52 @@ local PACKS = {
         },
     },
     forever = {
-        key = "forever", name = "Forever", version = "1.9.0",
+        key = "forever", world = "forever", name = "Forever", version = "3.0.0",
         sub = "WoW: Forever",
         seqs = Ronin.ForeverSequences or {},
         regkey = "RoninForever",
         art = "infinity",
         groups = {
-            { name = "Protection Warrior", color = "|cffc69b6d", sub = "Leveling 1-20  |  20-40  |  60", seqs = { "RoninForever_Warrior" }, icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance" },
-            { name = "Protection Paladin", color = "|cfff48cba", sub = "Leveling 1-20  |  20-40  |  60", seqs = { "RoninForever_Paladin" }, icon = "Interface\\Icons\\Spell_Holy_DevotionAura" },
-            { name = "Feral Druid (Bear)", color = "|cffff7c0a", sub = "Leveling 1-20  |  20-40  |  60", seqs = { "RoninForever_Druid" }, icon = "Interface\\Icons\\Ability_Racial_BearForm" },
+            { name = "Protection Warrior", color = "|cffc69b6d", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninForever_Warrior" }, icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance" },
+            { name = "Protection Paladin", color = "|cfff48cba", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninForever_Paladin" }, icon = "Interface\\Icons\\Spell_Holy_DevotionAura" },
+            { name = "Feral Druid (Bear)", color = "|cffff7c0a", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninForever_Druid" }, icon = "Interface\\Icons\\Ability_Racial_BearForm" },
         },
     },
 }
+
+local SUBPACKS = {}
+local function SubPack(base, role, label, seqs, groups)
+    local sp = {
+        key = base.key .. "_" .. role, world = base.key,
+        name = base.name .. " " .. label, sub = label .. " macros (prototype)",
+        version = "0.1", seqs = seqs or {}, regkey = base.regkey .. "_" .. role,
+        art = base.art, groups = groups,
+    }
+    SUBPACKS[sp.key] = sp
+    PACKS[sp.key] = sp
+end
+SubPack(PACKS.retail, "dps", "DPS", Ronin.RetailDPSSequences, {
+            { name = "Unholy Death Knight", color = "|cffc41e3a", sub = "Rider  |  San'layn  (+ AoE)", seqs = { "RoninDPS_DK_Unholy_Rider", "RoninDPS_DK_Unh_Rider_AoE", "RoninDPS_DK_Unholy_Sanlayn", "RoninDPS_DK_Unh_Sanlayn_AoE" }, specID = 252 },
+            { name = "Frost Death Knight", color = "|cffc41e3a", sub = "Deathbringer  |  Rider  (+ AoE)", seqs = { "RoninDPS_DK_Frost_Deathbr", "RoninDPS_DK_Frost_Dbr_AoE", "RoninDPS_DK_Frost_Rider", "RoninDPS_DK_Frost_Rider_AoE" }, specID = 251 },
+            { name = "Havoc Demon Hunter", color = "|cffa330c9", sub = "Aldrachi Reaver  |  Fel-Scarred  (+ AoE)", seqs = { "RoninDPS_DH_Havoc_Aldrachi", "RoninDPS_DH_Hav_Aldr_AoE", "RoninDPS_DH_Havoc_FelScarred", "RoninDPS_DH_Hav_Fel_AoE" }, specID = 577 },
+            { name = "Retribution Paladin", color = "|cfff48cba", sub = "Herald of the Sun  |  Templar  (+ AoE)", seqs = { "RoninDPS_Paladin_Ret_Herald", "RoninDPS_Pal_Ret_Herald_AoE", "RoninDPS_Paladin_Ret_Templar", "RoninDPS_Pal_Ret_Templar_AoE" }, specID = 70 },
+            { name = "Fury Warrior", color = "|cffc69b6d", sub = "Slayer  |  Mountain Thane  (+ AoE)", seqs = { "RoninDPS_Fury_Slayer", "RoninDPS_Fury_Slayer_AoE", "RoninDPS_Fury_Thane", "RoninDPS_Fury_Thane_AoE" }, specID = 72 },
+            { name = "Arms Warrior", color = "|cffc69b6d", sub = "Slayer  |  Colossus  (+ AoE)", seqs = { "RoninDPS_Arms_Slayer", "RoninDPS_Arms_Slayer_AoE", "RoninDPS_Arms_Colossus", "RoninDPS_Arms_Colossus_AoE" }, specID = 71 },
+            { name = "Windwalker Monk", color = "|cff00ff98", sub = "Shado-Pan  |  Conduit  (one macro)", seqs = { "RoninDPS_Monk_WW_ShadoPan", "RoninDPS_Monk_WW_Conduit" }, specID = 269 },
+            { name = "Feral Druid", color = "|cffff7c0a", sub = "Wildstalker  (+ AoE)", seqs = { "RoninDPS_Feral_Wildstalker", "RoninDPS_Feral_Wild_AoE" }, specID = 103 },
+            { name = "Balance Druid", color = "|cffff7c0a", sub = "Keeper of the Grove  |  Elune's Chosen  (+ AoE)", seqs = { "RoninDPS_Balance_Keeper", "RoninDPS_Bal_Keeper_AoE", "RoninDPS_Balance_Elune", "RoninDPS_Bal_Elune_AoE" }, specID = 102 },
+})
+SubPack(PACKS.retail, "heal", "Heal", Ronin.RetailHealSequences, {
+
+})
+SubPack(PACKS.forever, "dps", "DPS", Ronin.ForeverDPSSequences, {
+            { name = "Retribution Paladin", color = "|cfff48cba", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Paladin_Ret" }, icon = "Interface\\Icons\\Spell_Holy_AuraOfLight" },
+            { name = "Arms Warrior", color = "|cffc69b6d", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Warrior" }, icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance" },
+            { name = "Fury Warrior", color = "|cffc69b6d", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Warrior_Fury" }, icon = "Interface\\Icons\\Ability_Warrior_InnerRage" },
+            { name = "Feral Druid (Cat)", color = "|cffff7c0a", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Druid_Cat" }, icon = "Interface\\Icons\\Ability_Druid_CatForm" },
+            { name = "Enhancement Shaman", color = "|cff0070dd", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Shaman_Enh" }, icon = "Interface\\Icons\\Spell_Nature_LightningShield" },
+            { name = "Elemental Shaman", color = "|cff0070dd", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Shaman_Ele" }, icon = "Interface\\Icons\\Spell_Nature_Lightning" },
+})
 
 Ronin.Sequences = {}
 local PACK_OF = {}
@@ -449,7 +487,7 @@ local function ShowPage(name)
     if p.pack then
         DB.last = p.pack.key
         local needs = RefreshStatus(p)
-        local wrongWorld = (p.pack.key == "retail") ~= IsRetailClient()
+        local wrongWorld = ((p.pack.world or p.pack.key) == "retail") ~= IsRetailClient()
         if not EnsureGSE() then
             SetMsg(p, RED .. "GSE is not loaded or too old. Install/enable GSE first.|r")
         elseif wrongWorld then
@@ -544,8 +582,162 @@ local function MakeWorldCard(parent, pack)
         self:SetBackdropBorderColor(0.10, 0.25, 0.35, 1)
         self:SetBackdropColor(unpack(C.row))
     end)
-    b:SetScript("OnClick", function() ShowPage(pack.key) end)
+    b:SetScript("OnClick", function() ShowPage("roles_" .. pack.key) end)
     return b
+end
+
+
+-- ---------------------------------------------------------------------------
+-- Role page: Tank / DPS / Heal (shown after you choose a world)
+-- ---------------------------------------------------------------------------
+
+local ROLES = {
+    { key = "tank", name = "Tank", role = "TANK",    color = { 0.25, 0.60, 1.00 }, hex = "|cff4da6ff",
+      icon = "Interface\\Icons\\Ability_Warrior_DefensiveStance", coords = { 0.0, 0.296875, 0.296875, 0.59375 } },
+    { key = "dps",  name = "DPS",  role = "DAMAGER", color = { 1.00, 0.35, 0.30 }, hex = "|cffff5a4d",
+      icon = "Interface\\Icons\\Ability_DualWield", coords = { 0.296875, 0.59375, 0.296875, 0.59375 } },
+    { key = "heal", name = "Heal", role = "HEALER",  color = { 0.30, 1.00, 0.55 }, hex = "|cff4dff8c",
+      icon = "Interface\\Icons\\Spell_Holy_FlashHeal", coords = { 0.296875, 0.59375, 0.0, 0.296875 } },
+}
+
+local function RoleReady(pack, role)
+    if role.key == "tank" then return true end
+    local sp = SUBPACKS[pack.key .. "_" .. role.key]
+    return sp ~= nil and next(sp.seqs) ~= nil
+end
+
+local function SetRoleIcon(tex, role)
+    local ok = false
+    if type(GetTexCoordsForRole) == "function" then
+        local good, l, r, tp, b = pcall(GetTexCoordsForRole, role.role)
+        if good and l then
+            tex:SetTexture("Interface\\LFGFrame\\UI-LFG-ICON-ROLES")
+            tex:SetTexCoord(l, r, tp, b)
+            ok = true
+        end
+    end
+    if not ok then
+        tex:SetTexture(role.icon)
+        tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    end
+end
+
+local function MakeRoleCard(parent, pack, role, page)
+    local ready = RoleReady(pack, role)
+    local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
+    b:SetSize(200, 236)
+    b:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
+    b:SetBackdropColor(unpack(C.row))
+    local r, g, bl = unpack(role.color)
+    b.baseBorder = { r * 0.35, g * 0.35, bl * 0.35, 1 }
+    b:SetBackdropBorderColor(unpack(b.baseBorder))
+
+    local halo = b:CreateTexture(nil, "BACKGROUND")
+    halo:SetTexture(MEDIA .. "Spark.tga")
+    halo:SetBlendMode("ADD")
+    halo:SetVertexColor(r, g, bl, ready and 0.60 or 0.22)
+    halo:SetSize(190, 190)
+    halo:SetPoint("CENTER", b, "TOP", 0, -86)
+    if ready then Pulse(halo, 0.45, 1.0, 2.2) end
+
+    local icon = b:CreateTexture(nil, "ARTWORK")
+    icon:SetSize(92, 92)
+    icon:SetPoint("CENTER", b, "TOP", 0, -86)
+    SetRoleIcon(icon, role)
+    if not ready then
+        pcall(icon.SetDesaturated, icon, true)
+        icon:SetAlpha(0.55)
+    else
+        Pulse(icon, 0.80, 1.0, 2.0)
+    end
+
+    local name = b:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    name:SetPoint("TOP", b, "TOP", 0, -150)
+    name:SetText((ready and role.hex or DIM) .. role.name .. "|r")
+    local sub = b:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    sub:SetPoint("TOP", name, "BOTTOM", 0, -6)
+    if ready then
+        sub:SetText(DIM .. (role.key == "tank" and "Ready  -  Priority macros" or "Ready") .. "|r")
+    else
+        sub:SetText(GOLD .. "More to come|r")
+    end
+
+    b:SetScript("OnEnter", function(self)
+        self:SetBackdropBorderColor(r, g, bl, ready and 1 or 0.5)
+        if ready then self:SetBackdropColor(0.07, 0.11, 0.20, 1) end
+    end)
+    b:SetScript("OnLeave", function(self)
+        self:SetBackdropBorderColor(unpack(self.baseBorder))
+        self:SetBackdropColor(unpack(C.row))
+    end)
+    b:SetScript("OnClick", function()
+        if ready then
+            local target = (role.key == "tank") and pack.key or (pack.key .. "_" .. role.key)
+            if UI.pages[target] then ShowPage(target); return end
+        end
+        page.msg:SetText(GOLD .. role.name .. " macros for " .. pack.name .. " are in the works.|r " .. DIM .. "More to come!|r")
+    end)
+    return b
+end
+
+local function BuildRolePage(inner, pack)
+    local page = CreateFrame("Frame", nil, inner)
+    page:SetAllPoints(inner)
+    page.fade = FadeIn(page)
+    page.roleOf = pack
+
+    local halo = MakeHalo(page, pack)
+    halo:SetSize(260, 150)
+    halo:SetPoint("TOP", page, "TOP", 0, -8)
+    Pulse(halo, 0.35, 0.8, 2.6)
+    page.halo = halo
+
+    local art = MakeArt(page, pack, "ARTWORK")
+    if pack.art == "W" then art:SetSize(56, 56) else art:SetSize(96, 48) end
+    art:SetPoint("TOP", page, "TOP", 0, -26)
+    Pulse(art, 0.70, 1.0, 2.0)
+
+    local title = page:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    title:SetPoint("TOP", art, "BOTTOM", 0, -16)
+    title:SetText(GOLD .. "Choose your role|r")
+    local sub = page:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    sub:SetPoint("TOP", title, "BOTTOM", 0, -4)
+    sub:SetText(DIM .. "Ronin " .. pack.name .. "  -  " .. pack.sub .. "|r")
+
+    local back = CreateFrame("Button", nil, page)
+    back:SetSize(36, 36)
+    back:SetPoint("TOPLEFT", 10, -8)
+    back:SetNormalTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Up")
+    back:SetPushedTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Down")
+    back:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
+    back:SetScript("OnClick", function() ShowPage("welcome") end)
+
+    page.msg = page:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    page.msg:SetPoint("BOTTOM", page, "BOTTOM", 0, 62)
+    page.msg:SetText("")
+
+    page.cards = {}
+    for _, role in ipairs(ROLES) do
+        page.cards[#page.cards + 1] = MakeRoleCard(page, pack, role, page)
+    end
+
+    local more = page:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    more:SetPoint("BOTTOMRIGHT", page, "BOTTOMRIGHT", -34, 26)
+    more:SetText(DIM .. "More to come...|r")
+    Pulse(more, 0.45, 1.0, 2.4)
+    return page
+end
+
+local function LayoutRoles(page, w, h)
+    local cw = clamp((w - 140) / 3 - 18, 170, 260)
+    local ch = clamp(cw * 1.18, 200, 300)
+    local gap = 22
+    local total = 3 * cw + 2 * gap
+    for i, c in ipairs(page.cards) do
+        c:SetSize(cw, ch)
+        c:ClearAllPoints()
+        c:SetPoint("CENTER", page, "CENTER", -total / 2 + cw / 2 + (i - 1) * (cw + gap), -h * 0.04)
+    end
 end
 
 local function BuildThanks()
@@ -567,7 +759,7 @@ local function BuildThanks()
 
     local title = t:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     title:SetPoint("TOP", mini, "BOTTOM", 0, -8)
-    title:SetText(GOLD .. "Support Ronin|r")
+    title:SetText(GOLD .. "Ronin - GSE SUITE|r")
 
     local body = t:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     body:SetPoint("TOP", title, "BOTTOM", 0, -12)
@@ -603,7 +795,7 @@ local function BuildThanks()
             if self:GetText() ~= l[2] then self:SetText(l[2]); self:HighlightText() end
         end)
         if prev then
-            lab:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -14)
+            lab:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -10)
         else
             lab:SetPoint("TOPLEFT", body, "BOTTOMLEFT", 40, -22)
         end
@@ -656,7 +848,7 @@ local function BuildInstallPage(inner, pack)
     back:SetNormalTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Up")
     back:SetPushedTexture("Interface\\Buttons\\UI-SpellbookIcon-PrevPage-Down")
     back:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
-    back:SetScript("OnClick", function() ShowPage("welcome") end)
+    back:SetScript("OnClick", function() ShowPage("roles_" .. (pack.world or pack.key)) end)
 
     local sep = page:CreateTexture(nil, "ARTWORK")
     sep:SetColorTexture(0.82, 0.65, 0.24, 0.35)
@@ -719,7 +911,7 @@ local function BuildInstallPage(inner, pack)
     allBtn:SetPoint("RIGHT", noneBtn, "LEFT", -18, 0)
     local thanksBtn = MakeButton(bar, "Thank you", 116, 38, false)
     thanksBtn:SetPoint("BOTTOMLEFT", 24, 22)
-    thanksBtn:SetScript("OnClick", function() OpenThanks(pack.key) end)
+    thanksBtn:SetScript("OnClick", function() OpenThanks(pack.world or pack.key) end)
 
     local owBtn = MakeButton(bar, "", 160, 38, false)
     owBtn:SetPoint("LEFT", thanksBtn, "RIGHT", 18, 0)
@@ -816,6 +1008,7 @@ local function Layout()
 
     for _, p in pairs(UI.pages) do
         if p.pack then LayoutInstall(p, w, h) end
+        if p.roleOf then LayoutRoles(p, w, h) end
     end
 end
 
@@ -871,7 +1064,7 @@ local function CreateFrameUI()
     wtitle:SetText(ACCENT .. "Welcome|r")
     local wsub = welcome:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     wsub:SetPoint("TOP", wtitle, "BOTTOM", 0, -6)
-    wsub:SetText(DIM .. "One add-on for both worlds  -  V" .. ADDON_VERSION .. "|r")
+    wsub:SetText(DIM .. "GSE SUITE  -  Tank + DPS, both worlds  -  V" .. ADDON_VERSION .. "|r")
 
     local cardForever = MakeWorldCard(welcome, PACKS.forever)
     local cardRetail  = MakeWorldCard(welcome, PACKS.retail)
@@ -897,8 +1090,13 @@ local function CreateFrameUI()
     wthanks:SetScript("OnClick", function() OpenThanks(nil) end)
 
     ---------------------------------------------------------------- INSTALLER PAGES
+    UI.pages.roles_retail  = BuildRolePage(inner, PACKS.retail)
+    UI.pages.roles_forever = BuildRolePage(inner, PACKS.forever)
     UI.pages.retail  = BuildInstallPage(inner, PACKS.retail)
     UI.pages.forever = BuildInstallPage(inner, PACKS.forever)
+    for sk, sp in pairs(SUBPACKS) do
+        if next(sp.seqs) ~= nil then UI.pages[sk] = BuildInstallPage(inner, sp) end
+    end
 
     UI.thanks = BuildThanks()
 

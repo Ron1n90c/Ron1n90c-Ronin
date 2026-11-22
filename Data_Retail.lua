@@ -1,4 +1,4 @@
--- Ronin Retail V5.2.1 - Tank Priority Edition (tiered chains)
+-- Ronin Retail V6.0.0 - Tank Priority Edition (tiered chains)
 --
 -- Each version is ONE Loop block with StepFunction = "Priority" and THREE
 -- actions (tiers A, B, C). GSE clicks them A, AB, ABC (A x3, B x2, C x1 per
@@ -49,7 +49,6 @@ local function BuildMacro(ctx, spec, tier, list)
     local lines = {}
     if tier == 1 then
         lines[#lines + 1] = ctx == "raid" and "/targetenemy [noexists]" or "/targetenemy [noharm][dead]"
-        lines[#lines + 1] = "/startattack"
         for _, p in ipairs(spec.pre or {}) do lines[#lines + 1] = p end
     end
     for _, u in ipairs(spec.util) do lines[#lines + 1] = u end
@@ -92,7 +91,7 @@ local function Seq(name, specID, spec, mythic, raid, delve, allin)
     -- Optional 4th version, not mapped to any content type in MetaData: you
     -- simply pick it by hand in GSE.
     if allin then
-        seq.Versions[4] = { Label = "All In", Actions = BuildActions("group", spec, allin), InbuiltVariables = { Combat = true } }
+        seq.Versions[4] = { Label = "Beginner", Actions = BuildActions("group", spec, allin), InbuiltVariables = { Combat = true } }
     end
     return seq
 end
@@ -144,22 +143,22 @@ local PAL_TEMPLAR = {
 -- BREWMASTER (7 steps): Keg Smash / Blackout Kick / Breath of Fire core,
 -- Tiger Palm as the filler everywhere, brews in the middle.
 -- Mythic / Raid / Delve: NO Purifying Brew / Celestial Brew (you press them).
--- "All In" version (4th, pick it by hand): same plus both brews in step 4.
+-- "Beginner" version (4th, pick it by hand): same plus the big defensives (brews, Fortifying Brew) in step 4.
 local BREW_HARMONY = {
     { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Chi Burst"), S("Rushing Jade Wind"), S("Tiger Palm") },
     { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
-    { S("Blackout Kick"), S("Tiger Palm") },
+    { S("Invoke Niuzao, the Black Ox", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Exploding Keg", "cp"), S("Keg Smash"), S("Tiger Palm") },
 }
-local BREW_HARMONY_ALLIN = {
+local BREW_HARMONY_BEGINNER = {
     { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Chi Burst"), S("Rushing Jade Wind"), S("Tiger Palm") },
     { S("Purifying Brew", "c"), S("Celestial Brew", "c"), S("Tiger Palm") },
-    { S("Keg Smash"), S("Tiger Palm") },
+    { S("Fortifying Brew", "c"), S("Keg Smash"), S("Tiger Palm") },
     { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Exploding Keg", "cp"), S("Keg Smash"), S("Tiger Palm") },
 }
@@ -168,16 +167,16 @@ local BREW_SHADOPAN = {
     { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Rushing Jade Wind"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
-    { S("Blackout Kick"), S("Tiger Palm") },
+    { S("Invoke Niuzao, the Black Ox", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Exploding Keg", "cp"), S("Chi Burst"), S("Tiger Palm") },
 }
-local BREW_SHADOPAN_ALLIN = {
+local BREW_SHADOPAN_BEGINNER = {
     { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Rushing Jade Wind"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Purifying Brew", "c"), S("Celestial Brew", "c"), S("Tiger Palm") },
-    { S("Keg Smash"), S("Tiger Palm") },
+    { S("Fortifying Brew", "c"), S("Keg Smash"), S("Tiger Palm") },
     { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Exploding Keg", "cp"), S("Chi Burst"), S("Tiger Palm") },
 }
@@ -203,7 +202,7 @@ local DRU_CLAW = {
     { S("Ironfur"), S("Mangle"), S("Thrash") },
     { S("Raze"), S("Thrash"), S("Swipe") },
     { S("Maul"), S("Mangle"), S("Swipe") },
-    { S("Raze"), S("Maul"), S("Swipe") },
+    { S("Ravage"), S("Raze"), S("Swipe") },
     { S("Moonfire", "s"), S("Swipe") },
 }
 
@@ -278,17 +277,82 @@ local DH_CS_ANNIHILATOR = {
     { S("Sigil of Spite", "p"), S("Felblade"), S("Throw Glaive") },
 }
 
+-- "Beginner" version (4th, pick it by hand) for every class: the same steps plus ONE
+-- extra step (3rd) with the big defensives, so a new player can just press and go.
+local function Beginner(list, def)
+    local o = {}
+    for i, v in ipairs(list) do o[i] = v end
+    table.insert(o, 3, def)
+    return o
+end
+local DEF_PAL  = { S("Ardent Defender", "c"), S("Guardian of Ancient Kings", "c"), S("Divine Protection", "c") }
+local DEF_DRU  = { S("Barkskin", "c"), S("Survival Instincts", "c"), S("Rage of the Sleeper", "c") }
+local DEF_WAR  = { S("Shield Wall", "c"), S("Last Stand", "c"), S("Rallying Cry", "c") }
+local DEF_DH   = { S("Fiery Brand", "c"), S("Metamorphosis", "cp"), S("Darkness", "cp") }
+local DEF_DK   = { S("Vampiric Blood", "c"), S("Icebound Fortitude", "c"), S("Anti-Magic Shell", "c") }
+
 Ronin.RetailSequences = {
-    RoninPaladin_Lightsmith     = Seq("RoninPaladin_Lightsmith",     66,  PALADIN,     PAL_LIGHTSMITH,  PAL_LIGHTSMITH),
-    RoninPaladin_Templar        = Seq("RoninPaladin_Templar",        66,  PALADIN,     PAL_TEMPLAR,     PAL_TEMPLAR),
-    RoninBrewmaster_Harmony     = Seq("RoninBrewmaster_Harmony",     268, BREWMASTER,  BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY_ALLIN),
-    RoninBrewmaster_ShadoPan    = Seq("RoninBrewmaster_ShadoPan",    268, BREWMASTER,  BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN_ALLIN),
-    RoninDruid_Elune            = Seq("RoninDruid_Elune",            104, DRUID,       DRU_ELUNE,       DRU_ELUNE),
-    RoninDruid_Claw             = Seq("RoninDruid_Claw",             104, DRUID,       DRU_CLAW,        DRU_CLAW),
-    RoninWarrior_Thane          = Seq("RoninWarrior_Thane",          73,  WARRIOR,     WAR_THANE,       WAR_THANE),
-    RoninWarrior_Colossus       = Seq("RoninWarrior_Colossus",       73,  WARRIOR,     WAR_COLOSSUS,    WAR_COLOSSUS),
-    RoninDH_Vengeance_Aldrachi    = Seq("RoninDH_Vengeance_Aldrachi",    581, DEMONHUNTER, DH_CS_ALDRACHI,    DH_CS_ALDRACHI),
-    RoninDH_Vengeance_Annihil     = Seq("RoninDH_Vengeance_Annihil", 581, DEMONHUNTER, DH_CS_ANNIHILATOR, DH_CS_ANNIHILATOR),
-    RoninDK_Blood_Deathbringer = Seq("RoninDK_Blood_Deathbringer", 250, DEATHKNIGHT, DK_DEATHBRINGER_CS, DK_DEATHBRINGER_CS),
-    RoninDK_Blood_Sanlayn      = Seq("RoninDK_Blood_Sanlayn",       250, DEATHKNIGHT, DK_SANLAYN_AIO,  DK_SANLAYN_AIO),
+    RoninPaladin_Lightsmith     = Seq("RoninPaladin_Lightsmith",     66,  PALADIN,     PAL_LIGHTSMITH,  PAL_LIGHTSMITH,  nil, Beginner(PAL_LIGHTSMITH, DEF_PAL)),
+    RoninPaladin_Templar        = Seq("RoninPaladin_Templar",        66,  PALADIN,     PAL_TEMPLAR,     PAL_TEMPLAR,     nil, Beginner(PAL_TEMPLAR, DEF_PAL)),
+    RoninBrewmaster_Harmony     = Seq("RoninBrewmaster_Harmony",     268, BREWMASTER,  BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY_BEGINNER),
+    RoninBrewmaster_ShadoPan    = Seq("RoninBrewmaster_ShadoPan",    268, BREWMASTER,  BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN_BEGINNER),
+    RoninDruid_Elune            = Seq("RoninDruid_Elune",            104, DRUID,       DRU_ELUNE,       DRU_ELUNE,       nil, Beginner(DRU_ELUNE, DEF_DRU)),
+    RoninDruid_Claw             = Seq("RoninDruid_Claw",             104, DRUID,       DRU_CLAW,        DRU_CLAW,        nil, Beginner(DRU_CLAW, DEF_DRU)),
+    RoninWarrior_Thane          = Seq("RoninWarrior_Thane",          73,  WARRIOR,     WAR_THANE,       WAR_THANE,       nil, Beginner(WAR_THANE, DEF_WAR)),
+    RoninWarrior_Colossus       = Seq("RoninWarrior_Colossus",       73,  WARRIOR,     WAR_COLOSSUS,    WAR_COLOSSUS,    nil, Beginner(WAR_COLOSSUS, DEF_WAR)),
+    RoninDH_Vengeance_Aldrachi    = Seq("RoninDH_Vengeance_Aldrachi",    581, DEMONHUNTER, DH_CS_ALDRACHI,    DH_CS_ALDRACHI,    nil, Beginner(DH_CS_ALDRACHI, DEF_DH)),
+    RoninDH_Vengeance_Annihil     = Seq("RoninDH_Vengeance_Annihil", 581, DEMONHUNTER, DH_CS_ANNIHILATOR, DH_CS_ANNIHILATOR, nil, Beginner(DH_CS_ANNIHILATOR, DEF_DH)),
+    RoninDK_Blood_Deathbringer = Seq("RoninDK_Blood_Deathbringer", 250, DEATHKNIGHT, DK_DEATHBRINGER_CS, DK_DEATHBRINGER_CS, nil, Beginner(DK_DEATHBRINGER_CS, DEF_DK)),
+    RoninDK_Blood_Sanlayn      = Seq("RoninDK_Blood_Sanlayn",       250, DEATHKNIGHT, DK_SANLAYN_AIO,  DK_SANLAYN_AIO,  nil, Beginner(DK_SANLAYN_AIO, DEF_DK)),
 }
+
+-- ---------------------------------------------------------------------------
+-- "Leveling" version (5th, pick it by hand in GSE): only the basic spells every
+-- spec learns on the way to the level cap, no hero talents needed. The big
+-- defensives are in step 3 like the Beginner version, so a new tank can level
+-- and quest with one button. Spells you have not learned yet are skipped.
+-- ---------------------------------------------------------------------------
+local LV_PAL = {
+    { S("Avenger's Shield"), S("Judgment"), S("Shield of the Righteous") },
+    { S("Hammer of Wrath"), S("Blessed Hammer"), S("Hammer of the Righteous") },
+    { S("Consecration", "c"), S("Crusader Strike"), S("Judgment") },
+}
+local LV_DRU = {
+    { S("Mangle"), S("Thrash"), S("Moonfire") },
+    { S("Ironfur"), S("Mangle"), S("Swipe") },
+    { S("Maul"), S("Raze"), S("Swipe") },
+}
+local LV_WAR = {
+    { S("Shield Slam"), S("Revenge"), S("Thunder Clap") },
+    { S("Shield Block"), S("Ignore Pain"), S("Revenge") },
+    { S("Execute"), S("Shield Charge"), S("Thunder Clap") },
+}
+local LV_BREW = {
+    { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
+    { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
+    { S("Rushing Jade Wind"), S("Spinning Crane Kick"), S("Tiger Palm") },
+}
+local LV_DH = {
+    { S("Fracture"), S("Soul Cleave"), S("Immolation Aura") },
+    { S("Sigil of Flame", "p"), S("Immolation Aura"), S("Fracture") },
+    { S("Spirit Bomb"), S("Soul Cleave"), S("Fracture") },
+    { S("Fel Devastation", "c"), S("Felblade"), S("Throw Glaive") },
+}
+local LV_DK = {
+    { S("Marrowrend"), S("Heart Strike"), S("Blood Boil") },
+    { S("Death Strike"), S("Heart Strike"), S("Blood Boil") },
+    { S("Death and Decay", "p"), S("Consumption"), S("Heart Strike") },
+}
+local LEVELING = {
+    RoninPaladin_Lightsmith = { PALADIN, LV_PAL, DEF_PAL },  RoninPaladin_Templar = { PALADIN, LV_PAL, DEF_PAL },
+    RoninBrewmaster_Harmony = { BREWMASTER, LV_BREW, nil },  RoninBrewmaster_ShadoPan = { BREWMASTER, LV_BREW, nil },
+    RoninDruid_Elune = { DRUID, LV_DRU, DEF_DRU },           RoninDruid_Claw = { DRUID, LV_DRU, DEF_DRU },
+    RoninWarrior_Thane = { WARRIOR, LV_WAR, DEF_WAR },       RoninWarrior_Colossus = { WARRIOR, LV_WAR, DEF_WAR },
+    RoninDH_Vengeance_Aldrachi = { DEMONHUNTER, LV_DH, DEF_DH }, RoninDH_Vengeance_Annihil = { DEMONHUNTER, LV_DH, DEF_DH },
+    RoninDK_Blood_Deathbringer = { DEATHKNIGHT, LV_DK, DEF_DK }, RoninDK_Blood_Sanlayn = { DEATHKNIGHT, LV_DK, DEF_DK },
+}
+local BREW_DEF = { S("Purifying Brew", "c"), S("Celestial Brew", "c"), S("Fortifying Brew", "c") }
+for name, x in pairs(LEVELING) do
+    local list = x[3] and Beginner(x[2], x[3]) or Beginner(x[2], BREW_DEF)
+    Ronin.RetailSequences[name].Versions[5] = { Label = "Leveling", Actions = BuildActions("group", x[1], list), InbuiltVariables = { Combat = true } }
+end

@@ -1,10 +1,10 @@
--- Ronin Forever V1.9.0 - Tank macros for WoW: Forever (GSE)
+-- Ronin Forever V3.0.0 - Tank macros for WoW: Forever (GSE)
 --
 -- Same style for all three classes: PRIORITY mode like Ronin Retail (the list order below is the
 -- priority order), spell IDs (rank 1 ID; the client casts the highest rank you know). The source below uses names, the build replaces them with IDs, short
 -- macros, one /castsequence for the refresh spells (seal, shouts, roars).
--- Three versions per class: "Leveling 1-20", "Leveling 20-40", "60".
--- Modifiers (every step): Shift = heal, Alt = CC (stun), Ctrl = interrupt.
+-- Versions: Leveling 1-10, 10-40, 40-60 (all classes).
+-- Modifiers (every step): Shift = heal, Ctrl = interrupt, Alt = class extra (Paladin Consecration, Warrior Concussion Blow, Druid Bash).
 -- Rules: tank only, no trinkets, no big defensives (you press those),
 -- every step <= 255 characters AFTER GSE compiling (kept <= 250).
 -- Forever has NO [buff]/[debuff] macro conditions, only [nostance]/[noform]/
@@ -13,7 +13,6 @@
 local _, Ronin = ...
 
 local TGT = "/targetenemy [noexists][dead]"
-local ATK = "/startattack"
 
 -- steps: list of macros (list of lines). Sequential, like the originals.
 local function Flat(name, specID, default, versions)
@@ -43,122 +42,110 @@ end
 
 -- ---------------------------------------------------------------------------
 -- PROTECTION PALADIN
--- Seal of Fury (10) + Judgement x3 as one castsequence (resets after 2 s without
--- presses or when combat changes), Holy Strike (6), Consecration/Exorcism (20),
--- Holy Shield (30, talent), Hammer of the Righteous (40). You press Righteous
--- Fury yourself. Below level 10 there is no Seal of Fury: cast a seal yourself.
+-- One castsequence = seal + 3 Judgements (resets after 2 s without presses / combat change).
+-- Short macros, few blocks: a step can hold 2-3 spells in a row, the first one that is
+-- ready is cast (Holy Shield, Exorcism, Holy Shock ... as you learn them).
+-- Shift = Holy Light / Flash of Light, Ctrl = Hammer of Justice, Alt = Consecration.
+-- Righteous Fury: you press it yourself.
 -- ---------------------------------------------------------------------------
-local PAL_MOD    = "/cast [mod:shift,@player]19750;[mod:alt]853;[mod:ctrl]Rebuke"
-local PAL_MOD_LV = "/cast [mod:shift,@player]635"   -- no 19750 before 20
-local PAL_SEQ    = "/castsequence reset=combat/2 1311649, 20271, 20271, 20271"
-
+local PM1 = "/cast [mod:shift,@player]635;[mod:ctrl]853;[mod:alt]26573"
+local PM  = "/cast [mod:shift,@player]19750;[mod:ctrl]853;[mod:alt]26573"
+local PSEQ1 = "/castsequence reset=combat/2 20154, 20271, 20271, 20271"
+local PSEQ  = "/castsequence reset=combat/2 1311649, 20271, 20271, 20271"
+local function P(m, ...) return { TGT, m, ... } end
 
 local PALADIN = Flat("RoninForever_Paladin", 1486, 1, {
-    { "Leveling 1-20", {
-        { TGT, PAL_MOD, PAL_MOD_LV, PAL_SEQ, ATK },
-        { TGT, PAL_MOD, PAL_MOD_LV, "/cast 679", ATK },
-        { TGT, PAL_MOD, PAL_MOD_LV, "/cast 20271", ATK },
+    { "Level 1-10", {
+        P(PM1, PSEQ1),
+        P(PM1, "/cast 679", "/cast 20271"),
     } },
-    { "Leveling 20-40", {
-        { TGT, PAL_MOD, PAL_SEQ, ATK },
-        { TGT, PAL_MOD, "/cast 679", ATK },
-        { TGT, PAL_MOD, "/cast 879", ATK },
-        { TGT, PAL_MOD, "/cast [nomod]26573", ATK },
-        { TGT, PAL_MOD, "/cast [nomod]20925", ATK },
+    { "Level 10-40", {
+        P(PM1, PSEQ),
+        P(PM1, "/cast 679"),
+        P(PM1, "/cast [nomod]20925", "/cast [nomod]20473"),
+        P(PM1, "/cast 20271"),
     } },
-    { "60", {
-        { TGT, PAL_MOD, PAL_SEQ, ATK },
-        { TGT, PAL_MOD, "/cast 679", ATK },
-        { TGT, PAL_MOD, "/cast [nomod]Hammer of the Righteous", ATK },
-        { TGT, PAL_MOD, "/cast [nomod]20925", ATK },
-        { TGT, PAL_MOD, "/cast 679", ATK },
-        { TGT, PAL_MOD, "/cast [nomod]26573", ATK },
-        { TGT, PAL_MOD, "/cast 879", ATK },
+    { "Level 40-60", {
+        P(PM, PSEQ),
+        P(PM, "/cast 679"),
+        P(PM, "/cast [nomod]Hammer of the Righteous", "/cast [nomod]20925"),
+        P(PM, "/cast [nomod]20473", "/cast [nomod]Hammer of the Righteous"),
+        P(PM, "/cast 20271"),
     } },
 })
 
 -- ---------------------------------------------------------------------------
--- PROTECTION WARRIOR (Defensive Stance; no Devastate in Forever)
--- Defensive Stance (10), Revenge, Sunder Armor (castsequence once per target),
--- Thunder Clap (6), Shield Block, Bloodrage, Demoralizing Shout, Battle Shout,
--- Shield Slam (talent). Heroic Strike is NOT used (rage goes to threat spells).
+-- PROTECTION WARRIOR (Defensive Stance from level 10; no Devastate in Forever)
+-- Shift = Victory Rush, Ctrl = Shield Bash, Alt = Concussion Blow.
+-- Shield Slam first, Revenge as the fallback in the same step (whichever is ready).
+-- Heroic Strike is NOT used from 10 on (rage goes to threat spells).
 -- ---------------------------------------------------------------------------
-local WAR_MOD = "/cast [mod:shift]402927;[mod:alt]12809;[mod:ctrl]72"
+local WM  = "/cast [mod:shift]402927;[mod:ctrl]72;[mod:alt]12809"
 local STANCE  = "/cast [nostance:2] 71"
-local WAR_SHOUTS = "/castsequence reset=combat 6343, 1160, 6343, 6673, 6343, 6343, 6343"
+local SHOUTS = "/castsequence reset=combat 6343, 1160, 6343, 6673, 6343, 6343, 6343"
+local function W(...) return { TGT, STANCE, WM, ... } end
 
 local WARRIOR = Flat("RoninForever_Warrior", 1491, 1, {
-    { "Leveling 1-20", {
-        { TGT, STANCE, WAR_MOD, "/cast [combat,nomod] 6572", ATK },
-        { TGT, STANCE, WAR_MOD, "/castsequence [combat,nomod] reset=target 7386, null", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [nomod] 6343", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [combat,nomod] 2565", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [nomod] 2687", ATK },
-        { TGT, STANCE, WAR_MOD, "/castsequence [nomod] reset=combat 6673, null", ATK },
+    -- below 10 there is no Defensive Stance: Battle Stance fighting
+    { "Level 1-10", {
+        { TGT, WM, "/cast [nomod] 78" },
+        { TGT, WM, "/cast [nomod] 6343", "/cast [nomod] 78" },
+        { TGT, WM, "/castsequence [nomod] reset=combat 6673, null" },
+        { TGT, WM, "/castsequence [nomod] reset=target 772, null" },
     } },
-    { "Leveling 20-40", {
-        { TGT, STANCE, WAR_MOD, "/cast [nomod,combat] 2565", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [combat,nomod] 6572", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [nomod] 2687", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [nomod] 23922", ATK },
-        { STANCE, WAR_MOD, WAR_SHOUTS },
-        { TGT, STANCE, WAR_MOD, "/cast [combat,nomod] 7386", ATK },
+    { "Level 10-40", {
+        W("/cast [nomod] 23922", "/cast [combat,nomod] 6572"),
+        W("/cast [combat,nomod] 2565", "/cast [nomod] 2687"),
+        W("/cast [combat,nomod] 6572"),
+        { STANCE, WM, SHOUTS },
+        W("/castsequence [nomod] reset=target 772, null", "/cast [combat,nomod] 7386"),
     } },
-    { "60", {
-        { TGT, STANCE, WAR_MOD, "/cast [nomod] 23922", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [combat,nomod] 6572", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [combat,nomod] 7386", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [nomod,combat] 2565", ATK },
-        { STANCE, WAR_MOD, WAR_SHOUTS },
-        { TGT, STANCE, WAR_MOD, "/cast [nomod] 23922", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [combat,nomod] 6572", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [nomod] 2687", ATK },
-        { TGT, STANCE, WAR_MOD, "/cast [combat,nomod] 7386", ATK },
+    { "Level 40-60", {
+        W("/cast [nomod] 23922", "/cast [combat,nomod] 6572"),
+        W("/cast [combat,nomod] 7386"),
+        W("/cast [combat,nomod] 2565", "/cast [nomod] 2687"),
+        { STANCE, WM, SHOUTS },
+        W("/castsequence [nomod] reset=target 772, null", "/cast [combat,nomod] 6572"),
     } },
 })
 
 -- ---------------------------------------------------------------------------
--- FERAL DRUID TANK
--- EVERY step first makes sure you are in Bear Form (Bear Form is learned at 10 by
--- quest; Dire Bear Form at 40: the 60 version uses it). Mangle is PRIMAL BITE here (talent),
--- Lacerate and Faerie Fire (Feral) are talents (Faerie Fire only from 20-40 on).
--- Roar / Faerie Fire re-apply on a new target and every 25/30 s (reset=target/N);
--- there are no [debuff] conditions in Forever. Enrage is left out (it lowers armor).
+-- FERAL DRUID TANK (no AoE, no Swipe)
+--   1-10   caster (Bear Form is a level 10 quest): Moonfire once per target, then Wrath.
+--   10-40  Bear Form; ONE step holds Primal Bite, Lacerate, Maul - the first ready one is cast.
+--   40-60  Dire Bear Form + Frenzied Regeneration (Shift).
+-- Roar / Faerie Fire re-apply on a new target and every 25/30 s (no [debuff] in Forever).
+-- Shift = heal, Ctrl = Feral Charge (interrupt), Alt = Bash (CC) - Entangling Roots as a caster.
+-- Travel form: put it on a separate key (casting your own form again takes it OFF).
 -- ---------------------------------------------------------------------------
-local DRU_MOD  = "/cast [mod:shift]22842;[mod:alt]5211;[mod:ctrl]1238122"
-local DIRE     = "/cast [noform:1] 9634"
-local BEAR     = "/cast [noform:1] 5487"
-local ROAR     = "/castsequence [nomod] reset=target/25 99, null"
-local FAERIE   = "/castsequence [nomod] reset=target/30 Faerie Fire (Feral), null"
--- Leveling versions use Bear Form (Dire Bear Form comes at 40), the 60 version uses Dire Bear Form.
-local function Db(...) return { TGT, BEAR, DRU_MOD, ... } end
-local function Dd(...) return { TGT, DIRE, DRU_MOD, ... } end
+local DM1  = "/cast [mod:shift,@player]5185;[mod:alt]339"
+local DM   = "/cast [mod:shift,@player]5185;[mod:ctrl]1238122;[mod:alt]5211"
+local DM4  = "/cast [mod:shift]22842;[mod:ctrl]1238122;[mod:alt]5211"
+local BEAR = "/cast [noform:1] 5487"
+local DIRE = "/cast [noform:1] 9634"
+local ROAR   = "/castsequence [nomod] reset=target/25 99, null"
+local FAERIE = "/castsequence [nomod] reset=target/30 770, null"
+local function B(...) return { TGT, BEAR, DM, ... } end
+local function D(...) return { TGT, DIRE, DM4, ... } end
 
 local DRUID = Flat("RoninForever_Druid", 103, 1, {
-    { "Leveling 1-20", {
-        Db("/cast [nomod] 6807", ATK),
-        Db("/cast [nomod] 779", ATK),
-        Db(ROAR, ATK),
-        Db("/cast [nomod] 6807", ATK),
-        Db("/cast [nomod] 779", ATK),
+    { "Level 1-10", {
+        { TGT, DM1, "/castsequence [nomod] reset=target 8921, 5176, 5176, 5176" },
+        { TGT, DM1, "/cast [nomod] 5176" },
     } },
-    { "Leveling 20-40", {
-        Db("/cast [nomod] 407995", ATK),
-        Db("/cast [nomod] 1328617", ATK),
-        Db("/cast [nomod] 779", ATK),
-        Db(FAERIE, ATK),
-        Db("/cast [nomod] 6807", ATK),
-        Db(ROAR, ATK),
+    { "Level 10-40", {
+        B("/cast [nomod] 407995", "/cast [nomod] 1328617", "/cast [nomod] 6807"),
+        B("/cast [nomod] 1328617", "/cast [nomod] 6807"),
+        B(FAERIE),
+        B("/cast [nomod] 6807"),
+        B(ROAR),
     } },
-    { "60", {
-        Dd("/cast [nomod] 407995", ATK),
-        Dd("/cast [nomod] 1328617", ATK),
-        Dd("/cast [nomod] 779", ATK),
-        Dd("/cast [nomod] 6807", ATK),
-        Dd("/cast [nomod] 407995", ATK),
-        Dd(FAERIE, ATK),
-        Dd("/cast [nomod] 1328617", ATK),
-        Dd(ROAR, ATK),
+    { "Level 40-60", {
+        D("/cast [nomod] 407995", "/cast [nomod] 1328617", "/cast [nomod] 6807"),
+        D("/cast [nomod] 1328617", "/cast [nomod] 6807"),
+        D(FAERIE),
+        D("/cast [nomod] 6807"),
+        D(ROAR),
     } },
 })
 
