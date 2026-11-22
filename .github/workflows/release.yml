@@ -6,6 +6,8 @@ name: Package and release
 on:
   push:
     tags: ["v*"]
+    branches: [main]
+    paths: ["Ronin.toc"]
   workflow_dispatch:
     inputs:
       dry_run:
@@ -37,6 +39,15 @@ jobs:
           git config user.email "actions@github.com"
           git tag "${{ inputs.tag }}"
           git push origin "${{ inputs.tag }}"
+      - name: Auto release from the version in Ronin.toc
+        if: ${{ github.event_name == 'push' && github.ref_type == 'branch' }}
+        run: |
+          VER=$(grep -m1 '^## Version:' Ronin.toc | sed 's/## Version: *//' | tr -d '\r ')
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          if git rev-parse "v$VER" >/dev/null 2>&1; then echo "v$VER already released"; exit 0; fi
+          git tag "v$VER"
+          git push origin "v$VER"
       - uses: BigWigsMods/packager@v2
         with:
           args: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '-d' || '' }} -p ${{ vars.CF_PROJECT_ID }}
