@@ -1,3 +1,6 @@
+RONIN - GSE SUITE 3.0.3 - 2026-11-23
+ * Same as 3.0.2 (new welcome text); release is now started by the automatic workflow. No macro changes.
+
 RONIN - GSE SUITE 3.0.2 - 2026-11-23
  * New welcome text in the Thank-you panel. No macro changes.
 
