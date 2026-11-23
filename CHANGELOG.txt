@@ -1,3 +1,6 @@
+RONIN - GSE SUITE 3.0.2 - 2026-11-23
+ * New welcome text in the Thank-you panel. No macro changes.
+
 RONIN - GSE SUITE 3.0.1 - 2026-11-22
  * Authorship protection: every imported sequence carries an invisible Ronin signature. New LICENSE file.
  * No macro changes.

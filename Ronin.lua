@@ -35,7 +35,7 @@ local LINKS = {
     { "Patreon", "https://www.patreon.com/RON1N90C" },
 }
 
-local THANKS = "|cffffd100Made by a tank, for every tank.|r\nNo macro plays the game for you: mechanics and positioning are still yours.\nMay your cooldowns be ready and every pull end with the whole group standing.\n\n"
+local THANKS = "|cffffd100Hi, I'm Ron1n. I really hope U enjoy my Macros :)|r\nI hope I could help you get a little closer to enjoying Azeroth, whether you play solo, with family or push hard content. See U in Azeroth!\n\n|cffffd100Made by a tank, for every tank.|r\nNo macro plays the game for you: mechanics and positioning are still yours.\nMay your cooldowns be ready and every pull end with the whole group standing.\n\n"
     .. "These macros are free. A coffee, a follow or a share keeps the updates coming. Thank you."
 
 local KEYS_RETAIL = "|cff00e5ccYour keys (Retail)|r\n"

@@ -2,11 +2,11 @@
 ## Title: |cff00e5ccRonin - GSE SUITE|r
 ## Notes: Ronin - GSE SUITE: tank and DPS macros for GSE, Retail and WoW: Forever, with a Leveling version. Type /ronin. Discord: discord.gg/Trf4vkzbq
 ## Author: Ronin
-## Version: 3.0.1
+## Version: 3.0.2
 ## IconTexture: Interface\AddOns\Ronin\Media\Icon.tga
 ## X-Website: https://ron1n.cc
 ## X-Discord: https://discord.gg/Trf4vkzbq
-## X-Build: 3.0.1
+## X-Build: 3.0.2
 ## X-Donate: https://ko-fi.com/ron1n90c
 ## X-License: All rights reserved. Free to use; share unmodified with credit; do not resell or republish under another name.
 ## Dependencies: GSE
