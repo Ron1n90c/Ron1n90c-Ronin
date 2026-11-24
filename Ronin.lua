@@ -10,7 +10,7 @@ local addonName, Ronin = ...
 RoninDB = RoninDB or {}
 local DB = RoninDB
 
-local ADDON_VERSION = "3.0.1"
+local ADDON_VERSION = "4.0.0"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -42,14 +42,16 @@ local KEYS_RETAIL = "|cff00e5ccYour keys (Retail)|r\n"
     .. "|cffffd100Shift|r  heal / self-sustain\n"
     .. "|cffffd100Alt|r  crowd control (stun)\n"
     .. "Interrupt: bind it on a separate key.\n"
-    .. "DPS: every spec also has a separate AoE macro.\n"
+    .. "DPS and Heal: every spec also has a separate AoE macro.\n"
+    .. "Versions: Mythic+ = cooldowns at the pull, Raid = keeps your target (Heal: big cooldowns are yours), Delve = solo + one defensive, Beginner = one defensive + calmer cooldowns, Leveling = basic spells.\n"
+    .. "Heal: hover a frame and hold the key, it heals the friend under your mouse, otherwise you. Emergency cooldowns stay in your hands.\n"
     .. "Leveling: every macro has a |cffffd100Leveling|r version for the way to 90 (pick it in GSE).\n\n"
     .. "Hold the button: the Priority list picks the spell."
 local KEYS_FOREVER = "|cff00e5ccYour keys (WoW: Forever)|r\n"
     .. "|cffffd100Shift|r  heal\n"
     .. "|cffffd100Ctrl|r  interrupt (Paladin: Hammer of Justice, Warrior: Shield Bash / Pummel)\n"
-    .. "|cffffd100Alt|r  class extra (Consecration, totems, Concussion Blow, Bash)\n"
-    .. "Tank and DPS for every class. "
+    .. "|cffffd100Alt|r  class extra (Consecration, totems, Concussion Blow, Bash, Rain of Fire, Frost Nova)\n"
+    .. "Tank and DPS for every class, Heal for Paladin, Druid, Shaman and Priest (hover a frame and hold the key, it heals the friend under your mouse, otherwise you). "
     .. "Pick your level range in GSE: 1-10, 10-40 or 40-60."
 local BLESS = "|cffffd100From one tank to another:|r\nmay Azeroth watch over you, may your cooldowns be ready\nand may every pull end with the whole group standing.\n\n"
 local THANKS_BY = {
@@ -74,7 +76,7 @@ end
 
 local PACKS = {
     retail = {
-        key = "retail", world = "retail", name = "Retail", version = "6.0.0",
+        key = "retail", world = "retail", name = "Retail", version = "7.0.0",
         sub = "Midnight 12.0",
         seqs = Ronin.RetailSequences or {},
         regkey = "RoninRetail",
@@ -89,7 +91,7 @@ local PACKS = {
         },
     },
     forever = {
-        key = "forever", world = "forever", name = "Forever", version = "3.0.0",
+        key = "forever", world = "forever", name = "Forever", version = "4.0.0",
         sub = "WoW: Forever",
         seqs = Ronin.ForeverSequences or {},
         regkey = "RoninForever",
@@ -106,8 +108,8 @@ local SUBPACKS = {}
 local function SubPack(base, role, label, seqs, groups)
     local sp = {
         key = base.key .. "_" .. role, world = base.key,
-        name = base.name .. " " .. label, sub = label .. " macros (prototype)",
-        version = "0.1", seqs = seqs or {}, regkey = base.regkey .. "_" .. role,
+        name = base.name .. " " .. label, sub = label .. " macros",
+        version = base.version, seqs = seqs or {}, regkey = base.regkey .. "_" .. role,
         art = base.art, groups = groups,
     }
     SUBPACKS[sp.key] = sp
@@ -117,23 +119,52 @@ SubPack(PACKS.retail, "dps", "DPS", Ronin.RetailDPSSequences, {
             { name = "Unholy Death Knight", color = "|cffc41e3a", sub = "Rider  |  San'layn  (+ AoE)", seqs = { "RoninDPS_DK_Unholy_Rider", "RoninDPS_DK_Unh_Rider_AoE", "RoninDPS_DK_Unholy_Sanlayn", "RoninDPS_DK_Unh_Sanlayn_AoE" }, specID = 252 },
             { name = "Frost Death Knight", color = "|cffc41e3a", sub = "Deathbringer  |  Rider  (+ AoE)", seqs = { "RoninDPS_DK_Frost_Deathbr", "RoninDPS_DK_Frost_Dbr_AoE", "RoninDPS_DK_Frost_Rider", "RoninDPS_DK_Frost_Rider_AoE" }, specID = 251 },
             { name = "Havoc Demon Hunter", color = "|cffa330c9", sub = "Aldrachi Reaver  |  Fel-Scarred  (+ AoE)", seqs = { "RoninDPS_DH_Havoc_Aldrachi", "RoninDPS_DH_Hav_Aldr_AoE", "RoninDPS_DH_Havoc_FelScarred", "RoninDPS_DH_Hav_Fel_AoE" }, specID = 577 },
-            { name = "Retribution Paladin", color = "|cfff48cba", sub = "Herald of the Sun  |  Templar  (+ AoE)", seqs = { "RoninDPS_Paladin_Ret_Herald", "RoninDPS_Pal_Ret_Herald_AoE", "RoninDPS_Paladin_Ret_Templar", "RoninDPS_Pal_Ret_Templar_AoE" }, specID = 70 },
-            { name = "Fury Warrior", color = "|cffc69b6d", sub = "Slayer  |  Mountain Thane  (+ AoE)", seqs = { "RoninDPS_Fury_Slayer", "RoninDPS_Fury_Slayer_AoE", "RoninDPS_Fury_Thane", "RoninDPS_Fury_Thane_AoE" }, specID = 72 },
-            { name = "Arms Warrior", color = "|cffc69b6d", sub = "Slayer  |  Colossus  (+ AoE)", seqs = { "RoninDPS_Arms_Slayer", "RoninDPS_Arms_Slayer_AoE", "RoninDPS_Arms_Colossus", "RoninDPS_Arms_Colossus_AoE" }, specID = 71 },
-            { name = "Windwalker Monk", color = "|cff00ff98", sub = "Shado-Pan  |  Conduit  (one macro)", seqs = { "RoninDPS_Monk_WW_ShadoPan", "RoninDPS_Monk_WW_Conduit" }, specID = 269 },
+            { name = "Devourer Demon Hunter", color = "|cffa330c9", sub = "Annihilator  |  Void-Scarred  (+ AoE)", seqs = { "RoninDPS_DH_Devourer_Annih", "RoninDPS_DH_Dev_Annih_AoE", "RoninDPS_DH_Dev_VoidScar", "RoninDPS_DH_Dev_VScar_AoE" }, specID = 1480 },
             { name = "Feral Druid", color = "|cffff7c0a", sub = "Wildstalker  (+ AoE)", seqs = { "RoninDPS_Feral_Wildstalker", "RoninDPS_Feral_Wild_AoE" }, specID = 103 },
             { name = "Balance Druid", color = "|cffff7c0a", sub = "Keeper of the Grove  |  Elune's Chosen  (+ AoE)", seqs = { "RoninDPS_Balance_Keeper", "RoninDPS_Bal_Keeper_AoE", "RoninDPS_Balance_Elune", "RoninDPS_Bal_Elune_AoE" }, specID = 102 },
+            { name = "Beast Mastery Hunter", color = "|cffaad372", sub = "Pack Leader  |  Dark Ranger  (+ AoE)", seqs = { "RoninDPS_BM_PackLeader", "RoninDPS_BM_PackLeader_AoE", "RoninDPS_BM_DarkRanger", "RoninDPS_BM_DarkRanger_AoE" }, specID = 253 },
+            { name = "Marksmanship Hunter", color = "|cffaad372", sub = "Dark Ranger  |  Sentinel  (+ AoE)", seqs = { "RoninDPS_MM_DarkRanger", "RoninDPS_MM_DarkRanger_AoE", "RoninDPS_MM_Sentinel", "RoninDPS_MM_Sentinel_AoE" }, specID = 254 },
+            { name = "Survival Hunter", color = "|cffaad372", sub = "Pack Leader  |  Sentinel  (+ AoE)", seqs = { "RoninDPS_SV_PackLeader", "RoninDPS_SV_PackLeader_AoE", "RoninDPS_SV_Sentinel", "RoninDPS_SV_Sentinel_AoE" }, specID = 255 },
+            { name = "Arcane Mage", color = "|cff3fc7eb", sub = "Spellslinger  |  Sunfury  (+ AoE)", seqs = { "RoninDPS_Arc_Spellslinger", "RoninDPS_Arc_Spell_AoE", "RoninDPS_Arc_Sunfury", "RoninDPS_Arc_Sun_AoE" }, specID = 62 },
+            { name = "Fire Mage", color = "|cff3fc7eb", sub = "Frostfire  |  Sunfury  (+ AoE)", seqs = { "RoninDPS_Fire_Frostfire", "RoninDPS_Fire_FF_AoE", "RoninDPS_Fire_Sunfury", "RoninDPS_Fire_Sun_AoE" }, specID = 63 },
+            { name = "Frost Mage", color = "|cff3fc7eb", sub = "Spellslinger  |  Frostfire  (+ AoE)", seqs = { "RoninDPS_Frost_Spellslinger", "RoninDPS_Frost_Spell_AoE", "RoninDPS_Frost_Frostfire", "RoninDPS_Frost_FF_AoE" }, specID = 64 },
+            { name = "Windwalker Monk", color = "|cff00ff98", sub = "Shado-Pan  |  Conduit  (one macro)", seqs = { "RoninDPS_Monk_WW_ShadoPan", "RoninDPS_Monk_WW_Conduit" }, specID = 269 },
+            { name = "Retribution Paladin", color = "|cfff48cba", sub = "Herald of the Sun  |  Templar  (+ AoE)", seqs = { "RoninDPS_Paladin_Ret_Herald", "RoninDPS_Pal_Ret_Herald_AoE", "RoninDPS_Paladin_Ret_Templar", "RoninDPS_Pal_Ret_Templar_AoE" }, specID = 70 },
+            { name = "Elemental Shaman", color = "|cff0070dd", sub = "Farseer  |  Stormbringer  (+ AoE)", seqs = { "RoninDPS_Ele_Farseer", "RoninDPS_Ele_Farseer_AoE", "RoninDPS_Ele_Stormbringer", "RoninDPS_Ele_Storm_AoE" }, specID = 262 },
+            { name = "Enhancement Shaman", color = "|cff0070dd", sub = "Stormbringer  |  Totemic  (+ AoE)", seqs = { "RoninDPS_Enh_Stormbringer", "RoninDPS_Enh_Storm_AoE", "RoninDPS_Enh_Totemic", "RoninDPS_Enh_Totemic_AoE" }, specID = 263 },
+            { name = "Affliction Warlock", color = "|cff8788ee", sub = "Hellcaller  |  Soul Harvester  (+ AoE)", seqs = { "RoninDPS_Aff_Hellcaller", "RoninDPS_Aff_Hellcaller_AoE", "RoninDPS_Aff_SoulHarvester", "RoninDPS_Aff_SoulHarv_AoE" }, specID = 265 },
+            { name = "Demonology Warlock", color = "|cff8788ee", sub = "Diabolist  |  Soul Harvester  (+ AoE)", seqs = { "RoninDPS_Demo_Diabolist", "RoninDPS_Demo_Diab_AoE", "RoninDPS_Demo_SoulHarvester", "RoninDPS_Demo_SoulH_AoE" }, specID = 266 },
+            { name = "Destruction Warlock", color = "|cff8788ee", sub = "Hellcaller  |  Diabolist  (+ AoE)", seqs = { "RoninDPS_Destro_Hellcaller", "RoninDPS_Destro_Hell_AoE", "RoninDPS_Destro_Diabolist", "RoninDPS_Destro_Diab_AoE" }, specID = 267 },
+            { name = "Fury Warrior", color = "|cffc69b6d", sub = "Slayer  |  Mountain Thane  (+ AoE)", seqs = { "RoninDPS_Fury_Slayer", "RoninDPS_Fury_Slayer_AoE", "RoninDPS_Fury_Thane", "RoninDPS_Fury_Thane_AoE" }, specID = 72 },
+            { name = "Arms Warrior", color = "|cffc69b6d", sub = "Slayer  |  Colossus  (+ AoE)", seqs = { "RoninDPS_Arms_Slayer", "RoninDPS_Arms_Slayer_AoE", "RoninDPS_Arms_Colossus", "RoninDPS_Arms_Colossus_AoE" }, specID = 71 },
 })
 SubPack(PACKS.retail, "heal", "Heal", Ronin.RetailHealSequences, {
-
+            { name = "Restoration Druid", color = "|cffff7c0a", sub = "Keeper of the Grove  |  Wildstalker  (+ AoE, + Damage)", seqs = { "RoninHeal_Resto_Keeper", "RoninHeal_Resto_Keeper_AoE", "RoninHeal_Resto_Wildstalk", "RoninHeal_Resto_Wild_AoE", "RoninHeal_Resto_Damage" }, specID = 105 },
+            { name = "Mistweaver Monk", color = "|cff00ff98", sub = "Conduit  |  Harmony  (+ AoE, + Damage)", seqs = { "RoninHeal_Mist_Conduit", "RoninHeal_Mist_Cond_AoE", "RoninHeal_Mist_Harmony", "RoninHeal_Mist_Harm_AoE", "RoninHeal_Mist_Damage" }, specID = 270 },
+            { name = "Holy Paladin", color = "|cfff48cba", sub = "Herald of the Sun  |  Lightsmith  (+ AoE, + Damage)", seqs = { "RoninHeal_Holy_Herald", "RoninHeal_Holy_Herald_AoE", "RoninHeal_Holy_Lightsmith", "RoninHeal_Holy_Light_AoE", "RoninHeal_Holy_Damage" }, specID = 65 },
+            { name = "Restoration Shaman", color = "|cff0070dd", sub = "Farseer  |  Totemic  (+ AoE, + Damage)", seqs = { "RoninHeal_RShaman_Farseer", "RoninHeal_RSham_Far_AoE", "RoninHeal_RShaman_Totemic", "RoninHeal_RSham_Tot_AoE", "RoninHeal_RShaman_Damage" }, specID = 264 },
 })
 SubPack(PACKS.forever, "dps", "DPS", Ronin.ForeverDPSSequences, {
-            { name = "Retribution Paladin", color = "|cfff48cba", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Paladin_Ret" }, icon = "Interface\\Icons\\Spell_Holy_AuraOfLight" },
-            { name = "Arms Warrior", color = "|cffc69b6d", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Warrior" }, icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance" },
-            { name = "Fury Warrior", color = "|cffc69b6d", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Warrior_Fury" }, icon = "Interface\\Icons\\Ability_Warrior_InnerRage" },
             { name = "Feral Druid (Cat)", color = "|cffff7c0a", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Druid_Cat" }, icon = "Interface\\Icons\\Ability_Druid_CatForm" },
+            { name = "Hunter", color = "|cffaad372", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Hunter" }, icon = "Interface\\Icons\\INV_Weapon_Bow_07" },
+            { name = "Arcane Mage", color = "|cff3fc7eb", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Mage_Arcane" }, icon = "Interface\\Icons\\Spell_Holy_MagicalSentry" },
+            { name = "Fire Mage", color = "|cff3fc7eb", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Mage_Fire" }, icon = "Interface\\Icons\\Spell_Fire_FlameBolt" },
+            { name = "Frost Mage", color = "|cff3fc7eb", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Mage_Frost" }, icon = "Interface\\Icons\\Spell_Frost_FrostBolt02" },
+            { name = "Retribution Paladin", color = "|cfff48cba", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Paladin_Ret" }, icon = "Interface\\Icons\\Spell_Holy_AuraOfLight" },
+            { name = "Priest (Damage)", color = "|cffffffff", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Priest" }, icon = "Interface\\Icons\\Spell_Shadow_ShadowWordPain" },
             { name = "Enhancement Shaman", color = "|cff0070dd", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Shaman_Enh" }, icon = "Interface\\Icons\\Spell_Nature_LightningShield" },
             { name = "Elemental Shaman", color = "|cff0070dd", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Shaman_Ele" }, icon = "Interface\\Icons\\Spell_Nature_Lightning" },
+            { name = "Affliction Warlock", color = "|cff8788ee", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Warlock_Aff" }, icon = "Interface\\Icons\\Spell_Shadow_DeathCoil" },
+            { name = "Demonology Warlock", color = "|cff8788ee", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Warlock_Demo" }, icon = "Interface\\Icons\\Spell_Shadow_Metamorphosis" },
+            { name = "Destruction Warlock", color = "|cff8788ee", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Warlock_Destro" }, icon = "Interface\\Icons\\Spell_Shadow_RainOfFire" },
+            { name = "Arms Warrior", color = "|cffc69b6d", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Warrior" }, icon = "Interface\\Icons\\Ability_Warrior_OffensiveStance" },
+            { name = "Fury Warrior", color = "|cffc69b6d", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Warrior_Fury" }, icon = "Interface\\Icons\\Ability_Warrior_InnerRage" },
+})
+SubPack(PACKS.forever, "heal", "Heal", Ronin.ForeverHealSequences, {
+            { name = "Restoration Druid", color = "|cffff7c0a", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFHeal_Druid" }, icon = "Interface\\Icons\\Spell_Nature_HealingTouch" },
+            { name = "Holy Paladin", color = "|cfff48cba", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFHeal_Paladin" }, icon = "Interface\\Icons\\Spell_Holy_HolyBolt" },
+            { name = "Holy Priest", color = "|cffffffff", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFHeal_Priest" }, icon = "Interface\\Icons\\Spell_Holy_FlashHeal" },
+            { name = "Restoration Shaman", color = "|cff0070dd", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFHeal_Shaman" }, icon = "Interface\\Icons\\Spell_Nature_HealingWaveGreater" },
 })
 
 Ronin.Sequences = {}
@@ -486,6 +517,7 @@ local function RefreshStatus(page)
             needs = needs + 1
             r.status:SetText(GOLD .. "Update available|r" .. (old and (DIM .. "\nyou have V" .. tostring(old) .. "|r") or (DIM .. "\ndifferent version|r")))
         elseif none == n then
+            needs = needs + 1
             r.status:SetText(DIM .. "Not installed|r")
         elseif none > 0 then
             needs = needs + 1
@@ -504,6 +536,7 @@ local function ShowPage(name)
     p:Show()
     PlayGroup(p.fade)
     if p.pack then
+        if p.SetScroll then p.scrollPos = 0; p.SetScroll(0) end
         DB.last = p.pack.key
         local needs = RefreshStatus(p)
         local wrongWorld = ((p.pack.world or p.pack.key) == "retail") ~= IsRetailClient()
@@ -875,8 +908,35 @@ local function BuildInstallPage(inner, pack)
     sep:SetPoint("TOPRIGHT", header, "BOTTOMRIGHT", -22, 0)
     sep:SetHeight(1)
 
+    -- the class rows live in a scroll area (mouse wheel), laid out in 2 columns when there are many
+    local scroll = CreateFrame("ScrollFrame", nil, page)
+    pcall(scroll.SetClipsChildren, scroll, true)
+    local content = CreateFrame("Frame", nil, scroll)
+    content:SetSize(10, 10)
+    scroll:SetScrollChild(content)
+    scroll:EnableMouseWheel(true)
+    page.scroll, page.content, page.maxScroll = scroll, content, 0
+    local track = page:CreateTexture(nil, "ARTWORK")
+    track:SetColorTexture(0.10, 0.20, 0.30, 0.6)
+    local thumb = page:CreateTexture(nil, "OVERLAY")
+    thumb:SetColorTexture(0.0, 0.8, 0.78, 0.85)
+    page.track, page.thumb = track, thumb
+    local function SetScroll(v)
+        v = math.max(0, math.min(page.maxScroll or 0, v or 0))
+        scroll:SetVerticalScroll(v)
+        page.scrollPos = v
+        if (page.maxScroll or 0) > 0 and page.trackH then
+            local th = math.max(24, page.trackH * page.viewH / (page.viewH + page.maxScroll))
+            thumb:SetHeight(th)
+            thumb:ClearAllPoints()
+            thumb:SetPoint("TOPRIGHT", track, "TOPRIGHT", 0, -((page.trackH - th) * v / page.maxScroll))
+        end
+    end
+    page.SetScroll = SetScroll
+    scroll:SetScript("OnMouseWheel", function(_, delta) SetScroll((page.scrollPos or 0) - delta * 60) end)
+
     for _, g in ipairs(pack.groups) do
-        local row = CreateFrame("Button", nil, page, "BackdropTemplate")
+        local row = CreateFrame("Button", nil, content, "BackdropTemplate")
         row:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
         row:SetBackdropColor(unpack(C.row))
         row:SetBackdropBorderColor(0.10, 0.20, 0.30, 1)
@@ -897,10 +957,16 @@ local function BuildInstallPage(inner, pack)
 
         local name = row:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
         name:SetPoint("LEFT", icon, "RIGHT", 12, 5)
+        name:SetJustifyH("LEFT")
+        pcall(name.SetWordWrap, name, false)
         name:SetText(g.color .. g.name .. "|r")
+        row.name = name
         local sub = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         sub:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -2)
+        sub:SetJustifyH("LEFT")
+        pcall(sub.SetWordWrap, sub, false)
         sub:SetText(DIM .. (g.sub or "") .. "|r")
+        row.sub = sub
 
         local status = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         status:SetPoint("RIGHT", -14, 0)
@@ -908,6 +974,8 @@ local function BuildInstallPage(inner, pack)
         row.status = status
 
         row:SetScript("OnClick", function() cb:SetChecked(not cb:GetChecked()) end)
+        row:EnableMouseWheel(true)
+        row:SetScript("OnMouseWheel", function(_, delta) page.SetScroll((page.scrollPos or 0) - delta * 60) end)
         row:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(0.0, 0.8, 0.78, 0.9) end)
         row:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(0.10, 0.20, 0.30, 1) end)
         page.rows[#page.rows + 1] = row
@@ -983,7 +1051,7 @@ local function BuildInstallPage(inner, pack)
 end
 
 local function LayoutInstall(page, w, h)
-    local headerH = clamp(h * 0.27, 112, 210)
+    local headerH = (#page.rows > 8) and clamp(h * 0.17, 96, 150) or clamp(h * 0.27, 112, 210)   -- long lists: smaller header
     page.header:SetHeight(headerH)
     local hs = headerH - 20
     page.art:ClearAllPoints(); page.halo:ClearAllPoints()
@@ -1000,19 +1068,45 @@ local function LayoutInstall(page, w, h)
     local rows = page.rows
     local n = #rows
     local top = headerH + 10
-    local bottom = 92
-    local avail = h - top - bottom
-    local gap = 6
-    local rh = clamp(avail / n - gap, 34, 56)
-    local usedH = n * rh + (n - 1) * gap
-    local startY = top + math.max(0, (avail - usedH) / 2)
+    local bottom = 112                       -- buttons + the message line stay free
+    local viewH = math.max(80, h - top - bottom)
+    local cols = (n > 4 and w >= 640) and 2 or 1
+    local gap, colGap = 6, 10
+    local perCol = math.ceil(n / cols)
+    local rh = clamp(viewH / perCol - gap, 44, 56)
+    local contentH = perCol * (rh + gap) - gap
+    local viewW = w - 44 - 14                -- 22 px margins, 14 px for the scroll bar
+    local colW = (viewW - (cols - 1) * colGap) / cols
+
+    page.scroll:ClearAllPoints()
+    local offY = (contentH < viewH) and (viewH - contentH) / 2 or 0
+    page.scroll:SetPoint("TOPLEFT", page, "TOPLEFT", 22, -(top + offY))
+    page.scroll:SetSize(viewW, math.min(viewH, contentH))
+    page.content:SetSize(viewW, contentH)
+    page.viewH = math.min(viewH, contentH)
+    page.maxScroll = math.max(0, contentH - viewH)
+
+    page.track:ClearAllPoints()
+    page.track:SetPoint("TOPRIGHT", page, "TOPRIGHT", -22, -top)
+    page.track:SetSize(4, viewH)
+    page.trackH = viewH
+    page.thumb:SetWidth(4)
+    if page.maxScroll > 0 then page.track:Show(); page.thumb:Show() else page.track:Hide(); page.thumb:Hide() end
+
+    local nameFont = (cols == 2) and "GameFontNormal" or "GameFontNormalLarge"
     for i, r in ipairs(rows) do
+        local c = (i - 1) % cols                       -- row by row: left, right, then the next line (reads well with the scroll)
+        local k = math.floor((i - 1) / cols)
         r:ClearAllPoints()
-        r:SetPoint("TOPLEFT", page, "TOPLEFT", 22, -(startY + (i - 1) * (rh + gap)))
-        r:SetPoint("TOPRIGHT", page, "TOPRIGHT", -22, -(startY + (i - 1) * (rh + gap)))
-        r:SetHeight(rh)
+        r:SetPoint("TOPLEFT", page.content, "TOPLEFT", c * (colW + colGap), -(k * (rh + gap)))
+        r:SetSize(colW, rh)
         r.icon:SetSize(rh - 12, rh - 12)
+        r.name:SetFontObject(nameFont)
+        local textW = colW - (8 + 26 + 8 + (rh - 12) + 12) - 118   -- room left of the status text
+        r.name:SetWidth(textW)
+        r.sub:SetWidth(textW)
     end
+    page.SetScroll(page.scrollPos or 0)
 end
 
 local function Layout()

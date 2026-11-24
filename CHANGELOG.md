@@ -1,3 +1,34 @@
+RONIN - GSE SUITE 4.0.0 - 2026-11-24   (big update: HEAL is here)
+ * HEAL (new role): Retail Mistweaver, Holy Paladin, Restoration Druid, Restoration Shaman - Heal single target, Heal AoE
+   and a DAMAGE macro each. WoW: Forever Paladin, Druid, Shaman, Priest. Hover a frame and hold the key: it heals the friend
+   under your mouse, otherwise you. Emergency cooldowns stay in your hands.
+ * RETAIL DPS: new Hunter (Beast Mastery, Marksmanship, Survival), Shaman (Elemental, Enhancement), Warlock (all specs),
+   Mage (all specs) and Devourer Demon Hunter. Hunters call / revive their pet by themselves.
+ * FOREVER DPS: new Hunter, Warlock, Mage and Priest (damage for leveling).
+ * VERSIONS now each do their own job: Mythic+ (cooldowns at the pull), Raid (keeps your target), Delve (solo, one defensive),
+   Beginner (one defensive), Leveling. Only ONE defensive in the loop, so they never all fire together.
+ * INSTALLER: 2 columns + scroll, classes sorted, real versions in the titles. Retail pack 7.0.0, Forever pack 4.0.0.
+ * Every rotation checked against the Midnight 12.1.5 and WoW: Forever guides. Thanks to everyone who tested!
+
+RONIN - GSE SUITE 3.0.3 - 2026-11-23
+ * Same as 3.0.2 (new welcome text); release is now started by the automatic workflow. No macro changes.
+
+RONIN - GSE SUITE 3.0.2 - 2026-11-23
+ * New welcome text in the Thank-you panel. No macro changes.
+
+RONIN - GSE SUITE 3.0.1 - 2026-11-22
+ * Authorship protection: every imported sequence carries an invisible Ronin signature. New LICENSE file.
+ * No macro changes.
+
+RONIN - GSE SUITE 3.0.0 - 2026-11-22
+ * New name: Ronin - GSE SUITE. Now Tank AND DPS in one add-on.
+ * RETAIL 6.0.0: 32 DPS sequences (Unholy/Frost DK, Havoc DH, Ret, Fury, Arms, WW, Feral, Balance), single target + AoE per hero tree.
+ * New LEVELING version in every Retail macro (tank and DPS) for the way to level 90. Pick it by hand in GSE.
+ * Midnight 12.1.5 spell check on every spec. No /startattack anywhere.
+ * FOREVER 3.0.0: new level ranges 1-10 / 10-40 / 40-60. DPS added: Ret Paladin, Arms + Fury Warrior, Feral Cat, Enhancement + Elemental Shaman.
+ * Forever keys: Shift = heal, Ctrl = interrupt (Paladin Hammer of Justice), Alt = class extra. Prot Paladin: Exorcism removed. Prot/Arms Warrior: Rend added.
+ * Discord: https://discord.gg/Trf4vkzbq
+
 RONIN (add-on) 2.2.0 - 2026-11-18
  * Forever now runs in Priority mode, like Retail.
 

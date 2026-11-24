@@ -1,4 +1,4 @@
--- Ronin Forever V3.0.0 - Tank macros for WoW: Forever (GSE)
+-- Ronin Forever V4.0.0 - Tank macros for WoW: Forever (GSE)
 --
 -- Same style for all three classes: PRIORITY mode like Ronin Retail (the list order below is the
 -- priority order), spell IDs (rank 1 ID; the client casts the highest rank you know). The source below uses names, the build replaces them with IDs, short
@@ -32,7 +32,7 @@ local function Flat(name, specID, default, versions)
     end
     return {
         MetaData = {
-            Name = name, Author = "Ronin Forever", SpecID = specID, Default = default,
+            Name = name, Author = "Ronin", SpecID = specID, Default = default,
             MythicPlus = default, Heroic = default, Dungeon = default, Timewalking = default,
             Mythic = default, PVP = default, Raid = default, Scenario = default,
         },

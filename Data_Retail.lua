@@ -1,4 +1,4 @@
--- Ronin Retail V6.0.0 - Tank Priority Edition (tiered chains)
+-- Ronin Retail V7.0.0 - Tank Priority Edition (tiered chains)
 --
 -- Each version is ONE Loop block with StepFunction = "Priority" and THREE
 -- actions (tiers A, B, C). GSE clicks them A, AB, ABC (A x3, B x2, C x1 per
@@ -74,18 +74,43 @@ local function BuildActions(ctx, spec, tiers)
     return { loop }
 end
 
+-- Mythic+: the step that holds the big cooldowns (2+ entries with the "c" flag) moves to step 2,
+-- so it fires right at the pull. Specs without such a step stay as they are.
+local function CdIndex(list)
+    local best, bi = 1, nil
+    for i, step in ipairs(list) do
+        local n = 0
+        for _, e in ipairs(step) do if e.flags and e.flags:find("c", 1, true) then n = n + 1 end end
+        if n > best then best, bi = n, i end
+    end
+    return bi
+end
+local function MplusOrder(list)
+    local o = {}
+    for i, v in ipairs(list) do o[i] = v end
+    local i = CdIndex(o)
+    if i and i > 2 then local cd = table.remove(o, i); table.insert(o, 2, cd) end
+    return o
+end
+-- Delve (solo): Mythic+ order plus the class defensives at step 4.
+local function DelveOrder(list, def)
+    local o = MplusOrder(list)
+    if def then table.insert(o, 4, def) end
+    return o
+end
+
 -- Seq(name, specID, spec, mythic, raid [, delve])  -- each = { tierA, tierB, tierC }
-local function Seq(name, specID, spec, mythic, raid, delve, allin)
+local function Seq(name, specID, spec, mythic, raid, delve, allin, def)
     local seq = {
         MetaData = {
-            Name = name, Author = "Ronin V5.0", SpecID = specID, Default = 1,
+            Name = name, Author = "Ronin", SpecID = specID, Default = 1,
             MythicPlus = 1, Heroic = 1, Dungeon = 1, Timewalking = 1, Mythic = 1,
             PVP = 1, Raid = 2, Scenario = 3,
         },
         Versions = {
-            [1] = { Label = "Mythic", Actions = BuildActions("group", spec, mythic), InbuiltVariables = { Combat = true } },
-            [2] = { Label = "Raid",   Actions = BuildActions("raid",  spec, raid),   InbuiltVariables = { Combat = true } },
-            [3] = { Label = "Delve",  Actions = BuildActions("group", spec, delve or mythic), InbuiltVariables = { Combat = true } },
+            [1] = { Label = "Mythic", Actions = BuildActions("group", spec, MplusOrder(mythic)), InbuiltVariables = { Combat = true } },
+            [2] = { Label = "Raid",   Actions = BuildActions("raid",  spec, MplusOrder(raid)),   InbuiltVariables = { Combat = true } },
+            [3] = { Label = "Delve",  Actions = BuildActions("group", spec, DelveOrder(delve or mythic, def)), InbuiltVariables = { Combat = true } },
         },
     }
     -- Optional 4th version, not mapped to any content type in MetaData: you
@@ -143,7 +168,7 @@ local PAL_TEMPLAR = {
 -- BREWMASTER (7 steps): Keg Smash / Blackout Kick / Breath of Fire core,
 -- Tiger Palm as the filler everywhere, brews in the middle.
 -- Mythic / Raid / Delve: NO Purifying Brew / Celestial Brew (you press them).
--- "Beginner" version (4th, pick it by hand): same plus the big defensives (brews, Fortifying Brew) in step 4.
+-- "Beginner" version (4th, pick it by hand): same plus ONE defensive (Celestial Brew) in step 4.
 local BREW_HARMONY = {
     { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
@@ -157,8 +182,8 @@ local BREW_HARMONY_BEGINNER = {
     { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Chi Burst"), S("Rushing Jade Wind"), S("Tiger Palm") },
-    { S("Purifying Brew", "c"), S("Celestial Brew", "c"), S("Tiger Palm") },
-    { S("Fortifying Brew", "c"), S("Keg Smash"), S("Tiger Palm") },
+    { S("Celestial Brew", "c"), S("Blackout Kick"), S("Tiger Palm") },
+    { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
     { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Exploding Keg", "cp"), S("Keg Smash"), S("Tiger Palm") },
 }
@@ -175,8 +200,8 @@ local BREW_SHADOPAN_BEGINNER = {
     { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Rushing Jade Wind"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Purifying Brew", "c"), S("Celestial Brew", "c"), S("Tiger Palm") },
-    { S("Fortifying Brew", "c"), S("Keg Smash"), S("Tiger Palm") },
+    { S("Celestial Brew", "c"), S("Blackout Kick"), S("Tiger Palm") },
+    { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
     { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Exploding Keg", "cp"), S("Chi Burst"), S("Tiger Palm") },
 }
@@ -278,32 +303,33 @@ local DH_CS_ANNIHILATOR = {
 }
 
 -- "Beginner" version (4th, pick it by hand) for every class: the same steps plus ONE
--- extra step (3rd) with the big defensives, so a new player can just press and go.
+-- extra step (3rd) with ONE defensive (off-GCD defensives would all fire together), so a new player can just press and go.
 local function Beginner(list, def)
     local o = {}
     for i, v in ipairs(list) do o[i] = v end
     table.insert(o, 3, def)
     return o
 end
-local DEF_PAL  = { S("Ardent Defender", "c"), S("Guardian of Ancient Kings", "c"), S("Divine Protection", "c") }
-local DEF_DRU  = { S("Barkskin", "c"), S("Survival Instincts", "c"), S("Rage of the Sleeper", "c") }
-local DEF_WAR  = { S("Shield Wall", "c"), S("Last Stand", "c"), S("Rallying Cry", "c") }
-local DEF_DH   = { S("Fiery Brand", "c"), S("Metamorphosis", "cp"), S("Darkness", "cp") }
-local DEF_DK   = { S("Vampiric Blood", "c"), S("Icebound Fortitude", "c"), S("Anti-Magic Shell", "c") }
+local DEF_PAL  = { S("Ardent Defender", "c") }
+local DEF_DRU  = { S("Barkskin", "c") }
+local DEF_WAR  = { S("Shield Wall", "c") }
+local DEF_DH   = { S("Fiery Brand", "c") }
+local DEF_BREW = { S("Celestial Brew", "c") }
+local DEF_DK   = { S("Vampiric Blood", "c") }
 
 Ronin.RetailSequences = {
-    RoninPaladin_Lightsmith     = Seq("RoninPaladin_Lightsmith",     66,  PALADIN,     PAL_LIGHTSMITH,  PAL_LIGHTSMITH,  nil, Beginner(PAL_LIGHTSMITH, DEF_PAL)),
-    RoninPaladin_Templar        = Seq("RoninPaladin_Templar",        66,  PALADIN,     PAL_TEMPLAR,     PAL_TEMPLAR,     nil, Beginner(PAL_TEMPLAR, DEF_PAL)),
-    RoninBrewmaster_Harmony     = Seq("RoninBrewmaster_Harmony",     268, BREWMASTER,  BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY_BEGINNER),
-    RoninBrewmaster_ShadoPan    = Seq("RoninBrewmaster_ShadoPan",    268, BREWMASTER,  BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN_BEGINNER),
-    RoninDruid_Elune            = Seq("RoninDruid_Elune",            104, DRUID,       DRU_ELUNE,       DRU_ELUNE,       nil, Beginner(DRU_ELUNE, DEF_DRU)),
-    RoninDruid_Claw             = Seq("RoninDruid_Claw",             104, DRUID,       DRU_CLAW,        DRU_CLAW,        nil, Beginner(DRU_CLAW, DEF_DRU)),
-    RoninWarrior_Thane          = Seq("RoninWarrior_Thane",          73,  WARRIOR,     WAR_THANE,       WAR_THANE,       nil, Beginner(WAR_THANE, DEF_WAR)),
-    RoninWarrior_Colossus       = Seq("RoninWarrior_Colossus",       73,  WARRIOR,     WAR_COLOSSUS,    WAR_COLOSSUS,    nil, Beginner(WAR_COLOSSUS, DEF_WAR)),
-    RoninDH_Vengeance_Aldrachi    = Seq("RoninDH_Vengeance_Aldrachi",    581, DEMONHUNTER, DH_CS_ALDRACHI,    DH_CS_ALDRACHI,    nil, Beginner(DH_CS_ALDRACHI, DEF_DH)),
-    RoninDH_Vengeance_Annihil     = Seq("RoninDH_Vengeance_Annihil", 581, DEMONHUNTER, DH_CS_ANNIHILATOR, DH_CS_ANNIHILATOR, nil, Beginner(DH_CS_ANNIHILATOR, DEF_DH)),
-    RoninDK_Blood_Deathbringer = Seq("RoninDK_Blood_Deathbringer", 250, DEATHKNIGHT, DK_DEATHBRINGER_CS, DK_DEATHBRINGER_CS, nil, Beginner(DK_DEATHBRINGER_CS, DEF_DK)),
-    RoninDK_Blood_Sanlayn      = Seq("RoninDK_Blood_Sanlayn",       250, DEATHKNIGHT, DK_SANLAYN_AIO,  DK_SANLAYN_AIO,  nil, Beginner(DK_SANLAYN_AIO, DEF_DK)),
+    RoninPaladin_Lightsmith     = Seq("RoninPaladin_Lightsmith",     66,  PALADIN,     PAL_LIGHTSMITH,  PAL_LIGHTSMITH,  nil, Beginner(PAL_LIGHTSMITH, DEF_PAL), DEF_PAL),
+    RoninPaladin_Templar        = Seq("RoninPaladin_Templar",        66,  PALADIN,     PAL_TEMPLAR,     PAL_TEMPLAR,     nil, Beginner(PAL_TEMPLAR, DEF_PAL), DEF_PAL),
+    RoninBrewmaster_Harmony     = Seq("RoninBrewmaster_Harmony",     268, BREWMASTER,  BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY_BEGINNER, DEF_BREW),
+    RoninBrewmaster_ShadoPan    = Seq("RoninBrewmaster_ShadoPan",    268, BREWMASTER,  BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN_BEGINNER, DEF_BREW),
+    RoninDruid_Elune            = Seq("RoninDruid_Elune",            104, DRUID,       DRU_ELUNE,       DRU_ELUNE,       nil, Beginner(DRU_ELUNE, DEF_DRU), DEF_DRU),
+    RoninDruid_Claw             = Seq("RoninDruid_Claw",             104, DRUID,       DRU_CLAW,        DRU_CLAW,        nil, Beginner(DRU_CLAW, DEF_DRU), DEF_DRU),
+    RoninWarrior_Thane          = Seq("RoninWarrior_Thane",          73,  WARRIOR,     WAR_THANE,       WAR_THANE,       nil, Beginner(WAR_THANE, DEF_WAR), DEF_WAR),
+    RoninWarrior_Colossus       = Seq("RoninWarrior_Colossus",       73,  WARRIOR,     WAR_COLOSSUS,    WAR_COLOSSUS,    nil, Beginner(WAR_COLOSSUS, DEF_WAR), DEF_WAR),
+    RoninDH_Vengeance_Aldrachi    = Seq("RoninDH_Vengeance_Aldrachi",    581, DEMONHUNTER, DH_CS_ALDRACHI,    DH_CS_ALDRACHI,    nil, Beginner(DH_CS_ALDRACHI, DEF_DH), DEF_DH),
+    RoninDH_Vengeance_Annihil     = Seq("RoninDH_Vengeance_Annihil", 581, DEMONHUNTER, DH_CS_ANNIHILATOR, DH_CS_ANNIHILATOR, nil, Beginner(DH_CS_ANNIHILATOR, DEF_DH), DEF_DH),
+    RoninDK_Blood_Deathbringer = Seq("RoninDK_Blood_Deathbringer", 250, DEATHKNIGHT, DK_DEATHBRINGER_CS, DK_DEATHBRINGER_CS, nil, Beginner(DK_DEATHBRINGER_CS, DEF_DK), DEF_DK),
+    RoninDK_Blood_Sanlayn      = Seq("RoninDK_Blood_Sanlayn",       250, DEATHKNIGHT, DK_SANLAYN_AIO,  DK_SANLAYN_AIO,  nil, Beginner(DK_SANLAYN_AIO, DEF_DK), DEF_DK),
 }
 
 -- ---------------------------------------------------------------------------
@@ -351,7 +377,7 @@ local LEVELING = {
     RoninDH_Vengeance_Aldrachi = { DEMONHUNTER, LV_DH, DEF_DH }, RoninDH_Vengeance_Annihil = { DEMONHUNTER, LV_DH, DEF_DH },
     RoninDK_Blood_Deathbringer = { DEATHKNIGHT, LV_DK, DEF_DK }, RoninDK_Blood_Sanlayn = { DEATHKNIGHT, LV_DK, DEF_DK },
 }
-local BREW_DEF = { S("Purifying Brew", "c"), S("Celestial Brew", "c"), S("Fortifying Brew", "c") }
+local BREW_DEF = { S("Celestial Brew", "c") }
 for name, x in pairs(LEVELING) do
     local list = x[3] and Beginner(x[2], x[3]) or Beginner(x[2], BREW_DEF)
     Ronin.RetailSequences[name].Versions[5] = { Label = "Leveling", Actions = BuildActions("group", x[1], list), InbuiltVariables = { Combat = true } }
