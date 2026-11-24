@@ -1539,6 +1539,35 @@ local FPRI = Flat("RoninFDPS_Priest", 1487,
     } },
 })
 
+-- ===== Balance Druid (WoW: Forever). Icy Veins Forever guide: keep Moonfire and Insect Swarm up, then Wrath + 2x Starfire (Eclipse),
+-- Hurricane for big packs. Moonkin Form from 40 (talent), the macro keeps it up and never toggles it off.
+-- Shift = heal on yourself (leaves Moonkin Form, the next press goes back in), Ctrl = Entangling Roots, Alt = Faerie Fire / Hurricane at the cursor.
+local BMA = "/cast [mod:shift,@player]5185;[mod:ctrl]339;[mod:alt]Faerie Fire"
+local BMB = "/cast [mod:shift,@player]8936;[mod:ctrl]339;[mod:alt]Faerie Fire"
+local BMC = "/cast [mod:shift,@player]8936;[mod:ctrl]339;[mod:alt,@cursor]16914"
+local UNMK = "/cancelform [mod:shift]"
+local MKF = "/cast [noform:5,nomod]24858"
+local FBAL = Flat("RoninFDPS_Druid_Balance", 103,
+    "Balance Druid for WoW: Forever. Levels 1-10, 10-40, 40-60. Keys: Shift = Healing Touch (Regrowth from 10) on yourself, Ctrl = Entangling Roots, Alt = Faerie Fire (from 40: Hurricane at your cursor). Moonfire, Faerie Fire and Insect Swarm go once on each target, then Wrath and two Starfire. From 40 the macro keeps Moonkin Form up (if you have the talent).",
+    {
+    { "Level 1-10", {
+        { TGT, BMA, "/castsequence [nomod] reset=target/12 8921, null", "/cast [nomod] 5176" },
+        { TGT, BMA, "/cast [nomod] 5176" },
+    } },
+    { "Level 10-40", {
+        { TGT, BMB, "/castsequence [nomod] reset=target/12 8921, null", "/castsequence [nomod] reset=8 5176, 2912, 2912" },
+        { TGT, BMB, "/castsequence [nomod] reset=target/40 Faerie Fire, null", "/castsequence [nomod] reset=8 5176, 2912, 2912" },
+        { TGT, BMB, "/castsequence [nomod] reset=target/12 5570, null", "/cast [nomod] 5176" },
+        { TGT, BMB, "/castsequence [nomod] reset=8 5176, 2912, 2912", "/cast [nomod] 5176" },
+    } },
+    { "Level 40-60", {
+        { TGT, UNMK, BMC, "/castsequence [nomod] reset=target/12 8921, null", "/cast [nomod] 5176" },
+        { TGT, UNMK, BMC, "/castsequence [nomod] reset=target/12 5570, null", "/cast [nomod] 2912" },
+        { TGT, UNMK, MKF, BMC, "/castsequence [nomod] reset=8 5176, 2912, 2912" },
+        { TGT, UNMK, BMC, "/castsequence [nomod] reset=target/40 Faerie Fire, null", "/cast [nomod] 2912" },
+    } },
+})
+
 Ronin.ForeverDPSSequences = {
     RoninFDPS_Paladin_Ret = FPAL,
     RoninFDPS_Warrior     = FWAR,
@@ -1547,6 +1576,7 @@ Ronin.ForeverDPSSequences = {
     RoninFDPS_Shaman_Enh  = FENH,
     RoninFDPS_Shaman_Ele  = FELE,
     RoninFDPS_Hunter = FHUN,
+    RoninFDPS_Druid_Balance = FBAL,
     RoninFDPS_Priest = FPRI,
     RoninFDPS_Warlock_Aff = FAFF,
     RoninFDPS_Warlock_Demo = FDEM,

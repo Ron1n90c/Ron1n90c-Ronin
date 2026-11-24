@@ -1,11 +1,11 @@
 ## Interface: 120105, 120107, 120100, 16001, 16002, 16003
 ## Title: |cff00e5ccRonin - GSE SUITE|r
-## Notes: Ronin - GSE SUITE: Tank, DPS and Heal macros for GSE, Retail and WoW: Forever. Type /ronin. Discord: discord.gg/Trf4vkzbq
+## Notes: Ronin - GSE SUITE: Tank, DPS and Heal macros for GSE, Retail and WoW: Forever. Type /ronin. Discord: discord.gg/kUCRHV2mE
 ## Author: Ronin
-## Version: 4.0.0
+## Version: 4.0.1
 ## IconTexture: Interface\AddOns\Ronin\Media\Icon.tga
 ## X-Website: https://ron1n.cc
-## X-Discord: https://discord.gg/Trf4vkzbq
+## X-Discord: https://discord.gg/kUCRHV2mE
 ## X-Donate: https://ko-fi.com/ron1n90c
 ## X-License: All rights reserved. Free to use; share unmodified with credit; do not resell or republish under another name.
 ## Dependencies: GSE

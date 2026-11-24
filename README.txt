@@ -1,6 +1,6 @@
-RONIN - GSE SUITE                                                    V4.0.0
+RONIN - GSE SUITE                                                    V4.0.1
 Tank, DPS and Heal macros for GSE (Gnome Sequencer Enhanced). Retail AND WoW: Forever in one add-on.
-Discord: https://discord.gg/Trf4vkzbq   |   Website: https://ron1n.cc
+Discord: https://discord.gg/kUCRHV2mE   |   Website: https://ron1n.cc
 Ko-fi: https://ko-fi.com/ron1n90c   |   Patreon: https://www.patreon.com/RON1N90C
 
 REQUIRES: GSE.
@@ -24,9 +24,9 @@ RETAIL V7.0.0 (Midnight)
            Delve (solo: cooldowns early + one defensive), Beginner (one defensive), Leveling (basic spells).
  Keys: Shift = heal, Alt = crowd control, interrupt on its own key.
 
-FOREVER V4.0.0 (WoW: Forever)
+FOREVER V4.0.1 (WoW: Forever)
  TANK : Paladin, Warrior, Druid (Bear).
- DPS  : Paladin, Warrior (Arms, Fury), Druid (Cat), Hunter, Shaman (Enhancement, Elemental), Warlock, Mage, Priest (damage).
+ DPS  : Paladin, Warrior (Arms, Fury), Druid (Cat, Balance), Hunter, Shaman (Enhancement, Elemental), Warlock, Mage, Priest (damage).
  HEAL : Paladin, Druid, Shaman, Priest (mouseover healing).
  Level ranges 1-10, 10-40, 40-60. Keys: Shift = heal, Ctrl = interrupt / stun, Alt = class extra.
 

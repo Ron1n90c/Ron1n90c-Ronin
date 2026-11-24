@@ -1,3 +1,8 @@
+RONIN - GSE SUITE 4.0.1 - 2026-11-24
+ * FOREVER DPS: new Balance Druid (levels 1-10 / 10-40 / 40-60): Moonfire, Faerie Fire and Insect Swarm once per target,
+   Wrath + 2x Starfire, Moonkin Form kept up from 40. Shift = heal on yourself, Ctrl = Entangling Roots, Alt = Faerie Fire / Hurricane at the cursor.
+ * New Discord invite everywhere: https://discord.gg/kUCRHV2mE
+
 RONIN - GSE SUITE 4.0.0 - 2026-11-24   (big update: HEAL is here)
  * HEAL (new role): Retail Mistweaver, Holy Paladin, Restoration Druid, Restoration Shaman - Heal single target, Heal AoE
    and a DAMAGE macro each. WoW: Forever Paladin, Druid, Shaman, Priest. Hover a frame and hold the key: it heals the friend
@@ -27,7 +32,7 @@ RONIN - GSE SUITE 3.0.0 - 2026-11-22
  * Midnight 12.1.5 spell check on every spec. No /startattack anywhere.
  * FOREVER 3.0.0: new level ranges 1-10 / 10-40 / 40-60. DPS added: Ret Paladin, Arms + Fury Warrior, Feral Cat, Enhancement + Elemental Shaman.
  * Forever keys: Shift = heal, Ctrl = interrupt (Paladin Hammer of Justice), Alt = class extra. Prot Paladin: Exorcism removed. Prot/Arms Warrior: Rend added.
- * Discord: https://discord.gg/Trf4vkzbq
+ * Discord: https://discord.gg/kUCRHV2mE
 
 RONIN (add-on) 2.2.0 - 2026-11-18
  * Forever now runs in Priority mode, like Retail.

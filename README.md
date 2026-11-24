@@ -8,7 +8,7 @@ Tank, DPS and Heal macros for GSE, all made by Ronin and tested in game.
 - **Easy installer:** `/ronin`, pick your world and role, import, done
 - **Always free**
 
-Discord (beta testing, bugs, ideas): https://discord.gg/Trf4vkzbq
+Discord (beta testing, bugs, ideas): https://discord.gg/kUCRHV2mE
 Website: https://ron1n.cc · CurseForge: https://www.curseforge.com/wow/addons/ronin
 
 The add-on files are in the repo root (packaged as the `Ronin` folder). A version bump in `Ronin.toc` pushed to `main`

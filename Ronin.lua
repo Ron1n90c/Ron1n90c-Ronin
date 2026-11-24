@@ -10,7 +10,7 @@ local addonName, Ronin = ...
 RoninDB = RoninDB or {}
 local DB = RoninDB
 
-local ADDON_VERSION = "4.0.0"
+local ADDON_VERSION = "4.0.1"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -29,7 +29,7 @@ local C = {
 }
 
 local LINKS = {
-    { "Discord", "https://discord.gg/Trf4vkzbq" },
+    { "Discord", "https://discord.gg/kUCRHV2mE" },
     { "Ko-fi",   "https://ko-fi.com/ron1n90c" },
     { "Website", "https://ron1n.cc" },
     { "Patreon", "https://www.patreon.com/RON1N90C" },
@@ -91,7 +91,7 @@ local PACKS = {
         },
     },
     forever = {
-        key = "forever", world = "forever", name = "Forever", version = "4.0.0",
+        key = "forever", world = "forever", name = "Forever", version = "4.0.1",
         sub = "WoW: Forever",
         seqs = Ronin.ForeverSequences or {},
         regkey = "RoninForever",
@@ -146,6 +146,7 @@ SubPack(PACKS.retail, "heal", "Heal", Ronin.RetailHealSequences, {
 })
 SubPack(PACKS.forever, "dps", "DPS", Ronin.ForeverDPSSequences, {
             { name = "Feral Druid (Cat)", color = "|cffff7c0a", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Druid_Cat" }, icon = "Interface\\Icons\\Ability_Druid_CatForm" },
+            { name = "Balance Druid", color = "|cffff7c0a", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Druid_Balance" }, icon = "Interface\\Icons\\Spell_Nature_StarFall" },
             { name = "Hunter", color = "|cffaad372", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Hunter" }, icon = "Interface\\Icons\\INV_Weapon_Bow_07" },
             { name = "Arcane Mage", color = "|cff3fc7eb", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Mage_Arcane" }, icon = "Interface\\Icons\\Spell_Holy_MagicalSentry" },
             { name = "Fire Mage", color = "|cff3fc7eb", sub = "Level 1-10  |  10-40  |  40-60", seqs = { "RoninFDPS_Mage_Fire" }, icon = "Interface\\Icons\\Spell_Fire_FlameBolt" },
