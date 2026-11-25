@@ -183,8 +183,8 @@ Retail.RoninHeal_Holy_Herald = Heal("RoninHeal_Holy_Herald", 65, C_HP, {
     { S("Avenging Wrath", "c"), S("Judgment") },
 }, D_HP, "Holy Paladin, Herald of the Sun. Talents: Herald of the Sun hero tree (Dawnlight, Eternal Flame, Sun's Avatar with Avenging Wrath). Hover a frame and hold the key: Holy Shock on cooldown, Holy Shock and Judgment build Holy Power, Eternal Flame is the main spender (AoE macro: Light of Dawn), Divine Toll high up, Flash of Light spends Infusion of Light. Single target / spot healing macro, use the AoE macro for raid damage. Keys: Shift = Flash of Light (friend under the mouse, otherwise you), Alt = Hammer of Justice. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help][@player]Holy Shock"), S("Judgment"), R("/cast [@mouseover,help][@player]Flash of Light") },
-    { R("/cast [@mouseover,help][@player]Word of Glory"), R("/cast [@mouseover,help][@player]Flash of Light"), S("Judgment") },
-    { R("/cast [@mouseover,help][@player]Holy Light"), S("Consecration") },
+    { R("/cast [@mouseover,help][@player]Eternal Flame"), R("/cast [@mouseover,help][@player]Word of Glory"), R("/cast [@mouseover,help][@player]Flash of Light") },
+    { S("Judgment"), R("/cast [@mouseover,help][@player]Flash of Light"), R("/cast [@mouseover,help][@player]Holy Light") },
 })
 
 Retail.RoninHeal_Holy_Herald_AoE = Heal("RoninHeal_Holy_Herald_AoE", 65, C_HP, {
@@ -196,8 +196,8 @@ Retail.RoninHeal_Holy_Herald_AoE = Heal("RoninHeal_Holy_Herald_AoE", 65, C_HP, {
     { S("Avenging Wrath", "c"), S("Judgment") },
 }, D_HP, "Holy Paladin, Herald of the Sun. Talents: Herald of the Sun hero tree (Dawnlight, Eternal Flame, Sun's Avatar with Avenging Wrath). Hover a frame and hold the key: Holy Shock on cooldown, Holy Shock and Judgment build Holy Power, Eternal Flame is the main spender (AoE macro: Light of Dawn), Divine Toll high up, Flash of Light spends Infusion of Light. AoE macro: use it when the whole group takes damage. Keys: Shift = Flash of Light (friend under the mouse, otherwise you), Alt = Hammer of Justice. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help][@player]Holy Shock"), S("Judgment"), S("Light of Dawn") },
-    { S("Light of Dawn"), R("/cast [@mouseover,help][@player]Word of Glory"), S("Judgment") },
-    { R("/cast [@mouseover,help][@player]Holy Light"), S("Consecration") },
+    { S("Light of Dawn"), R("/cast [@mouseover,help][@player]Eternal Flame"), R("/cast [@mouseover,help][@player]Word of Glory") },
+    { S("Judgment"), R("/cast [@mouseover,help][@player]Flash of Light"), R("/cast [@mouseover,help][@player]Holy Light") },
 })
 
 Retail.RoninHeal_Holy_Lightsmith = Heal("RoninHeal_Holy_Lightsmith", 65, C_HP, {
@@ -209,8 +209,8 @@ Retail.RoninHeal_Holy_Lightsmith = Heal("RoninHeal_Holy_Lightsmith", 65, C_HP, {
     { S("Avenging Wrath", "c"), S("Holy Armaments"), S("Judgment") },
 }, D_HP, "Holy Paladin, Lightsmith. Talents: Lightsmith hero tree (Holy Armaments, Hammer and Anvil from Judgment, Blessing of the Forge). Hover a frame and hold the key: Holy Shock and Judgment build Holy Power, Eternal Flame is the main spender (AoE macro: Light of Dawn), Divine Toll high up, Holy Armaments with Avenging Wrath. Single target / spot healing macro, use the AoE macro for raid damage. Keys: Shift = Flash of Light (friend under the mouse, otherwise you), Alt = Hammer of Justice. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help][@player]Holy Shock"), S("Judgment"), R("/cast [@mouseover,help][@player]Flash of Light") },
-    { R("/cast [@mouseover,help][@player]Word of Glory"), R("/cast [@mouseover,help][@player]Flash of Light"), S("Judgment") },
-    { R("/cast [@mouseover,help][@player]Holy Light"), S("Consecration") },
+    { R("/cast [@mouseover,help][@player]Eternal Flame"), R("/cast [@mouseover,help][@player]Word of Glory"), R("/cast [@mouseover,help][@player]Flash of Light") },
+    { S("Judgment"), R("/cast [@mouseover,help][@player]Flash of Light"), R("/cast [@mouseover,help][@player]Holy Light") },
 })
 
 Retail.RoninHeal_Holy_Light_AoE = Heal("RoninHeal_Holy_Light_AoE", 65, C_HP, {
@@ -222,8 +222,8 @@ Retail.RoninHeal_Holy_Light_AoE = Heal("RoninHeal_Holy_Light_AoE", 65, C_HP, {
     { S("Avenging Wrath", "c"), S("Holy Armaments"), S("Judgment") },
 }, D_HP, "Holy Paladin, Lightsmith. Talents: Lightsmith hero tree (Holy Armaments, Hammer and Anvil from Judgment, Blessing of the Forge). Hover a frame and hold the key: Holy Shock and Judgment build Holy Power, Eternal Flame is the main spender (AoE macro: Light of Dawn), Divine Toll high up, Holy Armaments with Avenging Wrath. AoE macro: use it when the whole group takes damage. Keys: Shift = Flash of Light (friend under the mouse, otherwise you), Alt = Hammer of Justice. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help][@player]Holy Shock"), S("Judgment"), S("Light of Dawn") },
-    { S("Light of Dawn"), R("/cast [@mouseover,help][@player]Word of Glory"), S("Judgment") },
-    { R("/cast [@mouseover,help][@player]Holy Light"), S("Consecration") },
+    { S("Light of Dawn"), R("/cast [@mouseover,help][@player]Eternal Flame"), R("/cast [@mouseover,help][@player]Word of Glory") },
+    { S("Judgment"), R("/cast [@mouseover,help][@player]Flash of Light"), R("/cast [@mouseover,help][@player]Holy Light") },
 })
 
 Retail.RoninHeal_Resto_Keeper = Heal("RoninHeal_Resto_Keeper", 105, C_RD, {
@@ -232,11 +232,12 @@ Retail.RoninHeal_Resto_Keeper = Heal("RoninHeal_Resto_Keeper", 105, C_RD, {
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help][@player]Regrowth"), R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation") },
-    { S("Nature's Swiftness", "c"), S("Convoke the Spirits", "c"), S("Flourish", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
+    { S("Nature's Swiftness", "c"), S("Convoke the Spirits", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
 }, D_RD, "Restoration Druid, Keeper of the Grove. Talents: Keeper of the Grove hero tree (Sylvan Beckoning empowers your next Swiftmend, strong healing with little cat-weaving). Hover a frame and hold the key: Lifebloom and Rejuvenation only on friends that do not have them, Swiftmend and Wild Growth on cooldown, Regrowth as the spot heal. Single target / spot healing macro, use the AoE macro for raid damage. Keys: Shift = Regrowth (friend under the mouse, otherwise you), Alt = Mighty Bash. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
+    { R("/cast [@mouseover,help,nobuff:Lifebloom][@player,nobuff:Lifebloom]Lifebloom"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
-    { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Swiftmend") },
-    { S("Moonfire"), S("Sunfire"), S("Wrath") },
+    { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Swiftmend"), R("/cast [@mouseover,help][@player]Regrowth") },
+    { S("Moonfire", "s"), S("Sunfire", "s"), S("Wrath") },
 })
 
 Retail.RoninHeal_Resto_Keeper_AoE = Heal("RoninHeal_Resto_Keeper_AoE", 105, C_RD, {
@@ -245,11 +246,12 @@ Retail.RoninHeal_Resto_Keeper_AoE = Heal("RoninHeal_Resto_Keeper_AoE", 105, C_RD
     { R("/cast [@mouseover,help,nobuff:Lifebloom][@player,nobuff:Lifebloom]Lifebloom"), R("/cast [@mouseover,help][@player]Swiftmend") },
     { R("/cast [@player]Efflorescence"), R("/cast [@mouseover,help][@player]Wild Growth") },
     { R("/cast [@mouseover,help][@player]Regrowth"), R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation") },
-    { S("Convoke the Spirits", "c"), S("Flourish", "c"), S("Nature's Swiftness", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
+    { S("Convoke the Spirits", "c"), S("Nature's Swiftness", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
 }, D_RD, "Restoration Druid, Keeper of the Grove. Talents: Keeper of the Grove hero tree (Sylvan Beckoning empowers your next Swiftmend, strong healing with little cat-weaving). Hover a frame and hold the key: Lifebloom and Rejuvenation only on friends that do not have them, Swiftmend and Wild Growth on cooldown, Regrowth as the spot heal. AoE macro: use it when the whole group takes damage. Keys: Shift = Regrowth (friend under the mouse, otherwise you), Alt = Mighty Bash. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
+    { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
-    { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Swiftmend") },
-    { S("Moonfire"), S("Sunfire"), S("Starfire") },
+    { R("/cast [@mouseover,help,nobuff:Lifebloom][@player,nobuff:Lifebloom]Lifebloom"), R("/cast [@mouseover,help][@player]Swiftmend"), R("/cast [@mouseover,help][@player]Regrowth") },
+    { S("Moonfire", "s"), S("Sunfire", "s"), S("Starfire") },
 })
 
 Retail.RoninHeal_Resto_Wildstalk = Heal("RoninHeal_Resto_Wildstalk", 105, C_RD, {
@@ -258,11 +260,12 @@ Retail.RoninHeal_Resto_Wildstalk = Heal("RoninHeal_Resto_Wildstalk", 105, C_RD, 
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Regrowth") },
     { S("Moonfire", "s"), S("Sunfire", "s"), S("Wrath") },
-    { S("Nature's Swiftness", "c"), S("Convoke the Spirits", "c"), S("Flourish", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
+    { S("Nature's Swiftness", "c"), S("Convoke the Spirits", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
 }, D_RD, "Restoration Druid, Wildstalker. Talents: Wildstalker hero tree (Symbiotic Bloom, Vigorous Creepers, Bursting Growth from Rejuvenation). Hover a frame and hold the key: Lifebloom and Rejuvenation only on friends that do not have them, Swiftmend and Wild Growth on cooldown, Moonfire and Sunfire kept up on your hostile target. Single target / spot healing macro, use the AoE macro for raid damage. Keys: Shift = Regrowth (friend under the mouse, otherwise you), Alt = Mighty Bash. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
+    { R("/cast [@mouseover,help,nobuff:Lifebloom][@player,nobuff:Lifebloom]Lifebloom"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
-    { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Swiftmend") },
-    { S("Moonfire"), S("Sunfire"), S("Wrath") },
+    { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Swiftmend"), R("/cast [@mouseover,help][@player]Regrowth") },
+    { S("Moonfire", "s"), S("Sunfire", "s"), S("Wrath") },
 })
 
 Retail.RoninHeal_Resto_Wild_AoE = Heal("RoninHeal_Resto_Wild_AoE", 105, C_RD, {
@@ -271,11 +274,12 @@ Retail.RoninHeal_Resto_Wild_AoE = Heal("RoninHeal_Resto_Wild_AoE", 105, C_RD, {
     { R("/cast [@mouseover,help,nobuff:Lifebloom][@player,nobuff:Lifebloom]Lifebloom"), R("/cast [@mouseover,help][@player]Swiftmend") },
     { R("/cast [@player]Efflorescence"), R("/cast [@mouseover,help][@player]Wild Growth") },
     { S("Moonfire", "s"), S("Sunfire", "s"), S("Wrath") },
-    { S("Convoke the Spirits", "c"), S("Flourish", "c"), S("Nature's Swiftness", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
+    { S("Convoke the Spirits", "c"), S("Nature's Swiftness", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
 }, D_RD, "Restoration Druid, Wildstalker. Talents: Wildstalker hero tree (Symbiotic Bloom, Vigorous Creepers, Bursting Growth from Rejuvenation). Hover a frame and hold the key: Lifebloom and Rejuvenation only on friends that do not have them, Swiftmend and Wild Growth on cooldown, Moonfire and Sunfire kept up on your hostile target. AoE macro: use it when the whole group takes damage. Keys: Shift = Regrowth (friend under the mouse, otherwise you), Alt = Mighty Bash. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
+    { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
-    { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Swiftmend") },
-    { S("Moonfire"), S("Sunfire"), S("Starfire") },
+    { R("/cast [@mouseover,help,nobuff:Lifebloom][@player,nobuff:Lifebloom]Lifebloom"), R("/cast [@mouseover,help][@player]Swiftmend"), R("/cast [@mouseover,help][@player]Regrowth") },
+    { S("Moonfire", "s"), S("Sunfire", "s"), S("Starfire") },
 })
 
 Retail.RoninHeal_RShaman_Farseer = Heal("RoninHeal_RShaman_Farseer", 264, C_RS, {
@@ -336,8 +340,8 @@ Retail.RoninHeal_Mist_Damage = Dmg("RoninHeal_Mist_Damage", 270, C_MWD, {
     { S("Rising Sun Kick"), R("/castsequence reset=8 Tiger Palm, Tiger Palm, Tiger Palm, Blackout Kick") },
     { S("Spinning Crane Kick"), R("/castsequence reset=8 Tiger Palm, Tiger Palm, Tiger Palm, Blackout Kick") },
     { R("/cast [@mouseover,help,nobuff:Renewing Mist][@player,nobuff:Renewing Mist]Renewing Mist"), S("Blackout Kick") },
-    { S("Touch of Death"), S("Rising Sun Kick"), R("/castsequence reset=8 Tiger Palm, Tiger Palm, Tiger Palm, Blackout Kick") },
-}, D_MWD, "Mistweaver Monk, DAMAGE macro (Delves, solo, leveling, or when nobody needs healing). Rising Sun Kick / Rushing Wind Kick on cooldown, Tiger Palm three times then Blackout Kick (Teachings of the Monastery), Touch of Death when it lights up, Spinning Crane Kick now and then for packs, Renewing Mist kept rolling. Keys: Shift = Vivify (friend under the mouse, otherwise you), Alt = Leg Sweep. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns at the pull), Raid (keeps your target), Delve (cooldowns early + one defensive), Beginner (one defensive, cooldowns later), Leveling (basic spells).", {
+    { S("Thunder Focus Tea", "c"), S("Rising Sun Kick"), R("/castsequence reset=8 Tiger Palm, Tiger Palm, Tiger Palm, Blackout Kick") },
+}, D_MWD, "Mistweaver Monk, DAMAGE macro (Delves, solo, leveling, or when nobody needs healing). Rising Sun Kick / Rushing Wind Kick on cooldown, Tiger Palm three times then Blackout Kick (Teachings of the Monastery), Touch of Death when it lights up, Thunder Focus Tea whenever it is ready, Spinning Crane Kick now and then for packs, Renewing Mist kept rolling. Keys: Shift = Vivify (friend under the mouse, otherwise you), Alt = Leg Sweep. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns at the pull), Raid (keeps your target), Delve (cooldowns early + one defensive), Beginner (one defensive, cooldowns later), Leveling (basic spells).", {
     { S("Rising Sun Kick"), R("/castsequence reset=8 Tiger Palm, Tiger Palm, Tiger Palm, Blackout Kick") },
     { S("Touch of Death"), R("/castsequence reset=8 Tiger Palm, Tiger Palm, Tiger Palm, Blackout Kick") },
     { S("Spinning Crane Kick"), R("/castsequence reset=8 Tiger Palm, Tiger Palm, Tiger Palm, Blackout Kick") },
@@ -345,27 +349,27 @@ Retail.RoninHeal_Mist_Damage = Dmg("RoninHeal_Mist_Damage", 270, C_MWD, {
 
 Retail.RoninHeal_Holy_Damage = Dmg("RoninHeal_Holy_Damage", 65, C_HPD, {
     { S("Shield of the Righteous"), S("Holy Shock"), S("Judgment") },
-    { S("Judgment"), S("Holy Shock"), S("Consecration") },
+    { S("Judgment"), S("Holy Shock"), S("Crusader Strike"), S("Consecration") },
     { S("Holy Shock"), S("Judgment"), S("Consecration") },
-    { S("Shield of the Righteous"), S("Light of Dawn"), S("Judgment") },
-    { S("Holy Shock"), S("Judgment") },
-    { S("Avenging Wrath", "c"), S("Divine Toll", "c"), S("Hammer of Wrath") },
-}, D_HPD, "Holy Paladin, DAMAGE macro (Delves, solo, leveling, or when nobody needs healing). Holy Shock and Judgment on the enemy build Holy Power, Shield of the Righteous spends it (Light of Dawn if you do not have it), Consecration at your feet, Hammer of Wrath during Avenging Wrath, Divine Toll on the enemies. Keys: Shift = Flash of Light (friend under the mouse, otherwise you), Alt = Hammer of Justice. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns at the pull), Raid (keeps your target), Delve (cooldowns early + one defensive), Beginner (one defensive, cooldowns later), Leveling (basic spells).", {
+    { S("Shield of the Righteous"), S("Judgment"), S("Holy Shock") },
+    { S("Holy Shock"), S("Judgment"), S("Crusader Strike") },
+    { S("Avenging Wrath", "c"), S("Divine Toll", "c"), S("Holy Shock") },
+}, D_HPD, "Holy Paladin, DAMAGE macro (Delves, solo, leveling, or when nobody needs healing). Holy Shock and Judgment on the enemy build Holy Power, Shield of the Righteous spends it, Consecration at your feet, Avenging Wrath with Divine Toll (Judgment turns into Hammer of Wrath, Crusader Strike comes back with Avenging Crusader). Keys: Shift = Flash of Light (friend under the mouse, otherwise you), Alt = Hammer of Justice. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns at the pull), Raid (keeps your target), Delve (cooldowns early + one defensive), Beginner (one defensive, cooldowns later), Leveling (basic spells).", {
     { S("Holy Shock"), S("Judgment"), S("Consecration") },
-    { S("Shield of the Righteous"), S("Light of Dawn"), S("Judgment") },
+    { S("Shield of the Righteous"), S("Judgment"), S("Holy Shock") },
     { S("Holy Shock"), S("Judgment") },
 })
 
 Retail.RoninHeal_Resto_Damage = Dmg("RoninHeal_Resto_Damage", 105, C_RDD, {
-    { S("Rake", "s"), S("Shred"), S("Swipe") },
-    { R("/castsequence reset=6 Shred, Shred, Shred, Rip"), S("Ferocious Bite"), S("Shred") },
-    { S("Thrash"), S("Rake", "s"), S("Shred") },
-    { S("Ferocious Bite"), S("Shred"), S("Swipe") },
-    { S("Thrash"), S("Swipe"), S("Shred") },
-    { S("Convoke the Spirits", "c"), S("Rake", "s"), S("Shred") },
-}, D_RDD, "Restoration Druid, DAMAGE macro (Delves, solo, leveling, or when nobody needs healing). Shifts into Cat Form by itself: Rake once per target, Shred builds combo points, Rip / Ferocious Bite spend them, Thrash and Swipe for packs, Convoke the Spirits as the cooldown. Shift = Regrowth leaves Cat Form, the next press goes back in. Keys: Shift = Regrowth (friend under the mouse, otherwise you), Alt = Mighty Bash. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns at the pull), Raid (keeps your target), Delve (cooldowns early + one defensive), Beginner (one defensive, cooldowns later), Leveling (basic spells).", {
     { S("Rake", "s"), S("Shred") },
-    { R("/castsequence reset=6 Shred, Shred, Shred, Rip"), S("Ferocious Bite") },
+    { R("/castsequence reset=8 Shred, Shred, Shred, Rip, Shred, Shred, Shred, Ferocious Bite"), S("Shred") },
+    { S("Sunfire", "s"), S("Shred") },
+    { R("/castsequence reset=8 Shred, Shred, Shred, Rip, Shred, Shred, Shred, Ferocious Bite"), S("Thrash") },
+    { S("Thrash"), S("Swipe"), S("Shred") },
+    { S("Heart of the Wild", "c"), S("Convoke the Spirits", "c"), S("Shred") },
+}, D_RDD, "Restoration Druid, DAMAGE macro (Delves, solo, leveling, or when nobody needs healing). Shifts into Cat Form by itself: Rake once per target, Shred builds combo points, Rip then Ferocious Bite only after three Shreds, Sunfire woven in once per target (the next press goes back to Cat Form), Thrash and Swipe for packs, Heart of the Wild with Convoke the Spirits. Shift = Regrowth leaves Cat Form, the next press goes back in. Keys: Shift = Regrowth (friend under the mouse, otherwise you), Alt = Mighty Bash. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns at the pull), Raid (keeps your target), Delve (cooldowns early + one defensive), Beginner (one defensive, cooldowns later), Leveling (basic spells).", {
+    { S("Rake", "s"), S("Shred") },
+    { R("/castsequence reset=8 Shred, Shred, Shred, Rip, Shred, Shred, Shred, Ferocious Bite"), S("Shred") },
     { S("Thrash"), S("Swipe"), S("Shred") },
 })
 

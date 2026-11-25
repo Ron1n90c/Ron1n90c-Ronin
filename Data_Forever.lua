@@ -1,4 +1,4 @@
--- Ronin Forever V4.0.2 - Tank macros for WoW: Forever (GSE)
+-- Ronin Forever V4.1.0 - Tank macros for WoW: Forever (GSE)
 --
 -- Same style for all three classes: PRIORITY mode like Ronin Retail (the list order below is the
 -- priority order), spell IDs (rank 1 ID; the client casts the highest rank you know). The source below uses names, the build replaces them with IDs, short
@@ -42,7 +42,6 @@ end
 
 -- ---------------------------------------------------------------------------
 -- PROTECTION PALADIN
--- One castsequence = seal + 3 Judgements (resets after 2 s without presses / combat change).
 -- Short macros, few blocks: a step can hold 2-3 spells in a row, the first one that is
 -- ready is cast (Holy Shield, Exorcism, Holy Shock ... as you learn them).
 -- Shift = Holy Light / Flash of Light, Ctrl = Hammer of Justice, Alt = Consecration.
@@ -50,27 +49,29 @@ end
 -- ---------------------------------------------------------------------------
 local PM1 = "/cast [mod:shift,@player]635;[mod:ctrl]853;[mod:alt]26573"
 local PM  = "/cast [mod:shift,@player]19750;[mod:ctrl]853;[mod:alt]26573"
-local PSEQ1 = "/castsequence reset=combat/2 20154, 20271, 20271, 20271"
-local PSEQ  = "/castsequence reset=combat/2 1311649, 20271, 20271, 20271"
+-- In Forever Judgement no longer uses up the seal: the seal is cast once (again after 28 s or a new fight)
+-- and Judgement (off the global cooldown) sits in every step.
+local PSEQ1 = "/castsequence [nomod] reset=combat/28 20154, null"
+local PSEQ  = "/castsequence [nomod] reset=combat/28 1311649, null"
 local function P(m, ...) return { TGT, m, ... } end
 
 local PALADIN = Flat("RoninForever_Paladin", 1486, 1, {
     { "Level 1-10", {
-        P(PM1, PSEQ1, "/cast 679"),
-        P(PM1, "/cast 679", "/cast 20271"),
+        P(PM1, PSEQ1, "/cast 20271", "/cast 679"),
+        P(PM1, "/cast 20271", "/cast 679"),
     } },
     { "Level 10-40", {
-        P(PM1, PSEQ, "/cast 679"),
-        P(PM1, "/cast 679", "/cast 20271"),
-        P(PM1, "/cast [nomod]20925", "/cast [nomod]20473"),
-        P(PM1, "/cast 20271"),
+        P(PM1, PSEQ, "/cast 20271", "/cast 679", "/cast [nomod]20925"),
+        P(PM1, "/cast 20271", "/cast [nomod]20925", "/cast 679"),
+        P(PM1, "/cast 20271", "/cast 679", "/cast [nomod]20473"),
+        P(PM1, PSEQ, "/cast 20271", "/cast 679"),
     } },
     { "Level 40-60", {
-        P(PM, PSEQ, "/cast 679"),
-        P(PM, "/cast 679", "/cast 20271"),
-        P(PM, "/cast [nomod]Hammer of the Righteous", "/cast [nomod]20925"),
-        P(PM, "/cast [nomod]20473", "/cast [nomod]Hammer of the Righteous"),
-        P(PM, "/cast 20271"),
+        P(PM, PSEQ, "/cast 20271", "/cast 679", "/cast [nomod]20925"),
+        P(PM, "/cast 20271", "/cast [nomod]20925", "/cast 679"),
+        P(PM, "/cast 20271", "/cast [nomod]Hammer of the Righteous", "/cast [nomod]20473", "/cast 679"),
+        P(PM, "/cast 20271", "/cast 679", "/cast [nomod]20925"),
+        P(PM, PSEQ, "/cast 20271", "/cast 679"),
     } },
 })
 
@@ -82,7 +83,8 @@ local PALADIN = Flat("RoninForever_Paladin", 1486, 1, {
 -- ---------------------------------------------------------------------------
 local WM  = "/cast [mod:shift]402927;[mod:ctrl]72;[mod:alt]12809"
 local STANCE  = "/cast [nostance:2] 71"
-local SHOUTS = "/castsequence reset=combat 6343, 1160, 6343, 6673, 6343, 6343, 6343"
+local DEMO = "/castsequence [nomod] reset=combat/28 1160, null"
+local BSH  = "/castsequence [nomod] reset=combat/110 6673, null"
 local function W(...) return { TGT, STANCE, WM, ... } end
 
 local WARRIOR = Flat("RoninForever_Warrior", 1491, 1, {
@@ -95,17 +97,19 @@ local WARRIOR = Flat("RoninForever_Warrior", 1491, 1, {
     } },
     { "Level 10-40", {
         W("/cast [nomod] 23922", "/cast [combat,nomod] 6572"),
-        W("/cast [combat,nomod] 2565", "/cast [nomod] 2687"),
-        W("/cast [combat,nomod] 6572"),
-        { STANCE, WM, SHOUTS },
+        W("/cast [combat,nomod] 2565", "/cast [nomod] 23922", "/cast [combat,nomod] 6572"),
+        W("/cast [combat,nomod] 6572", "/cast [nomod] 23922", "/cast [nomod] 6343"),
+        W(DEMO, "/cast [combat,nomod] 7386"),
         W("/castsequence [nomod] reset=target 772, null", "/cast [combat,nomod] 7386"),
+        { STANCE, WM, "/cast [nomod] 2687", BSH, "/cast [combat,nomod] 7386" },
     } },
     { "Level 40-60", {
         W("/cast [nomod] 23922", "/cast [combat,nomod] 6572"),
-        W("/cast [combat,nomod] 7386"),
-        W("/cast [combat,nomod] 2565", "/cast [nomod] 2687"),
-        { STANCE, WM, SHOUTS },
-        W("/castsequence [nomod] reset=target 772, null", "/cast [combat,nomod] 6572"),
+        W("/cast [combat,nomod] 2565", "/cast [nomod] 23922", "/cast [combat,nomod] 6572"),
+        W("/cast [combat,nomod] 6572", "/cast [nomod] 23922", "/cast [nomod] 6343"),
+        W(DEMO, "/cast [combat,nomod] 7386"),
+        W("/castsequence [nomod] reset=target 772, null", "/cast [combat,nomod] 7386"),
+        { STANCE, WM, "/cast [nomod] 2687", BSH, "/cast [combat,nomod] 7386" },
     } },
 })
 

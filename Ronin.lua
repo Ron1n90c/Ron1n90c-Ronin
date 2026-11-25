@@ -10,7 +10,7 @@ local addonName, Ronin = ...
 RoninDB = RoninDB or {}
 local DB = RoninDB
 
-local ADDON_VERSION = "4.0.2"
+local ADDON_VERSION = "4.1.0"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -76,7 +76,7 @@ end
 
 local PACKS = {
     retail = {
-        key = "retail", world = "retail", name = "Retail", version = "7.0.1",
+        key = "retail", world = "retail", name = "Retail", version = "7.1.0",
         sub = "Midnight 12.0",
         seqs = Ronin.RetailSequences or {},
         regkey = "RoninRetail",
@@ -91,7 +91,7 @@ local PACKS = {
         },
     },
     forever = {
-        key = "forever", world = "forever", name = "Forever", version = "4.0.2",
+        key = "forever", world = "forever", name = "Forever", version = "4.1.0",
         sub = "WoW: Forever",
         seqs = Ronin.ForeverSequences or {},
         regkey = "RoninForever",
@@ -499,21 +499,37 @@ local function SetMsg(page, text)
     if page and page.msg then page.msg:SetText(text or "") end
 end
 
+-- A sequence "needs an update" when what Ronin ships is different from what you have in GSE.
+-- A sequence you changed yourself in GSE (and Ronin did not change) is "Edited by you": Update leaves it alone.
+local function UpdatableKeys(keys)
+    local out = {}
+    for _, key in ipairs(keys) do
+        local st = StatusOf(key)
+        if st == "old" or st == "other" or st == "present" then out[#out + 1] = key end
+    end
+    return out
+end
+Ronin.UpdatableKeys = UpdatableKeys
+
 local function RefreshStatus(page)
     local pack = page.pack
     local needs = 0
+    page.updKeys = {}
     for _, r in ipairs(page.rows) do
         local n = #r.group.seqs
-        local cur, present, upd, none, old = 0, 0, 0, 0, nil
+        local cur, present, upd, none, old, mine = 0, 0, 0, 0, nil, 0
         for _, key in ipairs(r.group.seqs) do
             local st, v = StatusOf(key)
             if st == "current" then cur = cur + 1
-            elseif st == "present" then present = present + 1
+            elseif st == "present" then present = present + 1; page.updKeys[#page.updKeys + 1] = key
             elseif st == "none" then none = none + 1
-            else upd = upd + 1; old = old or v end
+            elseif st == "modified" then mine = mine + 1
+            else upd = upd + 1; old = old or v; page.updKeys[#page.updKeys + 1] = key end
         end
         if cur == n then
             r.status:SetText(GREEN .. "Up to date|r  |TInterface\\Buttons\\UI-CheckBox-Check:16:16|t")
+        elseif upd == 0 and none == 0 and present == 0 and mine > 0 then
+            r.status:SetText(ACCENT .. "Edited by you|r" .. DIM .. "\nUpdate keeps your changes|r")
         elseif upd > 0 then
             needs = needs + 1
             r.status:SetText(GOLD .. "Update available|r" .. (old and (DIM .. "\nyou have V" .. tostring(old) .. "|r") or (DIM .. "\ndifferent version|r")))
@@ -526,6 +542,11 @@ local function RefreshStatus(page)
         else
             r.status:SetText(GREEN .. "Installed|r  |TInterface\\Buttons\\UI-CheckBox-Check:16:16|t" .. DIM .. "\nimport to refresh|r")
         end
+    end
+    if page.updBtn then
+        local u = #page.updKeys
+        page.updBtn.label:SetText(u > 0 and (GOLD .. "Update (" .. u .. ")|r") or (DIM .. "Up to date|r"))
+        page.updBtn:SetAlpha(u > 0 and 1 or 0.55)
     end
     return needs
 end
@@ -545,8 +566,10 @@ local function ShowPage(name)
             SetMsg(p, RED .. "GSE is not loaded or too old. Install/enable GSE first.|r")
         elseif wrongWorld then
             SetMsg(p, GOLD .. "Note: this pack is for " .. p.pack.name .. " but you are not playing it.|r")
+        elseif #(p.updKeys or {}) > 0 then
+            SetMsg(p, GOLD .. #p.updKeys .. " sequence(s) have an update.|r " .. DIM .. "Press Update: it replaces only those, nothing else.|r")
         elseif needs > 0 then
-            SetMsg(p, GOLD .. needs .. " row(s) can be installed or updated.|r " .. DIM .. "Keep Overwrite ON and press Import Selected.|r")
+            SetMsg(p, GOLD .. needs .. " row(s) can be installed.|r " .. DIM .. "Tick them and press Import Selected.|r")
         else
             SetMsg(p, GREEN .. "Everything here is up to date.|r")
         end
@@ -993,15 +1016,16 @@ local function BuildInstallPage(inner, pack)
 
     local importBtn = MakeButton(bar, "Import Selected", 170, 38, true)
     importBtn:SetPoint("BOTTOMRIGHT", -24, 22)
-    local noneBtn = MakeButton(bar, "Select None", 116, 38, false)
-    noneBtn:SetPoint("RIGHT", importBtn, "LEFT", -18, 0)
-    local allBtn = MakeButton(bar, "Select All", 116, 38, false)
-    allBtn:SetPoint("RIGHT", noneBtn, "LEFT", -18, 0)
-    local thanksBtn = MakeButton(bar, "Thank you", 116, 38, false)
+    local updBtn = MakeButton(bar, "Update", 150, 38, false)
+    updBtn:SetPoint("RIGHT", importBtn, "LEFT", -18, 0)
+    page.updBtn = updBtn
+    local allBtn = MakeButton(bar, "Select None", 116, 38, false)
+    allBtn:SetPoint("RIGHT", updBtn, "LEFT", -18, 0)
+    local thanksBtn = MakeButton(bar, "Thank you", 100, 38, false)
     thanksBtn:SetPoint("BOTTOMLEFT", 24, 22)
     thanksBtn:SetScript("OnClick", function() OpenThanks(pack.world or pack.key) end)
 
-    local owBtn = MakeButton(bar, "", 160, 38, false)
+    local owBtn = MakeButton(bar, "", 130, 38, false)
     owBtn:SetPoint("LEFT", thanksBtn, "RIGHT", 18, 0)
     owBtn:SetScript("OnClick", function()
         overwrite = not overwrite
@@ -1012,8 +1036,41 @@ local function BuildInstallPage(inner, pack)
     owBtn.label:SetText("Overwrite: " .. (overwrite and (GREEN .. "ON|r") or (RED .. "OFF|r")))
     owButtons[#owButtons + 1] = owBtn
 
-    allBtn:SetScript("OnClick", function() for _, r in ipairs(page.rows) do r.cb:SetChecked(true) end end)
-    noneBtn:SetScript("OnClick", function() for _, r in ipairs(page.rows) do r.cb:SetChecked(false) end end)
+    allBtn:SetScript("OnClick", function()
+        local any = false
+        for _, r in ipairs(page.rows) do if r.cb:GetChecked() then any = true end end
+        for _, r in ipairs(page.rows) do r.cb:SetChecked(not any) end
+        allBtn.label:SetText(any and "Select All" or "Select None")
+    end)
+
+    -- Update: replaces ONLY the sequences whose Ronin version changed (always with overwrite).
+    -- Sequences you edited yourself in GSE and new rows you never imported are left alone.
+    updBtn:SetScript("OnClick", function()
+        if not EnsureGSE() then
+            SetMsg(page, RED .. "GSE is not loaded or too old.|r"); return
+        end
+        if InCombatLockdown() then
+            SetMsg(page, RED .. "Leave combat first.|r"); return
+        end
+        RefreshStatus(page)
+        local keys = page.updKeys or {}
+        if #keys == 0 then
+            SetMsg(page, GREEN .. "Everything here is up to date.|r"); return
+        end
+        local ok, err = Ronin.InstallBatch(keys, true, pack.regkey)
+        if ok then
+            RecordImport(keys)
+            SetMsg(page, GREEN .. "Updated " .. #keys .. " sequence(s).|r " .. DIM .. "Your binds stay the same.|r")
+            Print(GREEN .. "Updated " .. #keys .. " sequence(s).|r")
+            RefreshStatus(page)
+            if type(C_Timer) == "table" and C_Timer.After then
+                C_Timer.After(1.5, function() RecordImport(keys); RefreshStatus(page) end)
+            end
+        else
+            SetMsg(page, RED .. "Update failed: " .. tostring(err) .. "|r")
+            Print(RED .. "Update failed: " .. tostring(err))
+        end
+    end)
 
     importBtn:SetScript("OnClick", function()
         if not EnsureGSE() then
@@ -1274,9 +1331,49 @@ SLASH_RONIN3 = "/roninretail"
 SlashCmdList["RONIN"] = function(msg, editbox)
     msg = (msg or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
     if msg == "debug" then Debug(); return end
+    if msg == "update" then Ronin.UpdateAll(); return end
     if msg == "retail" or msg == "forever" then Toggle(msg); return end
     Toggle(nil)
 end
+
+-- Update everything you imported before that has a newer Ronin version (all packs).
+local function AllUpdatable()
+    local keys = {}
+    for key in pairs(Ronin.Sequences) do keys[#keys + 1] = key end
+    table.sort(keys)
+    return UpdatableKeys(keys)
+end
+function Ronin.UpdateAll()
+    if not EnsureGSE() then Print(RED .. "GSE is not loaded or too old.|r"); return end
+    if InCombatLockdown() then Print(RED .. "Leave combat first.|r"); return end
+    local keys = AllUpdatable()
+    if #keys == 0 then Print(GREEN .. "Everything you imported is up to date.|r"); return end
+    local byReg = {}
+    for _, key in ipairs(keys) do
+        local reg = PACK_OF[key] and PACK_OF[key].regkey or "Ronin"
+        byReg[reg] = byReg[reg] or {}
+        table.insert(byReg[reg], key)
+    end
+    local done = 0
+    for reg, list in pairs(byReg) do
+        local ok, err = Ronin.InstallBatch(list, true, reg)
+        if ok then RecordImport(list); done = done + #list else Print(RED .. "Update failed: " .. tostring(err)) end
+    end
+    Print(GREEN .. "Updated " .. done .. " sequence(s).|r Your binds stay the same.")
+end
+
+local loginCheck = CreateFrame("Frame")
+loginCheck:RegisterEvent("PLAYER_LOGIN")
+loginCheck:SetScript("OnEvent", function()
+    if type(C_Timer) ~= "table" or not C_Timer.After then return end
+    C_Timer.After(6, function()
+        if not EnsureGSE() then return end
+        local ok, keys = pcall(AllUpdatable)
+        if ok and #keys > 0 then
+            Print(GOLD .. #keys .. " of your Ronin sequence(s) have an update.|r Type |cffffffff/ronin update|r or open |cffffffff/ronin|r and press Update.")
+        end
+    end)
+end)
 
 local seqCount = 0
 for _ in pairs(Ronin.Sequences) do seqCount = seqCount + 1 end

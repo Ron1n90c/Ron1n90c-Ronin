@@ -1,4 +1,4 @@
--- Ronin Retail V7.0.1 - Tank Priority Edition (tiered chains)
+-- Ronin Retail V7.1.0 - Tank Priority Edition (tiered chains)
 --
 -- Each version is ONE Loop block with StepFunction = "Priority" and THREE
 -- actions (tiers A, B, C). GSE clicks them A, AB, ABC (A x3, B x2, C x1 per
@@ -134,8 +134,8 @@ local DRUID = { stop = false, pre = { "/cast [noform:1]Bear Form" }, util = {
     "/cast [mod:shift]Frenzied Regeneration;[mod:alt]Mighty Bash" } }
 local WARRIOR = { stop = false, util = {
     "/cast [mod:shift]Impending Victory;[mod:alt]Shockwave" } }
--- DH: every cast is gated so Fel Devastation (a channel) is never interrupted.
-local DEMONHUNTER = { gate = "nochanneling:Fel Devastation", stop = false, util = {
+-- DH: one /stopmacro line keeps Fel Devastation (a channel) from being interrupted (after the Shift / Alt line).
+local DEMONHUNTER = { stop = "/stopmacro [channeling:Fel Devastation]", util = {
     "/cast [mod:shift]Soul Cleave;[mod:alt]Chaos Nova" } }
 local DEATHKNIGHT = { stop = false, util = {
     "/cast [mod:shift]Death Strike;[mod:alt]Asphyxiate" } }
@@ -149,62 +149,43 @@ local DEATHKNIGHT = { stop = false, util = {
 -- PALADIN (6 steps): Divine Toll / Avenger's Shield / Shield of the Righteous
 -- first, Judgment + Hammer of Wrath for Holy Power, cooldowns last.
 local PAL_LIGHTSMITH = {
-    { S("Divine Toll"), S("Avenger's Shield"), S("Shield of the Righteous") },
-    { S("Judgment"), S("Shield of the Righteous"), S("Blessed Hammer") },
-    { S("Avenger's Shield"), S("Hammer of Wrath"), S("Blessed Hammer") },
-    { S("Consecration", "c"), S("Holy Bulwark", "p"), S("Shield of the Righteous") },
-    { S("Sacred Weapon", "p"), S("Judgment"), S("Blessed Hammer") },
-    { S("Avenging Wrath", "c"), S("Sentinel", "c"), S("Hammer of the Righteous") },
+    { S("Avenger's Shield"), S("Hammer of Wrath"), S("Judgment"), S("Hammer of the Righteous"), S("Blessed Hammer"), S("Consecration", "c") },
+    { S("Shield of the Righteous"), S("Hammer of Wrath"), S("Judgment"), S("Hammer of the Righteous"), S("Blessed Hammer"), S("Consecration", "c") },
+    { S("Consecration", "c"), S("Hammer of Wrath"), S("Judgment"), S("Hammer of the Righteous"), S("Blessed Hammer") },
+    { S("Sacred Weapon", "p"), S("Avenger's Shield"), S("Hammer of the Righteous"), S("Blessed Hammer"), S("Consecration", "c") },
+    { S("Holy Bulwark", "p"), S("Shield of the Righteous"), S("Hammer of the Righteous"), S("Blessed Hammer"), S("Consecration", "c") },
+    { S("Avenging Wrath", "c"), S("Divine Toll", "c"), S("Hammer of the Righteous"), S("Blessed Hammer"), S("Consecration", "c") },
 }
 local PAL_TEMPLAR = {
-    { S("Divine Toll"), S("Hammer of Light"), S("Avenger's Shield") },
-    { S("Judgment"), S("Shield of the Righteous"), S("Blessed Hammer") },
-    { S("Avenger's Shield"), S("Hammer of Wrath"), S("Blessed Hammer") },
-    { S("Consecration", "c"), S("Shield of the Righteous"), S("Blessed Hammer") },
-    { S("Hammer of Light"), S("Judgment"), S("Blessed Hammer") },
-    { S("Avenging Wrath", "c"), S("Sentinel", "c"), S("Hammer of the Righteous") },
+    { S("Hammer of Light"), S("Hammer of Wrath"), S("Judgment"), S("Blessed Hammer"), S("Hammer of the Righteous"), S("Consecration", "c") },
+    { S("Shield of the Righteous"), S("Avenger's Shield"), S("Judgment"), S("Blessed Hammer"), S("Hammer of the Righteous"), S("Consecration", "c") },
+    { S("Hammer of Light"), S("Hammer of Wrath"), S("Blessed Hammer"), S("Hammer of the Righteous"), S("Consecration", "c") },
+    { S("Consecration", "c"), S("Avenger's Shield"), S("Blessed Hammer"), S("Hammer of the Righteous") },
+    { S("Shield of the Righteous"), S("Judgment"), S("Blessed Hammer"), S("Hammer of the Righteous"), S("Consecration", "c") },
+    { S("Avenging Wrath", "c"), S("Divine Toll", "c"), S("Blessed Hammer"), S("Hammer of the Righteous"), S("Consecration", "c") },
 }
 
--- BREWMASTER (7 steps): Keg Smash / Blackout Kick / Breath of Fire core,
--- Tiger Palm as the filler everywhere, brews in the middle.
--- Mythic / Raid / Delve: NO Purifying Brew / Celestial Brew (you press them).
--- "Beginner" version (4th, pick it by hand): same plus ONE defensive (Celestial Brew) in step 4.
+-- BREWMASTER (6 steps, Method Midnight): Blackout Kick first, Chi Burst, Keg Smash, Breath of Fire,
+-- Niuzao + Exploding Keg in the cooldown step, Tiger Palm as the filler everywhere.
+-- Mythic / Raid: NO Purifying Brew / Celestial Brew (you press them).
 local BREW_HARMONY = {
-    { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Rushing Jade Wind"), S("Blackout Kick"), S("Tiger Palm") },
+    { S("Blackout Kick"), S("Keg Smash"), S("Tiger Palm") },
     { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
-    { S("Invoke Niuzao, the Black Ox", "c"), S("Blackout Kick"), S("Tiger Palm") },
+    { S("Chi Burst"), S("Blackout Kick"), S("Tiger Palm") },
+    { S("Breath of Fire"), S("Keg Smash"), S("Tiger Palm") },
     { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Exploding Keg", "cp"), S("Keg Smash"), S("Tiger Palm") },
-}
-local BREW_HARMONY_BEGINNER = {
-    { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Rushing Jade Wind"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Celestial Brew", "c"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
-    { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Exploding Keg", "cp"), S("Keg Smash"), S("Tiger Palm") },
+    { S("Invoke Niuzao, the Black Ox", "c"), S("Exploding Keg", "cp"), S("Tiger Palm") },
 }
 local BREW_SHADOPAN = {
-    { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Rushing Jade Wind"), S("Blackout Kick"), S("Tiger Palm") },
+    { S("Blackout Kick"), S("Keg Smash"), S("Tiger Palm") },
+    { S("Breath of Fire"), S("Keg Smash"), S("Tiger Palm") },
+    { S("Chi Burst"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
-    { S("Invoke Niuzao, the Black Ox", "c"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Exploding Keg", "cp"), S("Blackout Kick"), S("Tiger Palm") },
+    { S("Blackout Kick"), S("Breath of Fire"), S("Tiger Palm") },
+    { S("Invoke Niuzao, the Black Ox", "c"), S("Exploding Keg", "cp"), S("Tiger Palm") },
 }
-local BREW_SHADOPAN_BEGINNER = {
-    { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Rushing Jade Wind"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Celestial Brew", "c"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
-    { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Exploding Keg", "cp"), S("Blackout Kick"), S("Tiger Palm") },
-}
+local BREW_HARMONY_BEGINNER = BREW_HARMONY
+local BREW_SHADOPAN_BEGINNER = BREW_SHADOPAN
 
 -- GUARDIAN DRUID (6 steps): Mangle / Thrash / Ironfur, Raze + Maul as the
 -- rage spenders, Swipe as the filler.
@@ -213,19 +194,19 @@ local BREW_SHADOPAN_BEGINNER = {
 -- so it costs no GCD, and it can no longer be starved by Mangle / Thrash.
 -- reset=12/target recasts it about every 12 s and on every new target.
 local DRU_ELUNE = {
-    { S("Moonfire", "s"), S("Mangle"), S("Thrash") },
-    { S("Moonfire", "s"), S("Thrash"), S("Mangle") },
-    { S("Ironfur"), S("Mangle"), S("Thrash") },
-    { S("Raze"), S("Thrash"), S("Swipe") },
-    { S("Maul"), S("Mangle"), S("Swipe") },
-    { S("Fury of Elune", "c"), S("Lunar Beam", "c"), S("Swipe") },
-    { S("Moonfire", "s"), S("Swipe") },
+    { S("Moonfire", "s"), S("Mangle"), S("Thrash"), S("Moonfire") },
+    { S("Moonfire", "s"), S("Thrash"), S("Mangle"), S("Moonfire") },
+    { S("Ironfur"), S("Mangle"), S("Thrash"), S("Moonfire") },
+    { S("Raze"), S("Thrash"), S("Moonfire") },
+    { S("Maul"), S("Mangle"), S("Moonfire") },
+    { S("Fury of Elune", "c"), S("Lunar Beam", "c"), S("Moonfire") },
+    { S("Moonfire", "s"), S("Thrash"), S("Moonfire") },
 }
 local DRU_CLAW = {
-    { S("Moonfire", "s"), S("Mangle"), S("Thrash") },
-    { S("Moonfire", "s"), S("Thrash"), S("Mangle") },
-    { S("Ironfur"), S("Mangle"), S("Thrash") },
-    { S("Raze"), S("Thrash"), S("Swipe") },
+    { S("Moonfire", "s"), S("Mangle"), S("Thrash"), S("Swipe") },
+    { S("Moonfire", "s"), S("Thrash"), S("Mangle"), S("Swipe") },
+    { S("Ironfur"), S("Mangle"), S("Thrash"), S("Swipe") },
+    { S("Ravage"), S("Thrash"), S("Swipe") },
     { S("Maul"), S("Mangle"), S("Swipe") },
     { S("Ravage"), S("Raze"), S("Swipe") },
     { S("Moonfire", "s"), S("Swipe") },
@@ -235,20 +216,20 @@ local DRU_CLAW = {
 -- Ignore Pain as the rage sinks, cooldowns last, Revenge is the filler.
 -- Thunder Blast / Thunder Clap is in steps 1-4 so it never sits ready.
 local WAR_COLOSSUS = {
-    { S("Shield Slam"), S("Thunder Clap"), S("Revenge") },
-    { S("Thunder Clap"), S("Shield Slam"), S("Revenge") },
-    { S("Ignore Pain"), S("Thunder Clap"), S("Revenge") },
-    { S("Demolish", "c"), S("Shield Block"), S("Revenge") },
-    { S("Execute"), S("Shield Charge", "c"), S("Revenge") },
-    { S("Avatar", "c"), S("Demoralizing Shout", "c"), S("Ravager", "cp") },
+    { S("Shield Slam"), S("Revenge"), S("Thunder Clap"), S("Devastate"), S("Shield Charge") },
+    { S("Shield Block"), S("Shield Slam"), S("Thunder Clap"), S("Revenge"), S("Shield Charge") },
+    { S("Demolish"), S("Shield Slam"), S("Revenge"), S("Thunder Clap"), S("Shield Charge") },
+    { S("Shield Charge"), S("Execute"), S("Revenge"), S("Thunder Clap") },
+    { S("Ignore Pain"), S("Shield Slam"), S("Thunder Clap"), S("Devastate"), S("Revenge"), S("Shield Charge") },
+    { S("Avatar", "c"), S("Demoralizing Shout", "c"), S("Ravager", "cp"), S("Thunder Clap"), S("Revenge") },
 }
 local WAR_THANE = {
-    { S("Thunder Blast"), S("Shield Slam"), S("Revenge") },
-    { S("Shield Slam"), S("Thunder Blast"), S("Revenge") },
-    { S("Ignore Pain"), S("Thunder Blast"), S("Revenge") },
-    { S("Shield Block"), S("Thunder Blast"), S("Revenge") },
-    { S("Execute"), S("Shield Charge", "c"), S("Revenge") },
-    { S("Avatar", "c"), S("Demoralizing Shout", "c"), S("Ravager", "cp") },
+    { S("Shield Slam"), S("Thunder Blast"), S("Thunder Clap"), S("Revenge"), S("Shield Charge") },
+    { S("Shield Block"), S("Thunder Blast"), S("Shield Slam"), S("Thunder Clap"), S("Revenge"), S("Shield Charge") },
+    { S("Thunder Blast"), S("Shield Slam"), S("Revenge"), S("Thunder Clap"), S("Shield Charge") },
+    { S("Shield Charge"), S("Execute"), S("Thunder Clap"), S("Revenge") },
+    { S("Ignore Pain"), S("Shield Slam"), S("Thunder Clap"), S("Devastate"), S("Revenge"), S("Shield Charge") },
+    { S("Avatar", "c"), S("Demoralizing Shout", "c"), S("Ravager", "cp"), S("Thunder Clap"), S("Revenge") },
 }
 
 -- SAN'LAYN (RoninDK_Blood_Sanlayn) (adapted from the imported BDK_SL_AIO sequence): its two
@@ -258,7 +239,7 @@ local WAR_THANE = {
 -- "Heart  Strike" has two spaces on purpose (so GSE cannot rewrite it as
 -- Vampiric Strike). All castsequences reset after 4 s so they can never get stuck.
 local DK_SANLAYN_AIO = {
-    { S("Death Strike"), R("/castsequence reset=4 Marrowrend, Heart  Strike, Heart  Strike") },
+    { S("Death Strike"), R("/castsequence reset=4 Marrowrend, Heart  Strike, Heart  Strike"), S("Blood Boil") },
     { R("/castsequence reset=4 Blood Boil, Death Strike"), S("Heart Strike") },
     { S("Death and Decay", "p"), S("Heart Strike"), S("Blood Boil") },
     { S("Raise Dead"), S("Consumption"), S("Heart Strike") },
@@ -270,7 +251,7 @@ local DK_SANLAYN_AIO = {
 -- Dead's slot priority; plain "Heart Strike" because Deathbringer has no
 -- Vampiric Strike override).
 local DK_DEATHBRINGER_CS = {
-    { S("Death Strike"), R("/castsequence reset=4 Marrowrend, Heart Strike, Heart Strike") },
+    { S("Death Strike"), R("/castsequence reset=4 Marrowrend, Heart Strike, Heart Strike"), S("Blood Boil") },
     { R("/castsequence reset=4 Blood Boil, Death Strike"), S("Heart Strike") },
     { S("Death and Decay", "p"), S("Heart Strike"), S("Blood Boil") },
     { S("Reaper's Mark"), S("Consumption"), S("Heart Strike") },
@@ -278,28 +259,25 @@ local DK_DEATHBRINGER_CS = {
     { S("Raise Dead"), S("Consumption"), S("Marrowrend") },
 }
 
--- VENGEANCE in the castsequence style (like RoninDK_Blood_*): fury is built and
--- spent in a fixed order - Fracture, Fracture, Spirit Bomb / Fracture, Soul
--- Cleave - so Fel Devastation, Spirit Bomb and Soul Cleave all get fury.
--- Every line keeps the [nochanneling:Fel Devastation] guard. castsequences
--- reset after 4 s so they can never get stuck.
+-- VENGEANCE (Method Midnight priority as plain ladders, no castsequences: they stalled on
+-- Spirit Bomb / Fracture charges). Fracture builds, Soul Cleave spends, Spirit Bomb in two steps.
+-- Fiery Brand + Fel Devastation + Soul Carver together in the cooldown step (Brand first).
+-- Fel Devastation is protected by the /stopmacro [channeling:Fel Devastation] line.
 local DH_CS_ALDRACHI = {
-    { S("Fel Devastation", "c"), R("/castsequence [nochanneling:Fel Devastation] reset=4 Fracture, Fracture, Spirit Bomb") },
-    { S("Immolation Aura"), R("/castsequence [nochanneling:Fel Devastation] reset=4 Fracture, Soul Cleave") },
-    { S("Sigil of Spite", "p"), S("Spirit Bomb"), S("Soul Carver") },
-    { S("Sigil of Flame", "p"), S("Immolation Aura"), S("Felblade") },
-    { R("/castsequence [nochanneling:Fel Devastation] reset=4 Fracture, Fracture, Soul Cleave"), S("Demon Spikes", "c") },
-    { S("Immolation Aura"), S("Reaver's Glaive"), S("Fracture") },
-    { S("Sigil of Spite", "p"), S("Felblade"), S("Throw Glaive") },
+    { S("Reaver's Glaive"), S("Fracture"), S("Soul Cleave"), S("Throw Glaive") },
+    { S("Fracture"), S("Spirit Bomb"), S("Soul Cleave"), S("Felblade") },
+    { S("Immolation Aura"), S("Sigil of Flame", "p"), S("Fracture"), S("Throw Glaive") },
+    { S("Sigil of Spite", "p"), S("Soul Cleave"), S("Fracture"), S("Felblade") },
+    { S("Demon Spikes", "c"), S("Fracture"), S("Spirit Bomb"), S("Throw Glaive") },
+    { S("Fiery Brand", "c"), S("Soul Carver", "c"), S("Fel Devastation", "c"), S("Felblade") },
 }
 local DH_CS_ANNIHILATOR = {
-    { S("Fel Devastation", "c"), R("/castsequence [nochanneling:Fel Devastation] reset=4 Fracture, Fracture, Spirit Bomb") },
-    { S("Immolation Aura"), R("/castsequence [nochanneling:Fel Devastation] reset=4 Fracture, Soul Cleave") },
-    { S("Sigil of Spite", "p"), S("Spirit Bomb"), S("Soul Carver") },
-    { S("Sigil of Flame", "p"), S("Immolation Aura"), S("Felblade") },
-    { R("/castsequence [nochanneling:Fel Devastation] reset=4 Fracture, Fracture, Soul Cleave"), S("Demon Spikes", "c") },
-    { S("Immolation Aura"), S("Throw Glaive"), S("Fracture") },
-    { S("Sigil of Spite", "p"), S("Felblade"), S("Throw Glaive") },
+    { S("Fracture"), S("Soul Cleave"), S("Throw Glaive") },
+    { S("Immolation Aura"), S("Fracture"), S("Spirit Bomb"), S("Felblade") },
+    { S("Soul Carver"), S("Sigil of Spite", "p"), S("Soul Cleave"), S("Fracture") },
+    { S("Sigil of Flame", "p"), S("Fracture"), S("Soul Cleave"), S("Throw Glaive") },
+    { S("Demon Spikes", "c"), S("Fracture"), S("Spirit Bomb"), S("Felblade") },
+    { S("Metamorphosis", "c"), S("Fiery Brand", "c"), S("Fel Devastation", "c"), S("Felblade") },
 }
 
 -- "Beginner" version (4th, pick it by hand) for every class: the same steps plus ONE
@@ -310,24 +288,26 @@ local function Beginner(list, def)
     table.insert(o, 3, def)
     return o
 end
-local DEF_PAL  = { S("Ardent Defender", "c") }
-local DEF_DRU  = { S("Barkskin", "c") }
-local DEF_WAR  = { S("Shield Wall", "c") }
-local DEF_DH   = { S("Fiery Brand", "c") }
-local DEF_BREW = { S("Celestial Brew", "c") }
-local DEF_DK   = { S("Vampiric Blood", "c") }
+local DEF_PAL  = { S("Ardent Defender", "c"), S("Hammer of Wrath"), S("Judgment"), S("Hammer of the Righteous"), S("Blessed Hammer") }
+local DEF_DRU  = { S("Barkskin", "c"), S("Mangle"), S("Thrash"), S("Swipe") }
+local DEF_WAR  = { S("Shield Wall", "c"), S("Shield Slam"), S("Thunder Clap"), S("Revenge") }
+local DEF_DH   = { S("Fiery Brand", "c"), S("Fracture"), S("Shear"), S("Throw Glaive") }      -- Leveling only
+local DEF_DH_ALD = { S("Metamorphosis", "c"), S("Fracture"), S("Soul Cleave") }
+local DEF_DH_ANN = { S("Demon Spikes", "c"), S("Fracture"), S("Soul Cleave") }
+local DEF_BREW = { S("Celestial Brew", "c"), S("Blackout Kick"), S("Breath of Fire"), S("Tiger Palm") }
+local DEF_DK   = { S("Vampiric Blood", "c"), S("Heart Strike"), S("Blood Boil") }
 
 Ronin.RetailSequences = {
     RoninPaladin_Lightsmith     = Seq("RoninPaladin_Lightsmith",     66,  PALADIN,     PAL_LIGHTSMITH,  PAL_LIGHTSMITH,  nil, Beginner(PAL_LIGHTSMITH, DEF_PAL), DEF_PAL),
     RoninPaladin_Templar        = Seq("RoninPaladin_Templar",        66,  PALADIN,     PAL_TEMPLAR,     PAL_TEMPLAR,     nil, Beginner(PAL_TEMPLAR, DEF_PAL), DEF_PAL),
-    RoninBrewmaster_Harmony     = Seq("RoninBrewmaster_Harmony",     268, BREWMASTER,  BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY_BEGINNER, DEF_BREW),
-    RoninBrewmaster_ShadoPan    = Seq("RoninBrewmaster_ShadoPan",    268, BREWMASTER,  BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN_BEGINNER, DEF_BREW),
+    RoninBrewmaster_Harmony     = Seq("RoninBrewmaster_Harmony",     268, BREWMASTER,  BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY,    Beginner(BREW_HARMONY, DEF_BREW), DEF_BREW),
+    RoninBrewmaster_ShadoPan    = Seq("RoninBrewmaster_ShadoPan",    268, BREWMASTER,  BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN,   Beginner(BREW_SHADOPAN, DEF_BREW), DEF_BREW),
     RoninDruid_Elune            = Seq("RoninDruid_Elune",            104, DRUID,       DRU_ELUNE,       DRU_ELUNE,       nil, Beginner(DRU_ELUNE, DEF_DRU), DEF_DRU),
     RoninDruid_Claw             = Seq("RoninDruid_Claw",             104, DRUID,       DRU_CLAW,        DRU_CLAW,        nil, Beginner(DRU_CLAW, DEF_DRU), DEF_DRU),
     RoninWarrior_Thane          = Seq("RoninWarrior_Thane",          73,  WARRIOR,     WAR_THANE,       WAR_THANE,       nil, Beginner(WAR_THANE, DEF_WAR), DEF_WAR),
     RoninWarrior_Colossus       = Seq("RoninWarrior_Colossus",       73,  WARRIOR,     WAR_COLOSSUS,    WAR_COLOSSUS,    nil, Beginner(WAR_COLOSSUS, DEF_WAR), DEF_WAR),
-    RoninDH_Vengeance_Aldrachi    = Seq("RoninDH_Vengeance_Aldrachi",    581, DEMONHUNTER, DH_CS_ALDRACHI,    DH_CS_ALDRACHI,    nil, Beginner(DH_CS_ALDRACHI, DEF_DH), DEF_DH),
-    RoninDH_Vengeance_Annihil     = Seq("RoninDH_Vengeance_Annihil", 581, DEMONHUNTER, DH_CS_ANNIHILATOR, DH_CS_ANNIHILATOR, nil, Beginner(DH_CS_ANNIHILATOR, DEF_DH), DEF_DH),
+    RoninDH_Vengeance_Aldrachi    = Seq("RoninDH_Vengeance_Aldrachi",    581, DEMONHUNTER, DH_CS_ALDRACHI,    DH_CS_ALDRACHI,    nil, Beginner(DH_CS_ALDRACHI, DEF_DH_ALD), DEF_DH_ALD),
+    RoninDH_Vengeance_Annihil     = Seq("RoninDH_Vengeance_Annihil", 581, DEMONHUNTER, DH_CS_ANNIHILATOR, DH_CS_ANNIHILATOR, nil, Beginner(DH_CS_ANNIHILATOR, DEF_DH_ANN), DEF_DH_ANN),
     RoninDK_Blood_Deathbringer = Seq("RoninDK_Blood_Deathbringer", 250, DEATHKNIGHT, DK_DEATHBRINGER_CS, DK_DEATHBRINGER_CS, nil, Beginner(DK_DEATHBRINGER_CS, DEF_DK), DEF_DK),
     RoninDK_Blood_Sanlayn      = Seq("RoninDK_Blood_Sanlayn",       250, DEATHKNIGHT, DK_SANLAYN_AIO,  DK_SANLAYN_AIO,  nil, Beginner(DK_SANLAYN_AIO, DEF_DK), DEF_DK),
 }
@@ -339,9 +319,9 @@ Ronin.RetailSequences = {
 -- and quest with one button. Spells you have not learned yet are skipped.
 -- ---------------------------------------------------------------------------
 local LV_PAL = {
-    { S("Avenger's Shield"), S("Judgment"), S("Shield of the Righteous") },
-    { S("Hammer of Wrath"), S("Blessed Hammer"), S("Hammer of the Righteous") },
-    { S("Consecration", "c"), S("Crusader Strike"), S("Judgment") },
+    { S("Avenger's Shield"), S("Judgment"), S("Shield of the Righteous"), S("Hammer of the Righteous"), S("Blessed Hammer"), S("Consecration", "c") },
+    { S("Hammer of Wrath"), S("Judgment"), S("Hammer of the Righteous"), S("Blessed Hammer"), S("Crusader Strike"), S("Consecration", "c") },
+    { S("Consecration", "c"), S("Hammer of Wrath"), S("Judgment"), S("Hammer of the Righteous"), S("Blessed Hammer") },
 }
 local LV_DRU = {
     { S("Mangle"), S("Thrash"), S("Moonfire") },
@@ -349,20 +329,20 @@ local LV_DRU = {
     { S("Maul"), S("Raze"), S("Swipe") },
 }
 local LV_WAR = {
-    { S("Shield Slam"), S("Revenge"), S("Thunder Clap") },
-    { S("Shield Block"), S("Ignore Pain"), S("Revenge") },
-    { S("Execute"), S("Shield Charge"), S("Thunder Clap") },
+    { S("Shield Slam"), S("Thunder Clap"), S("Revenge"), S("Devastate"), S("Shield Charge") },
+    { S("Shield Block"), S("Thunder Clap"), S("Revenge"), S("Devastate"), S("Shield Charge") },
+    { S("Execute"), S("Shield Charge"), S("Thunder Clap"), S("Devastate"), S("Revenge") },
 }
 local LV_BREW = {
     { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Rushing Jade Wind"), S("Spinning Crane Kick"), S("Tiger Palm") },
+    { S("Chi Burst"), S("Spinning Crane Kick"), S("Tiger Palm") },
 }
 local LV_DH = {
-    { S("Fracture"), S("Soul Cleave"), S("Immolation Aura") },
-    { S("Sigil of Flame", "p"), S("Immolation Aura"), S("Fracture") },
-    { S("Spirit Bomb"), S("Soul Cleave"), S("Fracture") },
-    { S("Fel Devastation", "c"), S("Felblade"), S("Throw Glaive") },
+    { S("Fracture"), S("Shear"), S("Soul Cleave"), S("Throw Glaive") },
+    { S("Immolation Aura"), S("Sigil of Flame", "p"), S("Fracture"), S("Shear") },
+    { S("Soul Cleave"), S("Spirit Bomb"), S("Fracture"), S("Shear") },
+    { S("Fel Devastation", "c"), S("Felblade"), S("Fracture"), S("Shear") },
 }
 local LV_DK = {
     { S("Marrowrend"), S("Heart Strike"), S("Blood Boil") },
@@ -377,7 +357,7 @@ local LEVELING = {
     RoninDH_Vengeance_Aldrachi = { DEMONHUNTER, LV_DH, DEF_DH }, RoninDH_Vengeance_Annihil = { DEMONHUNTER, LV_DH, DEF_DH },
     RoninDK_Blood_Deathbringer = { DEATHKNIGHT, LV_DK, DEF_DK }, RoninDK_Blood_Sanlayn = { DEATHKNIGHT, LV_DK, DEF_DK },
 }
-local BREW_DEF = { S("Celestial Brew", "c") }
+local BREW_DEF = DEF_BREW
 for name, x in pairs(LEVELING) do
     local list = x[3] and Beginner(x[2], x[3]) or Beginner(x[2], BREW_DEF)
     Ronin.RetailSequences[name].Versions[5] = { Label = "Leveling", Actions = BuildActions("group", x[1], list), InbuiltVariables = { Combat = true } }

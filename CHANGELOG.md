@@ -1,3 +1,77 @@
+RONIN - GSE SUITE 4.1.0 - 2026-11-25   (the big one: every sequence reviewed, simulated and tested in game)
+ This is the best pack I could make. Every sequence, every version, Retail and WoW: Forever, was checked against the current
+ guides, simulated and tested in game. Now I will take a well deserved break and play more Azeroth myself.
+ Thank you all for playing Ronin. See you on Discord!  - Ron1n
+
+ * New: Update button on every installer page. Ronin compares each sequence you have in GSE with the one it ships:
+   only the sequences that really changed show "Update available", and Update replaces just those (overwrite is automatic,
+   your binds stay). A sequence you edited yourself in GSE shows "Edited by you" and Update leaves it alone
+   (Import Selected with Overwrite ON still restores it). Select All / None is now one button.
+ * New: after login Ronin tells you in chat when some of your imported sequences have an update. /ronin update updates all of them at once.
+ * Vengeance: no more castsequences (they got stuck on Spirit Bomb / Fracture charges and pressed nothing).
+   Plain ladders now: Fracture builds, Soul Cleave spends, Spirit Bomb in two steps, Fiery Brand + Soul Carver + Fel Devastation
+   together in the cooldown step. Aldrachi: Reaver's Glaive first. Annihilator: Metamorphosis in the cooldown step.
+   Fel Devastation is protected by one /stopmacro line. Leveling: Shear before you learn Fracture.
+ * Protection Warrior: Thane now has Thunder Clap too (it only had Thunder Blast), Shield Block higher, Ignore Pain lower so
+   Revenge and Shield Block get rage, Revenge / Shield Charge / Devastate as backups, Colossus: Revenge before Thunder Clap.
+ * Brewmaster: Blackout Kick first, Chi Burst is back (still in the Midnight rotation), Niuzao + Exploding Keg together at the pull.
+ * Protection Paladin: Hammer of the Righteous and Blessed Hammer in every step (whichever you talented), Hammer of Wrath higher,
+   Consecration as the last filler, Divine Toll with Avenging Wrath at the pull.
+ * Guardian: Elune's Chosen uses Moonfire as filler (Method), Ravage higher for Druid of the Claw, filler on every step.
+ * Blood: Blood Boil as backup after the Marrowrend castsequence.
+ * Delve / Beginner / Leveling: the defensive step now also has normal spells, so it never presses nothing when the defensive is on cooldown.
+ * WoW: Forever Paladin (Tank + Ret): Judgement no longer uses up the seal in Forever, so the old seal castsequence recast the seal
+   about every 3 seconds and emptied your mana. Now the seal is cast once (again after 28 s or in a new fight) and Judgement
+   (off the global cooldown) is in every step. Tank: Holy Shield more often. Consecration stays on Alt (Tank and Ret).
+ * WoW: Forever Protection Warrior: the shout castsequence waited on Thunder Clap and stopped the step. Now Thunder Clap is a
+   normal spell, Demoralizing Shout once per fight (again after 28 s), Battle Shout once per fight, Shield Slam gets the rage
+   first and Sunder Armor is the filler in the last steps only.
+ * WoW: Forever Arms / Fury: Battle Shout once per fight.
+ * WoW: Forever Cat: Shred only works from behind, so it is no longer inside the castsequence (it got stuck there in front of a mob).
+   New order: Rake, Claw x3, Rip, Claw x3, Ferocious Bite.
+ * WoW: Forever Frost Mage: Ice Lance out of the loop (weak unless the target is frozen; press it after Frost Nova). Ice Barrier on cooldown in combat.
+ * Retail DPS (Method Midnight check):
+   - Balance: Keeper of the Grove uses Solar Eclipse, Elune's Chosen uses Lunar Eclipse and Starfire as filler.
+   - Arcane Sunfury: Prismatic Bolt added (both hero trees use it).
+   - Devourer: Eradicate added next to Reap (talent choice).
+   - Unholy: Necrotic Coil before Death Coil.
+   - Fury: no Slam and no Odyn's Fury (not in the Midnight rotation); Whirlwind / Thunder Clap / Bladestorm instead.
+   - Destruction Diabolist AoE: Chaos Bolt before Rain of Fire (Rain of Fire only pays off on big packs).
+ * WoW: Forever DPS (Forever guide check):
+   - Enhancement: no Lightning Bolt in melee from 10 (below 5 Maelstrom Weapon it resets your swing; press it at 5 stacks), Rage of the Farseer, Fire Nova.
+   - Elemental: Earth Shock out of the loop (it shares the cooldown with Flame Shock; it stays on Ctrl), Lightning Mastery, Chain Lightning lower.
+   - Affliction: Wrack (the Forever filler) before Shadow Bolt, the macro waits while you channel it.
+   - Demonology: Searing Pain only once per target (Demonic Brand), Shadow Bolt is the filler.
+   - Arcane: Fire Blast x3 then Pyroblast (Heating Up), Arcane Wrath, Arcane Power; Arcane Missiles no longer spammed.
+   - Fire: Fire Blast x3 then Pyroblast, Scorch once per target (Improved Scorch), Combustion.
+   - Hunter 40-60: Summon Hawk, Aimed Shot, Arcane Shot, Multi-Shot (spells that do not exist in Forever removed).
+   - Priest: Devouring Plague and Vampiric Embrace added, Shadow Word: Death out of the loop (it hurts you when it does not kill).
+   - Balance: always Wrath before the two Starfires (Eclipse charges).
+   - Arms: Overpower before Mortal Strike, Slam after.
+ * Retail Heal (Method Midnight check): Holy Paladin, Mistweaver and Resto Shaman already follow the guides.
+   Resto Druid: Flourish out of the loop (it is for Tranquility, press it yourself), Nature's Swiftness goes with Regrowth.
+ * Retail healer DAMAGE macros (for solo, Delves, leveling):
+   - Resto Druid: Rip and Ferocious Bite only after three Shreds (they came at 1-2 combo points before), Sunfire woven in,
+     Heart of the Wild with Convoke the Spirits.
+   - Holy Paladin: no Light of Dawn (a heal that wasted Holy Power) and no Hammer of Wrath (Judgment turns into it during
+     Avenging Wrath); Crusader Strike comes back during Avenging Wrath with Avenging Crusader.
+   - Mistweaver: Thunder Focus Tea whenever it is ready. Resto Shaman: already as in the guide.
+ * Retail Leveling versions (DPS and Heal) checked one by one:
+   - The "no empty step" filler rule now covers the Leveling versions too.
+   - Balance and Resto Druid: Moonfire / Sunfire only once per target (they were recast on every press); Balance gets the Eclipse buttons.
+   - Feral: Rip and Ferocious Bite only after combo points (they came at 1 combo point); AoE: Swipe x3 then Primal Wrath.
+   - Unholy: Putrefy, Festering Scythe and Soul Reaper (the Midnight core) in Leveling too.
+   - Fury: no Heroic Strike. Elemental: Elemental Blast before Earth Shock. Windwalker: Strike of the Windlord, Touch of Death.
+   - Affliction: Wither once per target. Destruction: Conflagrate and Soul Fire in single target. Demonology: Tyrant in its own step.
+   - Holy Paladin: Eternal Flame before Word of Glory, Flash of Light / Holy Light instead of Consecration. Resto Druid: Lifebloom added.
+   - Protection Paladin: Hammer of Wrath in more steps (Leveling, Delve / Beginner defensive step and the Consecration step).
+ * WoW: Forever Heal (Forever guide check):
+   - Paladin: Flash of Light is the main heal (best healing per mana), Holy Light now and then, Holy Shock out of the loop (poor on its own).
+   - Druid: Regrowth is the main heal, Healing Touch only as a backup before Regrowth (it is weak in Forever), Rejuvenation in one step only.
+   - Shaman: Riptide first when ready, Healing Wave main heal, Chain Heal for groups; Lesser Healing Wave stays on Shift.
+   - Priest: Heal / Greater Heal main heals, Flash Heal only on Shift (it costs a lot of mana).
+ * Retail pack 7.1.0, Forever pack 4.1.0. Same keys, same watermark.
+
 RONIN - GSE SUITE 4.0.2 - 2026-11-25   (quality update after a full review of every sequence)
  * Destruction Warlock: fixed the step order. Mythic+ / Raid moved Incinerate up instead of the cooldowns, so Chaos Bolt
    and Conflagrate waited too often. Now Chaos Bolt comes first and Summon Infernal / Malevolence move up at the pull.
