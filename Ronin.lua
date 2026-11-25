@@ -10,7 +10,7 @@ local addonName, Ronin = ...
 RoninDB = RoninDB or {}
 local DB = RoninDB
 
-local ADDON_VERSION = "4.1.0"
+local ADDON_VERSION = "4.1.1"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -29,7 +29,7 @@ local C = {
 }
 
 local LINKS = {
-    { "Discord", "https://discord.gg/kUCRHV2mE" },
+    { "CurseForge", "https://www.curseforge.com/wow/addons/ronin" },
     { "Ko-fi",   "https://ko-fi.com/ron1n90c" },
     { "Website", "https://ron1n.cc" },
     { "Patreon", "https://www.patreon.com/RON1N90C" },

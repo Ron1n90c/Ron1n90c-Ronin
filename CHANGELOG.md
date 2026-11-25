@@ -1,7 +1,12 @@
+RONIN - GSE SUITE 4.1.1 - 2026-11-25
+ * The Ronin Discord server is closed: all Discord links are removed from the add-on, the website and the texts.
+   Found a bug or have an idea? Leave a comment on CurseForge: https://www.curseforge.com/wow/addons/ronin
+ * The Thank-you panel now links to CurseForge instead of Discord. Macros are the same as 4.1.0.
+
 RONIN - GSE SUITE 4.1.0 - 2026-11-25   (the big one: every sequence reviewed, simulated and tested in game)
  This is the best pack I could make. Every sequence, every version, Retail and WoW: Forever, was checked against the current
  guides, simulated and tested in game. Now I will take a well deserved break and play more Azeroth myself.
- Thank you all for playing Ronin. See you on Discord!  - Ron1n
+ Thank you all for playing Ronin. See you in Azeroth!  - Ron1n
 
  * New: Update button on every installer page. Ronin compares each sequence you have in GSE with the one it ships:
    only the sequences that really changed show "Update available", and Update replaces just those (overwrite is automatic,
@@ -87,7 +92,7 @@ RONIN - GSE SUITE 4.0.2 - 2026-11-25   (quality update after a full review of ev
 RONIN - GSE SUITE 4.0.1 - 2026-11-24
  * FOREVER DPS: new Balance Druid (levels 1-10 / 10-40 / 40-60): Moonfire, Faerie Fire and Insect Swarm once per target,
    Wrath + 2x Starfire, Moonkin Form kept up from 40. Shift = heal on yourself, Ctrl = Entangling Roots, Alt = Faerie Fire / Hurricane at the cursor.
- * New Discord invite everywhere: https://discord.gg/kUCRHV2mE
+ * New Discord invite everywhere.
 
 RONIN - GSE SUITE 4.0.0 - 2026-11-24   (big update: HEAL is here)
  * HEAL (new role): Retail Mistweaver, Holy Paladin, Restoration Druid, Restoration Shaman - Heal single target, Heal AoE
@@ -118,7 +123,6 @@ RONIN - GSE SUITE 3.0.0 - 2026-11-22
  * Midnight 12.1.5 spell check on every spec. No /startattack anywhere.
  * FOREVER 3.0.0: new level ranges 1-10 / 10-40 / 40-60. DPS added: Ret Paladin, Arms + Fury Warrior, Feral Cat, Enhancement + Elemental Shaman.
  * Forever keys: Shift = heal, Ctrl = interrupt (Paladin Hammer of Justice), Alt = class extra. Prot Paladin: Exorcism removed. Prot/Arms Warrior: Rend added.
- * Discord: https://discord.gg/kUCRHV2mE
 
 RONIN (add-on) 2.2.0 - 2026-11-18
  * Forever now runs in Priority mode, like Retail.

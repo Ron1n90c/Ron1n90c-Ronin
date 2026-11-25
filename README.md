@@ -5,10 +5,10 @@ Tank, DPS and Heal macros for GSE, all made by Ronin and tested in game.
 
 - **Retail (Midnight):** Tank, DPS and Heal, with versions for Mythic+, Raid, Delve, Beginner and Leveling
 - **WoW: Forever:** Tank, DPS and Heal from level 1 to 60
-- **Easy installer:** `/ronin`, pick your world and role, import, done
+- **Easy installer:** `/ronin`, pick your world and role, import, done. One click on **Update** keeps your macros current
 - **Always free**
 
-Discord (beta testing, bugs, ideas): https://discord.gg/kUCRHV2mE
+Bugs or ideas: leave a comment on CurseForge.
 Website: https://ron1n.cc · CurseForge: https://www.curseforge.com/wow/addons/ronin
 
 The add-on files are in the repo root (packaged as the `Ronin` folder). A version bump in `Ronin.toc` pushed to `main`
