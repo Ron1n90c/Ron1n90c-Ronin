@@ -10,7 +10,7 @@ local addonName, Ronin = ...
 RoninDB = RoninDB or {}
 local DB = RoninDB
 
-local ADDON_VERSION = "4.0.1"
+local ADDON_VERSION = "4.0.2"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -76,7 +76,7 @@ end
 
 local PACKS = {
     retail = {
-        key = "retail", world = "retail", name = "Retail", version = "7.0.0",
+        key = "retail", world = "retail", name = "Retail", version = "7.0.1",
         sub = "Midnight 12.0",
         seqs = Ronin.RetailSequences or {},
         regkey = "RoninRetail",
@@ -91,7 +91,7 @@ local PACKS = {
         },
     },
     forever = {
-        key = "forever", world = "forever", name = "Forever", version = "4.0.1",
+        key = "forever", world = "forever", name = "Forever", version = "4.0.2",
         sub = "WoW: Forever",
         seqs = Ronin.ForeverSequences or {},
         regkey = "RoninForever",

@@ -52,7 +52,7 @@ local FH_PALADIN = Flat("RoninFHeal_Paladin", 1486,
 })
 
 local FH_DRUID = Flat("RoninFHeal_Druid", 103,
-    "Restoration Druid for WoW: Forever. Levels 1-10, 10-40, 40-60. Keys: Shift = Healing Touch (Regrowth from 10), Ctrl = Entangling Roots, Alt = Remove Curse on the friend under the mouse. Lifebloom and Wild Growth are used when you have the rune. For damage (solo, leveling) use RoninFDPS_Druid_Cat from the DPS page. Hover a frame and hold the key: it heals the friend under your mouse, otherwise you. Pick your level range in GSE.",
+    "Restoration Druid for WoW: Forever. Levels 1-10, 10-40, 40-60. Keys: Shift = Healing Touch (Regrowth from 10), Ctrl = Entangling Roots, Alt = Remove Curse on the friend under the mouse. Lifebloom is used when you have the rune. For damage (solo, leveling) use RoninFDPS_Druid_Cat from the DPS page. Hover a frame and hold the key: it heals the friend under your mouse, otherwise you. Pick your level range in GSE.",
     {
     { "Level 1-10", {
         { FHDA, "/cast [@mouseover,help][@player]5185" },
@@ -66,7 +66,7 @@ local FH_DRUID = Flat("RoninFHeal_Druid", 103,
     { "Level 40-60", {
         { FHDB, "/cast [@mouseover,help][@player]8936", "/cast [@mouseover,help][@player]5185" },
         { FHDB, "/cast [@mouseover,help][@player]Lifebloom", "/cast [@mouseover,help][@player]774" },
-        { FHDB, "/cast [@mouseover,help][@player]Wild Growth", "/cast [@mouseover,help][@player]18562" },
+        { FHDB, "/cast [@mouseover,help][@player]18562", "/cast [@mouseover,help][@player]5185" },
         { FHDB, "/cast [@mouseover,help][@player]5185", "/cast [@mouseover,help][@player]8936" },
     } },
 })

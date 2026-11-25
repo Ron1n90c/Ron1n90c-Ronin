@@ -1,3 +1,15 @@
+RONIN - GSE SUITE 4.0.2 - 2026-11-25   (quality update after a full review of every sequence)
+ * Destruction Warlock: fixed the step order. Mythic+ / Raid moved Incinerate up instead of the cooldowns, so Chaos Bolt
+   and Conflagrate waited too often. Now Chaos Bolt comes first and Summon Infernal / Malevolence move up at the pull.
+ * Windwalker and Brewmaster: Shift is now Vivify (Expel Harm was removed in Midnight). Brewmaster: Chi Burst removed too.
+ * Every step that only had cooldowns now ends with the spec filler, so no press is wasted
+   (Retribution, Windwalker, Unholy, Fire, Frost Mage, Demonology, Affliction, all cooldown steps, healer cooldown steps).
+ * Demonology: Tyrant only in the cooldown step, Doomguard next to the Grimoires.
+ * WoW: Forever: Paladin (Tank + Ret) Seal/Judgement steps get Holy Strike / Judgement as backup; Shaman Flame Shock steps get
+   Lightning Bolt (put Lightning Shield on yourself before the pull); Destruction, Arcane and Hunter get a backup spell where a rune may be missing;
+   Druid Heal: Swiftmend + Healing Touch (Wild Growth rune removed).
+ * Retail pack 7.0.1, Forever pack 4.0.2. Same keys, same watermark.
+
 RONIN - GSE SUITE 4.0.1 - 2026-11-24
  * FOREVER DPS: new Balance Druid (levels 1-10 / 10-40 / 40-60): Moonfire, Faerie Fire and Insect Swarm once per target,
    Wrath + 2x Starfire, Moonkin Form kept up from 40. Shift = heal on yourself, Ctrl = Entangling Roots, Alt = Faerie Fire / Hurricane at the cursor.

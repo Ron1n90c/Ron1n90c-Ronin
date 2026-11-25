@@ -1,4 +1,4 @@
-RONIN - GSE SUITE                                                    V4.0.1
+RONIN - GSE SUITE                                                    V4.0.2
 Tank, DPS and Heal macros for GSE (Gnome Sequencer Enhanced). Retail AND WoW: Forever in one add-on.
 Discord: https://discord.gg/kUCRHV2mE   |   Website: https://ron1n.cc
 Ko-fi: https://ko-fi.com/ron1n90c   |   Patreon: https://www.patreon.com/RON1N90C
@@ -14,7 +14,7 @@ START
 COMMANDS
  /ronin  /ronin retail  /ronin forever  /ronin debug
 
-RETAIL V7.0.0 (Midnight)
+RETAIL V7.0.1 (Midnight)
  TANK : every tank spec, both hero trees.
  DPS  : Death Knight, Demon Hunter (Havoc, Devourer), Druid, Hunter, Mage, Monk, Paladin, Shaman, Warlock, Warrior.
         One single target and one AoE macro per hero tree.
@@ -24,7 +24,7 @@ RETAIL V7.0.0 (Midnight)
            Delve (solo: cooldowns early + one defensive), Beginner (one defensive), Leveling (basic spells).
  Keys: Shift = heal, Alt = crowd control, interrupt on its own key.
 
-FOREVER V4.0.1 (WoW: Forever)
+FOREVER V4.0.2 (WoW: Forever)
  TANK : Paladin, Warrior, Druid (Bear).
  DPS  : Paladin, Warrior (Arms, Fury), Druid (Cat, Balance), Hunter, Shaman (Enhancement, Elemental), Warlock, Mage, Priest (damage).
  HEAL : Paladin, Druid, Shaman, Priest (mouseover healing).

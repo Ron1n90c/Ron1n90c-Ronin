@@ -128,7 +128,7 @@ Retail.RoninHeal_Mist_Conduit = Heal("RoninHeal_Mist_Conduit", 270, C_MWC, {
     { R("/cast [@mouseover,help][@player]Vivify"), R("/cast [@mouseover,help][@player]Sheilun's Gift"), S("Blackout Kick") },
     { R("/cast [@mouseover,help,nobuff:Enveloping Mist][@player,nobuff:Enveloping Mist]Enveloping Mist"), R("/cast [@mouseover,help][@player]Vivify") },
     { S("Rising Sun Kick"), S("Tiger Palm"), S("Blackout Kick") },
-    { S("Celestial Conduit", "c"), S("Invoke Chi-Ji, the Red Crane", "c"), S("Mana Tea", "c") },
+    { S("Celestial Conduit", "c"), S("Invoke Chi-Ji, the Red Crane", "c"), S("Mana Tea", "c"), S("Tiger Palm") },
 }, D_MWC, "Mistweaver Monk, Conduit of the Celestials. Talents: Conduit of the Celestials hero tree (Celestial Conduit with the big cooldowns). Hover a frame and hold the key: Renewing Mist goes on friends that do not have it yet, Rising Sun Kick and Thunder Focus Tea on cooldown, Enveloping Mist and Vivify as the spot heals. Keep a hostile target for the damage spells. Single target / spot healing macro, use the AoE macro for raid damage. Keys: Shift = Vivify (friend under the mouse, otherwise you), Alt = Leg Sweep. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help,nobuff:Renewing Mist][@player,nobuff:Renewing Mist]Renewing Mist"), S("Rising Sun Kick"), S("Tiger Palm") },
     { R("/cast [@mouseover,help][@player]Vivify"), S("Blackout Kick") },
@@ -141,7 +141,7 @@ Retail.RoninHeal_Mist_Cond_AoE = Heal("RoninHeal_Mist_Cond_AoE", 270, C_MWC, {
     { R("/cast [@mouseover,help,nobuff:Enveloping Mist][@player,nobuff:Enveloping Mist]Enveloping Mist"), S("Rising Sun Kick"), S("Blackout Kick") },
     { R("/cast [@mouseover,help,nobuff:Renewing Mist][@player,nobuff:Renewing Mist]Renewing Mist"), R("/cast [@mouseover,help][@player]Vivify") },
     { S("Tiger Palm"), S("Blackout Kick"), S("Rushing Wind Kick") },
-    { S("Celestial Conduit", "c"), S("Invoke Chi-Ji, the Red Crane", "c"), S("Mana Tea", "c") },
+    { S("Celestial Conduit", "c"), S("Invoke Chi-Ji, the Red Crane", "c"), S("Mana Tea", "c"), S("Tiger Palm") },
 }, D_MWC, "Mistweaver Monk, Conduit of the Celestials. Talents: Conduit of the Celestials hero tree (Celestial Conduit with the big cooldowns). Hover a frame and hold the key: Renewing Mist goes on friends that do not have it yet, Rising Sun Kick and Thunder Focus Tea on cooldown, Enveloping Mist and Vivify as the spot heals. Keep a hostile target for the damage spells. AoE macro: use it when the whole group takes damage. Keys: Shift = Vivify (friend under the mouse, otherwise you), Alt = Leg Sweep. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help,nobuff:Renewing Mist][@player,nobuff:Renewing Mist]Renewing Mist"), S("Rising Sun Kick"), S("Tiger Palm") },
     { R("/cast [@mouseover,help][@player]Sheilun's Gift"), R("/cast [@mouseover,help][@player]Vivify") },
@@ -154,7 +154,7 @@ Retail.RoninHeal_Mist_Harmony = Heal("RoninHeal_Mist_Harmony", 270, C_MW, {
     { R("/cast [@mouseover,help][@player]Vivify"), R("/cast [@mouseover,help][@player]Sheilun's Gift"), S("Blackout Kick") },
     { R("/cast [@mouseover,help,nobuff:Enveloping Mist][@player,nobuff:Enveloping Mist]Enveloping Mist"), R("/cast [@mouseover,help][@player]Vivify") },
     { S("Rising Sun Kick"), S("Tiger Palm"), S("Blackout Kick") },
-    { S("Invoke Chi-Ji, the Red Crane", "c"), S("Invoke Yu'lon, the Jade Serpent", "c"), S("Mana Tea", "c") },
+    { S("Invoke Chi-Ji, the Red Crane", "c"), S("Invoke Yu'lon, the Jade Serpent", "c"), S("Mana Tea", "c"), S("Tiger Palm") },
 }, D_MW, "Mistweaver Monk, Master of Harmony. Talents: Master of Harmony hero tree (Thunder Focus Tea gives Harmonic Surge charges, spent by Tiger Palm and Vivify). Hover a frame and hold the key: Renewing Mist goes on friends that do not have it yet, Rising Sun Kick and Thunder Focus Tea on cooldown, Vivify as the spot heal. Keep a hostile target for the damage spells. Single target / spot healing macro, use the AoE macro for raid damage. Keys: Shift = Vivify (friend under the mouse, otherwise you), Alt = Leg Sweep. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help,nobuff:Renewing Mist][@player,nobuff:Renewing Mist]Renewing Mist"), S("Rising Sun Kick"), S("Tiger Palm") },
     { R("/cast [@mouseover,help][@player]Vivify"), S("Blackout Kick") },
@@ -167,7 +167,7 @@ Retail.RoninHeal_Mist_Harm_AoE = Heal("RoninHeal_Mist_Harm_AoE", 270, C_MW, {
     { R("/cast [@mouseover,help,nobuff:Enveloping Mist][@player,nobuff:Enveloping Mist]Enveloping Mist"), S("Rising Sun Kick"), S("Blackout Kick") },
     { R("/cast [@mouseover,help,nobuff:Renewing Mist][@player,nobuff:Renewing Mist]Renewing Mist"), R("/cast [@mouseover,help][@player]Vivify") },
     { S("Tiger Palm"), S("Blackout Kick"), S("Rushing Wind Kick") },
-    { S("Invoke Chi-Ji, the Red Crane", "c"), S("Invoke Yu'lon, the Jade Serpent", "c"), S("Mana Tea", "c") },
+    { S("Invoke Chi-Ji, the Red Crane", "c"), S("Invoke Yu'lon, the Jade Serpent", "c"), S("Mana Tea", "c"), S("Tiger Palm") },
 }, D_MW, "Mistweaver Monk, Master of Harmony. Talents: Master of Harmony hero tree (Thunder Focus Tea gives Harmonic Surge charges, spent by Tiger Palm and Vivify). Hover a frame and hold the key: Renewing Mist goes on friends that do not have it yet, Rising Sun Kick and Thunder Focus Tea on cooldown, Vivify as the spot heal. Keep a hostile target for the damage spells. AoE macro: use it when the whole group takes damage. Keys: Shift = Vivify (friend under the mouse, otherwise you), Alt = Leg Sweep. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help,nobuff:Renewing Mist][@player,nobuff:Renewing Mist]Renewing Mist"), S("Rising Sun Kick"), S("Tiger Palm") },
     { R("/cast [@mouseover,help][@player]Sheilun's Gift"), R("/cast [@mouseover,help][@player]Vivify") },
@@ -232,7 +232,7 @@ Retail.RoninHeal_Resto_Keeper = Heal("RoninHeal_Resto_Keeper", 105, C_RD, {
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help][@player]Regrowth"), R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation") },
-    { S("Nature's Swiftness", "c"), S("Convoke the Spirits", "c"), S("Flourish", "c") },
+    { S("Nature's Swiftness", "c"), S("Convoke the Spirits", "c"), S("Flourish", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
 }, D_RD, "Restoration Druid, Keeper of the Grove. Talents: Keeper of the Grove hero tree (Sylvan Beckoning empowers your next Swiftmend, strong healing with little cat-weaving). Hover a frame and hold the key: Lifebloom and Rejuvenation only on friends that do not have them, Swiftmend and Wild Growth on cooldown, Regrowth as the spot heal. Single target / spot healing macro, use the AoE macro for raid damage. Keys: Shift = Regrowth (friend under the mouse, otherwise you), Alt = Mighty Bash. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Swiftmend") },
@@ -245,7 +245,7 @@ Retail.RoninHeal_Resto_Keeper_AoE = Heal("RoninHeal_Resto_Keeper_AoE", 105, C_RD
     { R("/cast [@mouseover,help,nobuff:Lifebloom][@player,nobuff:Lifebloom]Lifebloom"), R("/cast [@mouseover,help][@player]Swiftmend") },
     { R("/cast [@player]Efflorescence"), R("/cast [@mouseover,help][@player]Wild Growth") },
     { R("/cast [@mouseover,help][@player]Regrowth"), R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation") },
-    { S("Convoke the Spirits", "c"), S("Flourish", "c"), S("Nature's Swiftness", "c") },
+    { S("Convoke the Spirits", "c"), S("Flourish", "c"), S("Nature's Swiftness", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
 }, D_RD, "Restoration Druid, Keeper of the Grove. Talents: Keeper of the Grove hero tree (Sylvan Beckoning empowers your next Swiftmend, strong healing with little cat-weaving). Hover a frame and hold the key: Lifebloom and Rejuvenation only on friends that do not have them, Swiftmend and Wild Growth on cooldown, Regrowth as the spot heal. AoE macro: use it when the whole group takes damage. Keys: Shift = Regrowth (friend under the mouse, otherwise you), Alt = Mighty Bash. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Swiftmend") },
@@ -258,7 +258,7 @@ Retail.RoninHeal_Resto_Wildstalk = Heal("RoninHeal_Resto_Wildstalk", 105, C_RD, 
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Regrowth") },
     { S("Moonfire", "s"), S("Sunfire", "s"), S("Wrath") },
-    { S("Nature's Swiftness", "c"), S("Convoke the Spirits", "c"), S("Flourish", "c") },
+    { S("Nature's Swiftness", "c"), S("Convoke the Spirits", "c"), S("Flourish", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
 }, D_RD, "Restoration Druid, Wildstalker. Talents: Wildstalker hero tree (Symbiotic Bloom, Vigorous Creepers, Bursting Growth from Rejuvenation). Hover a frame and hold the key: Lifebloom and Rejuvenation only on friends that do not have them, Swiftmend and Wild Growth on cooldown, Moonfire and Sunfire kept up on your hostile target. Single target / spot healing macro, use the AoE macro for raid damage. Keys: Shift = Regrowth (friend under the mouse, otherwise you), Alt = Mighty Bash. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Swiftmend") },
@@ -271,7 +271,7 @@ Retail.RoninHeal_Resto_Wild_AoE = Heal("RoninHeal_Resto_Wild_AoE", 105, C_RD, {
     { R("/cast [@mouseover,help,nobuff:Lifebloom][@player,nobuff:Lifebloom]Lifebloom"), R("/cast [@mouseover,help][@player]Swiftmend") },
     { R("/cast [@player]Efflorescence"), R("/cast [@mouseover,help][@player]Wild Growth") },
     { S("Moonfire", "s"), S("Sunfire", "s"), S("Wrath") },
-    { S("Convoke the Spirits", "c"), S("Flourish", "c"), S("Nature's Swiftness", "c") },
+    { S("Convoke the Spirits", "c"), S("Flourish", "c"), S("Nature's Swiftness", "c"), R("/cast [@mouseover,help][@player]Regrowth") },
 }, D_RD, "Restoration Druid, Wildstalker. Talents: Wildstalker hero tree (Symbiotic Bloom, Vigorous Creepers, Bursting Growth from Rejuvenation). Hover a frame and hold the key: Lifebloom and Rejuvenation only on friends that do not have them, Swiftmend and Wild Growth on cooldown, Moonfire and Sunfire kept up on your hostile target. AoE macro: use it when the whole group takes damage. Keys: Shift = Regrowth (friend under the mouse, otherwise you), Alt = Mighty Bash. Interrupt: bind it on a separate key. Versions: Mythic+ (cooldowns right at the pull), Raid (big healing cooldowns left to you, for the damage moments), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90). Emergency cooldowns are never in the macro: use them by hand.", {
     { R("/cast [@mouseover,help,nobuff:Rejuvenation][@player,nobuff:Rejuvenation]Rejuvenation"), R("/cast [@mouseover,help][@player]Regrowth") },
     { R("/cast [@mouseover,help][@player]Wild Growth"), R("/cast [@mouseover,help][@player]Swiftmend") },
@@ -318,7 +318,7 @@ Retail.RoninHeal_RShaman_Totemic = Heal("RoninHeal_RShaman_Totemic", 264, C_RS, 
 })
 
 Retail.RoninHeal_RSham_Tot_AoE = Heal("RoninHeal_RSham_Tot_AoE", 264, C_RS, {
-    { R("/cast [@player]Surging Totem"), R("/cast [@player]Healing Rain") },
+    { R("/cast [@player]Surging Totem"), R("/cast [@player]Healing Rain"), R("/cast [@mouseover,help][@player]Chain Heal") },
     { R("/cast [@mouseover,help][@player]Unleash Life"), R("/cast [@mouseover,help][@player]Chain Heal") },
     { R("/cast [@mouseover,help,nobuff:Riptide][@player,nobuff:Riptide]Riptide"), S("Healing Stream Totem") },
     { R("/cast [@player]Downpour"), R("/cast [@mouseover,help][@player]Chain Heal") },

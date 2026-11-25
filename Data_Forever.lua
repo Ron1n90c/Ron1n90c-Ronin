@@ -1,4 +1,4 @@
--- Ronin Forever V4.0.1 - Tank macros for WoW: Forever (GSE)
+-- Ronin Forever V4.0.2 - Tank macros for WoW: Forever (GSE)
 --
 -- Same style for all three classes: PRIORITY mode like Ronin Retail (the list order below is the
 -- priority order), spell IDs (rank 1 ID; the client casts the highest rank you know). The source below uses names, the build replaces them with IDs, short
@@ -56,18 +56,18 @@ local function P(m, ...) return { TGT, m, ... } end
 
 local PALADIN = Flat("RoninForever_Paladin", 1486, 1, {
     { "Level 1-10", {
-        P(PM1, PSEQ1),
+        P(PM1, PSEQ1, "/cast 679"),
         P(PM1, "/cast 679", "/cast 20271"),
     } },
     { "Level 10-40", {
-        P(PM1, PSEQ),
-        P(PM1, "/cast 679"),
+        P(PM1, PSEQ, "/cast 679"),
+        P(PM1, "/cast 679", "/cast 20271"),
         P(PM1, "/cast [nomod]20925", "/cast [nomod]20473"),
         P(PM1, "/cast 20271"),
     } },
     { "Level 40-60", {
-        P(PM, PSEQ),
-        P(PM, "/cast 679"),
+        P(PM, PSEQ, "/cast 679"),
+        P(PM, "/cast 679", "/cast 20271"),
         P(PM, "/cast [nomod]Hammer of the Righteous", "/cast [nomod]20925"),
         P(PM, "/cast [nomod]20473", "/cast [nomod]Hammer of the Righteous"),
         P(PM, "/cast 20271"),

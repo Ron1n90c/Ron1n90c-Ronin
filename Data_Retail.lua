@@ -1,4 +1,4 @@
--- Ronin Retail V7.0.0 - Tank Priority Edition (tiered chains)
+-- Ronin Retail V7.0.1 - Tank Priority Edition (tiered chains)
 --
 -- Each version is ONE Loop block with StepFunction = "Priority" and THREE
 -- actions (tiers A, B, C). GSE clicks them A, AB, ABC (A x3, B x2, C x1 per
@@ -129,7 +129,7 @@ end
 local PALADIN = { stop = false, util = {
     "/cast [mod:shift,@player]Word of Glory;[mod:alt]Hammer of Justice" } }
 local BREWMASTER = { stop = false, util = {
-    "/cast [mod:shift,@player]Expel Harm;[mod:alt]Leg Sweep" } }
+    "/cast [mod:shift,@player]Vivify;[mod:alt]Leg Sweep" } }
 local DRUID = { stop = false, pre = { "/cast [noform:1]Bear Form" }, util = {
     "/cast [mod:shift]Frenzied Regeneration;[mod:alt]Mighty Bash" } }
 local WARRIOR = { stop = false, util = {
@@ -172,7 +172,7 @@ local PAL_TEMPLAR = {
 local BREW_HARMONY = {
     { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Chi Burst"), S("Rushing Jade Wind"), S("Tiger Palm") },
+    { S("Rushing Jade Wind"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
     { S("Invoke Niuzao, the Black Ox", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
@@ -181,7 +181,7 @@ local BREW_HARMONY = {
 local BREW_HARMONY_BEGINNER = {
     { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Breath of Fire"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Chi Burst"), S("Rushing Jade Wind"), S("Tiger Palm") },
+    { S("Rushing Jade Wind"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Celestial Brew", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
     { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
@@ -194,7 +194,7 @@ local BREW_SHADOPAN = {
     { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
     { S("Invoke Niuzao, the Black Ox", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Exploding Keg", "cp"), S("Chi Burst"), S("Tiger Palm") },
+    { S("Exploding Keg", "cp"), S("Blackout Kick"), S("Tiger Palm") },
 }
 local BREW_SHADOPAN_BEGINNER = {
     { S("Keg Smash"), S("Blackout Kick"), S("Tiger Palm") },
@@ -203,7 +203,7 @@ local BREW_SHADOPAN_BEGINNER = {
     { S("Celestial Brew", "c"), S("Blackout Kick"), S("Tiger Palm") },
     { S("Keg Smash"), S("Breath of Fire"), S("Tiger Palm") },
     { S("Celestial Infusion", "c"), S("Blackout Kick"), S("Tiger Palm") },
-    { S("Exploding Keg", "cp"), S("Chi Burst"), S("Tiger Palm") },
+    { S("Exploding Keg", "cp"), S("Blackout Kick"), S("Tiger Palm") },
 }
 
 -- GUARDIAN DRUID (6 steps): Mangle / Thrash / Ironfur, Raze + Maul as the
