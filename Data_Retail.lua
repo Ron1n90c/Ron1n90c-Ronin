@@ -1,4 +1,4 @@
--- Ronin Retail V7.1.0 - Tank Priority Edition (tiered chains)
+-- Ronin Retail V7.2.0 - Tank Priority Edition (tiered chains)
 --
 -- Each version is ONE Loop block with StepFunction = "Priority" and THREE
 -- actions (tiers A, B, C). GSE clicks them A, AB, ABC (A x3, B x2, C x1 per

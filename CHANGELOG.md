@@ -1,3 +1,11 @@
+RONIN - GSE SUITE 4.2.0 - 2026-11-25
+ * Windwalker Monk now has a separate AoE macro for both hero trees, like every other DPS spec
+   (RoninDPS_Monk_WW_Cond_AoE and RoninDPS_Monk_WW_SPan_AoE), built from the Method Midnight multi-target lists:
+   Fists of Fury / Whirling Dragon Punch / Strike of the Windlord first, Spinning Crane Kick as the main spender,
+   Tiger Palm builds Chi for it, Rising Sun Kick / Rushing Wind Kick in between, Zenith Stomp during Zenith.
+   Conduit: Celestial Conduit and Touch of Death in the pack steps. All five versions, Leveling included.
+ * The single target Windwalker macros stay the same. Retail pack 7.2.0, 136 sequences.
+
 RONIN - GSE SUITE 4.1.1 - 2026-11-25
  * The Ronin Discord server is closed: all Discord links are removed from the add-on, the website and the texts.
    Found a bug or have an idea? Leave a comment on CurseForge: https://www.curseforge.com/wow/addons/ronin

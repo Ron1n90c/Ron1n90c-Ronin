@@ -10,7 +10,7 @@ local addonName, Ronin = ...
 RoninDB = RoninDB or {}
 local DB = RoninDB
 
-local ADDON_VERSION = "4.1.1"
+local ADDON_VERSION = "4.2.0"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -76,7 +76,7 @@ end
 
 local PACKS = {
     retail = {
-        key = "retail", world = "retail", name = "Retail", version = "7.1.0",
+        key = "retail", world = "retail", name = "Retail", version = "7.2.0",
         sub = "Midnight 12.0",
         seqs = Ronin.RetailSequences or {},
         regkey = "RoninRetail",
@@ -128,7 +128,7 @@ SubPack(PACKS.retail, "dps", "DPS", Ronin.RetailDPSSequences, {
             { name = "Arcane Mage", color = "|cff3fc7eb", sub = "Spellslinger  |  Sunfury  (+ AoE)", seqs = { "RoninDPS_Arc_Spellslinger", "RoninDPS_Arc_Spell_AoE", "RoninDPS_Arc_Sunfury", "RoninDPS_Arc_Sun_AoE" }, specID = 62 },
             { name = "Fire Mage", color = "|cff3fc7eb", sub = "Frostfire  |  Sunfury  (+ AoE)", seqs = { "RoninDPS_Fire_Frostfire", "RoninDPS_Fire_FF_AoE", "RoninDPS_Fire_Sunfury", "RoninDPS_Fire_Sun_AoE" }, specID = 63 },
             { name = "Frost Mage", color = "|cff3fc7eb", sub = "Spellslinger  |  Frostfire  (+ AoE)", seqs = { "RoninDPS_Frost_Spellslinger", "RoninDPS_Frost_Spell_AoE", "RoninDPS_Frost_Frostfire", "RoninDPS_Frost_FF_AoE" }, specID = 64 },
-            { name = "Windwalker Monk", color = "|cff00ff98", sub = "Shado-Pan  |  Conduit  (one macro)", seqs = { "RoninDPS_Monk_WW_ShadoPan", "RoninDPS_Monk_WW_Conduit" }, specID = 269 },
+            { name = "Windwalker Monk", color = "|cff00ff98", sub = "Shado-Pan  |  Conduit  (+ AoE)", seqs = { "RoninDPS_Monk_WW_ShadoPan", "RoninDPS_Monk_WW_SPan_AoE", "RoninDPS_Monk_WW_Conduit", "RoninDPS_Monk_WW_Cond_AoE" }, specID = 269 },
             { name = "Retribution Paladin", color = "|cfff48cba", sub = "Herald of the Sun  |  Templar  (+ AoE)", seqs = { "RoninDPS_Paladin_Ret_Herald", "RoninDPS_Pal_Ret_Herald_AoE", "RoninDPS_Paladin_Ret_Templar", "RoninDPS_Pal_Ret_Templar_AoE" }, specID = 70 },
             { name = "Elemental Shaman", color = "|cff0070dd", sub = "Farseer  |  Stormbringer  (+ AoE)", seqs = { "RoninDPS_Ele_Farseer", "RoninDPS_Ele_Farseer_AoE", "RoninDPS_Ele_Stormbringer", "RoninDPS_Ele_Storm_AoE" }, specID = 262 },
             { name = "Enhancement Shaman", color = "|cff0070dd", sub = "Stormbringer  |  Totemic  (+ AoE)", seqs = { "RoninDPS_Enh_Stormbringer", "RoninDPS_Enh_Storm_AoE", "RoninDPS_Enh_Totemic", "RoninDPS_Enh_Totemic_AoE" }, specID = 263 },

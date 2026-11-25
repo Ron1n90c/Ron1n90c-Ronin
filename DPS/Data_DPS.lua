@@ -760,9 +760,22 @@ Retail.RoninDPS_Monk_WW_Conduit = DPS("RoninDPS_Monk_WW_Conduit", 269, C_MONK, {
     { R("/castsequence [nochanneling:Fists of Fury] reset=3 Tiger Palm, Blackout Kick, Spinning Crane Kick"), S("Blackout Kick") },
     { S("Touch of Death", "c"), S("Zenith Stomp"), S("Blackout Kick") },
     { S("Invoke Xuen, the White Tiger", "c"), S("Zenith", "c"), S("Tiger Palm") },
-}, D_MONK, "Windwalker Monk, Conduit of the Celestials. Mythic+, Raid and Delve: Conduit of the Celestials (Celestial Conduit after Strike of the Windlord, Zenith with Invoke Xuen). One macro for single target and cleave. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MONK, "Windwalker Monk, Conduit of the Celestials. Mythic+, Raid and Delve: Conduit of the Celestials (Celestial Conduit after Strike of the Windlord, Zenith with Invoke Xuen). Single target macro; packs: use the AoE macro (Spinning Crane Kick as the main spender). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Rising Sun Kick"), S("Tiger Palm"), S("Blackout Kick") },
     { S("Fists of Fury"), S("Strike of the Windlord"), S("Rising Sun Kick") },
+    { S("Touch of Death"), S("Spinning Crane Kick"), S("Tiger Palm") },
+})
+
+Retail.RoninDPS_Monk_WW_Cond_AoE = DPS("RoninDPS_Monk_WW_Cond_AoE", 269, C_MONK, {
+    { S("Fists of Fury"), S("Whirling Dragon Punch"), S("Strike of the Windlord") },
+    { S("Zenith Stomp"), S("Rushing Wind Kick"), S("Spinning Crane Kick") },
+    { R("/castsequence [nochanneling:Fists of Fury] reset=3 Tiger Palm, Spinning Crane Kick"), S("Rising Sun Kick"), S("Tiger Palm") },
+    { S("Rising Sun Kick"), S("Spinning Crane Kick"), S("Blackout Kick") },
+    { S("Celestial Conduit"), S("Touch of Death"), S("Tiger Palm") },
+    { S("Invoke Xuen, the White Tiger", "c"), S("Zenith", "c"), S("Tiger Palm") },
+}, D_MONK, "Windwalker Monk, Conduit of the Celestials. Mythic+, Raid and Delve: Conduit of the Celestials (Celestial Conduit after Strike of the Windlord, Zenith with Invoke Xuen). Single target macro; packs: use the AoE macro (Spinning Crane Kick as the main spender). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+    { S("Fists of Fury"), S("Spinning Crane Kick"), S("Tiger Palm") },
+    { S("Strike of the Windlord"), S("Rising Sun Kick"), S("Spinning Crane Kick") },
     { S("Touch of Death"), S("Spinning Crane Kick"), S("Tiger Palm") },
 })
 
@@ -773,9 +786,22 @@ Retail.RoninDPS_Monk_WW_ShadoPan = DPS("RoninDPS_Monk_WW_ShadoPan", 269, C_MONK,
     { R("/castsequence [nochanneling:Fists of Fury] reset=3 Tiger Palm, Blackout Kick, Spinning Crane Kick"), S("Blackout Kick") },
     { S("Touch of Death", "c"), S("Zenith Stomp"), S("Blackout Kick") },
     { S("Invoke Xuen, the White Tiger", "c"), S("Zenith", "c"), S("Tiger Palm") },
-}, D_MONK, "Windwalker Monk, Shado-Pan. Raid: Shado-Pan (Flurry Strikes, Zenith). One macro for single target and cleave. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MONK, "Windwalker Monk, Shado-Pan. Raid: Shado-Pan (Flurry Strikes, Zenith). Single target macro; packs: use the AoE macro (Whirling Dragon Punch and Strike of the Windlord first, Spinning Crane Kick as the main spender). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Rising Sun Kick"), S("Tiger Palm"), S("Blackout Kick") },
     { S("Fists of Fury"), S("Strike of the Windlord"), S("Rising Sun Kick") },
+    { S("Touch of Death"), S("Spinning Crane Kick"), S("Tiger Palm") },
+})
+
+Retail.RoninDPS_Monk_WW_SPan_AoE = DPS("RoninDPS_Monk_WW_SPan_AoE", 269, C_MONK, {
+    { S("Whirling Dragon Punch"), S("Strike of the Windlord"), S("Fists of Fury") },
+    { S("Zenith Stomp"), S("Rushing Wind Kick"), S("Spinning Crane Kick") },
+    { R("/castsequence [nochanneling:Fists of Fury] reset=3 Tiger Palm, Spinning Crane Kick"), S("Rising Sun Kick"), S("Tiger Palm") },
+    { S("Rising Sun Kick"), S("Spinning Crane Kick"), S("Blackout Kick") },
+    { S("Touch of Death", "c"), S("Spinning Crane Kick"), S("Tiger Palm") },
+    { S("Invoke Xuen, the White Tiger", "c"), S("Zenith", "c"), S("Tiger Palm") },
+}, D_MONK, "Windwalker Monk, Shado-Pan. Raid: Shado-Pan (Flurry Strikes, Zenith). Single target macro; packs: use the AoE macro (Whirling Dragon Punch and Strike of the Windlord first, Spinning Crane Kick as the main spender). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+    { S("Fists of Fury"), S("Spinning Crane Kick"), S("Tiger Palm") },
+    { S("Strike of the Windlord"), S("Rising Sun Kick"), S("Spinning Crane Kick") },
     { S("Touch of Death"), S("Spinning Crane Kick"), S("Tiger Palm") },
 })
 
