@@ -7,10 +7,27 @@
 
 local addonName, Ronin = ...
 
-RoninDB = RoninDB or {}
-local DB = RoninDB
+-- WoW loads SavedVariables AFTER this file runs, so DB is bound to RoninDB on ADDON_LOADED.
+local DB = {}
+do
+    local f = CreateFrame("Frame")
+    f:RegisterEvent("ADDON_LOADED")
+    f:SetScript("OnEvent", function(self, event, name)
+        if name ~= addonName then return end
+        if type(RoninDB) ~= "table" then RoninDB = {} end
+        for k, v in pairs(DB) do
+            if k == "imported" and type(RoninDB.imported) == "table" then
+                for kk, vv in pairs(v) do RoninDB.imported[kk] = vv end
+            elseif RoninDB[k] == nil then
+                RoninDB[k] = v
+            end
+        end
+        DB = RoninDB
+        self:UnregisterEvent("ADDON_LOADED")
+    end)
+end
 
-local ADDON_VERSION = "4.2.0"
+local ADDON_VERSION = "4.2.1"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -1065,6 +1082,7 @@ local function BuildInstallPage(inner, pack)
             RefreshStatus(page)
             if type(C_Timer) == "table" and C_Timer.After then
                 C_Timer.After(1.5, function() RecordImport(keys); RefreshStatus(page) end)
+                C_Timer.After(5, function() RecordImport(keys); RefreshStatus(page) end)
             end
         else
             SetMsg(page, RED .. "Update failed: " .. tostring(err) .. "|r")
@@ -1098,6 +1116,7 @@ local function BuildInstallPage(inner, pack)
             RefreshStatus(page)
             if type(C_Timer) == "table" and C_Timer.After then
                 C_Timer.After(1.5, function() RecordImport(selected); RefreshStatus(page) end)
+                C_Timer.After(5, function() RecordImport(selected); RefreshStatus(page) end)
             end
         else
             SetMsg(page, RED .. "Import failed: " .. tostring(err) .. "|r")
@@ -1358,6 +1377,10 @@ function Ronin.UpdateAll()
     for reg, list in pairs(byReg) do
         local ok, err = Ronin.InstallBatch(list, true, reg)
         if ok then RecordImport(list); done = done + #list else Print(RED .. "Update failed: " .. tostring(err)) end
+    end
+    if type(C_Timer) == "table" and C_Timer.After then
+        C_Timer.After(1.5, function() RecordImport(keys) end)
+        C_Timer.After(5, function() RecordImport(keys) end)
     end
     Print(GREEN .. "Updated " .. done .. " sequence(s).|r Your binds stay the same.")
 end

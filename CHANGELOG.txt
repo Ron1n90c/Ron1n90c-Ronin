@@ -1,3 +1,9 @@
+RONIN - GSE SUITE 4.2.1 - 2026-11-25
+ * Fix: the Update button no longer imports the whole pack again. Ronin now remembers which sequences you imported
+   after a /reload or a new login, so Update replaces only the sequences that really changed.
+ * The first Update after this fix may still refresh your sequences once. After that only real changes show up.
+ * Macros are the same as 4.2.0.
+
 RONIN - GSE SUITE 4.2.0 - 2026-11-25
  * Windwalker Monk now has a separate AoE macro for both hero trees, like every other DPS spec
    (RoninDPS_Monk_WW_Cond_AoE and RoninDPS_Monk_WW_SPan_AoE), built from the Method Midnight multi-target lists:
