@@ -1,3 +1,13 @@
+RONIN - GSE SUITE 4.2.3 - 2026-11-26
+ * Update button: GSE saves an import a few seconds later (out of combat). Ronin now waits for that before it
+   remembers your sequence, so rows no longer show "Edited by you" by mistake and keep getting updates.
+ * Your own edits are safe: when you changed a sequence in GSE and Ronin has a new version, Update leaves yours alone.
+   The row says "Edited by you - new Ronin version: Overwrite ON + Import" so you can choose.
+ * Rows that need an update now always say "Update available" (some said "Installed").
+ * /ronin retail and /ronin forever open the role page. "Skip this screen" never opens an empty window.
+ * Welcome screen: Tank, DPS + Heal.
+ * Macros are the same as 4.2.2.
+
 RONIN - GSE SUITE 4.2.2 - 2026-11-26   (WoW: Forever pack 4.1.1, checked against the Forever hotfixes up to 25 November)
  * Arms Warrior: Mortal Strike now needs its talent (Forever hotfix 23 November), so at 10-40 Heroic Strike fills
    the steps where Mortal Strike, Overpower or Execute are not ready. 40-60: Slam as backup in the opening step.

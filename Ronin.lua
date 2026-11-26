@@ -1,6 +1,6 @@
 --[[
     Ronin - one add-on for both worlds (Retail + WoW: Forever)
-    Ronin - GSE SUITE: tank and DPS macros for GSE. Type /ronin to open the installer.
+    Ronin - GSE SUITE: Tank, DPS and Heal macros for GSE. Type /ronin to open the installer.
     Welcome screen -> pick Retail or Forever -> installer -> thank-you panel.
     Resizable: drag the bottom-right corner.
 ]]
@@ -27,7 +27,7 @@ do
     end)
 end
 
-local ADDON_VERSION = "4.2.2"
+local ADDON_VERSION = "4.2.3"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -292,34 +292,71 @@ local function Fingerprint(seq)
     return string.format("%08x", h) .. ":" .. #str
 end
 
--- "none" | "current" | "present" | "old" | "modified" | "other"
+-- GSE stores an import later, from its out-of-combat queue (about 7 s, longer in combat).
+-- So an import is first "pending": we keep what GSE had before, and the first time GSE shows
+-- something different we take that as the stored Ronin version (rec.lib). Records from before
+-- this (no rec.s) never mark a sequence as "edited", because their rec.lib may be too early.
+local REC_SCHEMA = 2
+local PENDING_MAX = 1800   -- seconds; after that a pending import is taken as stored
+
+local function Settle(rec, cur)
+    if not rec.pending then return end
+    local now = type(time) == "function" and time() or 0
+    if cur and cur ~= rec.old then
+        rec.lib, rec.pending, rec.old = cur, nil, nil
+    elseif cur and now - (rec.t or now) > PENDING_MAX then
+        rec.lib, rec.pending, rec.old = cur, nil, nil
+    end
+end
+
+-- "none" | "current" | "present" | "old" | "modified" | "mineold" | "other"
 local function StatusOf(key)
     local found, lib = Lookup(key)
     if found == false then return "none" end
     local pkg = Fingerprint(Ronin.Sequences[key])
     local rec = DB.imported and DB.imported[key]
     local cur = Fingerprint(lib)
+    if rec then Settle(rec, cur) end
+    local trusted = rec and rec.s == REC_SCHEMA and not rec.pending and rec.lib ~= nil
+    local edited = trusted and cur ~= nil and cur ~= rec.lib
     if cur and pkg and cur == pkg then return "current" end
     if rec and pkg and rec.fp == pkg then
-        if cur == nil or cur == rec.lib then return "current" end
-        return "modified"
+        if edited then return "modified" end
+        return "current"
     end
     if found == nil and not rec then return "none" end
-    if rec then return "old", rec.v end
+    if rec then
+        if edited then return "mineold", rec.v end   -- you changed it and Ronin has a new version: yours stays
+        return "old", rec.v
+    end
     if cur then return "other" end
     return "present"
 end
 Ronin.StatusOf = StatusOf
 
-local function RecordImport(keys)
-    DB.imported = DB.imported or {}
+-- what GSE has right now (taken BEFORE an import)
+local function Snapshot(keys)
+    local before = {}
     for _, key in ipairs(keys) do
         local _, lib = Lookup(key)
-        DB.imported[key] = {
+        before[key] = Fingerprint(lib) or "none"
+    end
+    return before
+end
+
+local function RecordImport(keys, before)
+    DB.imported = DB.imported or {}
+    local now = type(time) == "function" and time() or 0
+    for _, key in ipairs(keys) do
+        local rec = {
             v = PACK_OF[key] and PACK_OF[key].version or ADDON_VERSION,
             fp = Fingerprint(Ronin.Sequences[key]),
-            lib = Fingerprint(lib),
+            old = before and before[key] or "none",
+            pending = true, t = now, s = REC_SCHEMA,
         }
+        local _, lib = Lookup(key)
+        Settle(rec, Fingerprint(lib))   -- GSE may already have stored it
+        DB.imported[key] = rec
     end
 end
 
@@ -534,18 +571,21 @@ local function RefreshStatus(page)
     page.updKeys = {}
     for _, r in ipairs(page.rows) do
         local n = #r.group.seqs
-        local cur, present, upd, none, old, mine = 0, 0, 0, 0, nil, 0
+        local cur, present, upd, none, old, mine, mineold = 0, 0, 0, 0, nil, 0, 0
         for _, key in ipairs(r.group.seqs) do
             local st, v = StatusOf(key)
             if st == "current" then cur = cur + 1
-            elseif st == "present" then present = present + 1; page.updKeys[#page.updKeys + 1] = key
+            elseif st == "present" then present = present + 1; upd = upd + 1; page.updKeys[#page.updKeys + 1] = key
             elseif st == "none" then none = none + 1
             elseif st == "modified" then mine = mine + 1
+            elseif st == "mineold" then mineold = mineold + 1
             else upd = upd + 1; old = old or v; page.updKeys[#page.updKeys + 1] = key end
         end
         if cur == n then
             r.status:SetText(GREEN .. "Up to date|r  |TInterface\\Buttons\\UI-CheckBox-Check:16:16|t")
-        elseif upd == 0 and none == 0 and present == 0 and mine > 0 then
+        elseif upd == 0 and none == 0 and mineold > 0 then
+            r.status:SetText(ACCENT .. "Edited by you|r" .. DIM .. "\nnew Ronin version: Overwrite ON + Import|r")
+        elseif upd == 0 and none == 0 and mine > 0 then
             r.status:SetText(ACCENT .. "Edited by you|r" .. DIM .. "\nUpdate keeps your changes|r")
         elseif upd > 0 then
             needs = needs + 1
@@ -1074,15 +1114,16 @@ local function BuildInstallPage(inner, pack)
         if #keys == 0 then
             SetMsg(page, GREEN .. "Everything here is up to date.|r"); return
         end
+        local before = Snapshot(keys)
         local ok, err = Ronin.InstallBatch(keys, true, pack.regkey)
         if ok then
-            RecordImport(keys)
-            SetMsg(page, GREEN .. "Updated " .. #keys .. " sequence(s).|r " .. DIM .. "Your binds stay the same.|r")
+            RecordImport(keys, before)
+            SetMsg(page, GREEN .. "Updated " .. #keys .. " sequence(s).|r " .. DIM .. "GSE saves them in a few seconds. Your binds stay the same.|r")
             Print(GREEN .. "Updated " .. #keys .. " sequence(s).|r")
             RefreshStatus(page)
             if type(C_Timer) == "table" and C_Timer.After then
-                C_Timer.After(1.5, function() RecordImport(keys); RefreshStatus(page) end)
-                C_Timer.After(5, function() RecordImport(keys); RefreshStatus(page) end)
+                C_Timer.After(9, function() RefreshStatus(page) end)
+                C_Timer.After(20, function() RefreshStatus(page) end)
             end
         else
             SetMsg(page, RED .. "Update failed: " .. tostring(err) .. "|r")
@@ -1108,15 +1149,16 @@ local function BuildInstallPage(inner, pack)
         if #selected == 0 then
             SetMsg(page, DIM .. "Nothing to import (tick a row, or turn Overwrite ON to replace).|r"); return
         end
+        local before = Snapshot(selected)
         local ok, err = Ronin.InstallBatch(selected, overwrite, pack.regkey)
         if ok then
             SetMsg(page, GREEN .. "Imported " .. #selected .. " sequence(s).|r " .. DIM .. "Bind them in GSE and place the macro on your bar.|r")
             Print(GREEN .. "Imported " .. #selected .. " sequence(s).|r Bind them in GSE.")
-            RecordImport(selected)
+            RecordImport(selected, before)
             RefreshStatus(page)
             if type(C_Timer) == "table" and C_Timer.After then
-                C_Timer.After(1.5, function() RecordImport(selected); RefreshStatus(page) end)
-                C_Timer.After(5, function() RecordImport(selected); RefreshStatus(page) end)
+                C_Timer.After(9, function() RefreshStatus(page) end)
+                C_Timer.After(20, function() RefreshStatus(page) end)
             end
         else
             SetMsg(page, RED .. "Import failed: " .. tostring(err) .. "|r")
@@ -1254,7 +1296,7 @@ local function CreateFrameUI()
     wtitle:SetText(ACCENT .. "Welcome|r")
     local wsub = welcome:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     wsub:SetPoint("TOP", wtitle, "BOTTOM", 0, -6)
-    wsub:SetText(DIM .. "GSE SUITE  -  Tank + DPS, both worlds  -  V" .. ADDON_VERSION .. "|r")
+    wsub:SetText(DIM .. "GSE SUITE  -  Tank, DPS + Heal, both worlds  -  V" .. ADDON_VERSION .. "|r")
 
     local cardForever = MakeWorldCard(welcome, PACKS.forever)
     local cardRetail  = MakeWorldCard(welcome, PACKS.retail)
@@ -1307,7 +1349,9 @@ local function CreateFrameUI()
         if UI.wanted then
             ShowPage(UI.wanted); UI.wanted = nil
         elseif DB.skipWelcome then
-            ShowPage(DB.last or (IsRetailClient() and "retail" or "forever"))
+            local last = DB.last
+            if not (last and UI.pages[last]) then last = IsRetailClient() and "roles_retail" or "roles_forever" end
+            ShowPage(last)
         else
             ShowPage("welcome")
         end
@@ -1351,7 +1395,7 @@ SlashCmdList["RONIN"] = function(msg, editbox)
     msg = (msg or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
     if msg == "debug" then Debug(); return end
     if msg == "update" then Ronin.UpdateAll(); return end
-    if msg == "retail" or msg == "forever" then Toggle(msg); return end
+    if msg == "retail" or msg == "forever" then Toggle("roles_" .. msg); return end
     Toggle(nil)
 end
 
@@ -1375,14 +1419,13 @@ function Ronin.UpdateAll()
     end
     local done = 0
     for reg, list in pairs(byReg) do
+        local before = Snapshot(list)
         local ok, err = Ronin.InstallBatch(list, true, reg)
-        if ok then RecordImport(list); done = done + #list else Print(RED .. "Update failed: " .. tostring(err)) end
+        if ok then RecordImport(list, before); done = done + #list else Print(RED .. "Update failed: " .. tostring(err)) end
     end
-    if type(C_Timer) == "table" and C_Timer.After then
-        C_Timer.After(1.5, function() RecordImport(keys) end)
-        C_Timer.After(5, function() RecordImport(keys) end)
+    if done > 0 then
+        Print(GREEN .. "Updated " .. done .. " sequence(s).|r Your binds stay the same.")
     end
-    Print(GREEN .. "Updated " .. done .. " sequence(s).|r Your binds stay the same.")
 end
 
 local loginCheck = CreateFrame("Frame")
