@@ -2,7 +2,7 @@
 ## Title: |cff00e5ccRonin - GSE SUITE|r
 ## Notes: Ronin - GSE SUITE: Tank, DPS and Heal macros for GSE, Retail and WoW: Forever. Type /ronin. Website: ron1n.cc
 ## Author: Ronin
-## Version: 4.2.1
+## Version: 4.2.2
 ## IconTexture: Interface\AddOns\Ronin\Media\Icon.tga
 ## X-Website: https://ron1n.cc
 ## X-Donate: https://ko-fi.com/ron1n90c

@@ -1265,20 +1265,20 @@ local WM  = "/cast [mod:shift]402927;[mod:ctrl]6552;[mod:alt]5246"
 local BATTLE = "/cast [nostance:1] 2457"
 local BSH = "/castsequence [nomod] reset=combat/110 6673, null"
 local FWAR = Flat("RoninFDPS_Warrior", 1491,
-    "Arms Warrior DPS for WoW: Forever, Battle Stance. Levels 1-10, 10-40, 40-60. Keys: Shift = Victory Rush, Ctrl = Pummel (needs Berserker Stance, change the stance yourself), Alt = Intimidating Shout.",
+    "Arms Warrior DPS for WoW: Forever, Battle Stance. Levels 1-10, 10-40, 40-60. Mortal Strike needs its talent (40+); until then Heroic Strike fills. Keys: Shift = Victory Rush, Ctrl = Pummel (needs Berserker Stance, change the stance yourself), Alt = Intimidating Shout.",
     {
     { "Level 1-10", {
-        { TGT, WM, "/castsequence [nomod] reset=target 772, null" },
+        { TGT, WM, "/castsequence [nomod] reset=target 772, null", "/cast [nomod] 78" },
         { TGT, WM, "/cast [nomod] 78" },
     } },
     { "Level 10-40", {
-        { TGT, BATTLE, WM, "/cast [nomod] 12294", "/cast [nomod] 7384" },
+        { TGT, BATTLE, WM, "/cast [nomod] 12294", "/cast [nomod] 7384", "/cast [nomod] 78" },
         { TGT, BATTLE, WM, "/castsequence [nomod] reset=target 772, null", "/cast [nomod] 78" },
-        { TGT, BATTLE, WM, "/cast [nomod] 5308", "/cast [nomod] 7384" },
+        { TGT, BATTLE, WM, "/cast [nomod] 5308", "/cast [nomod] 7384", "/cast [nomod] 78" },
         { TGT, BATTLE, WM, "/cast [nomod] 78" },
     } },
     { "Level 40-60", {
-        { TGT, BATTLE, WM, "/cast [nomod] 7384", "/cast [nomod] 12294", "/cast [nomod] 5308" },
+        { TGT, BATTLE, WM, "/cast [nomod] 7384", "/cast [nomod] 12294", "/cast [nomod] 5308", "/cast [nomod] 1464" },
         { TGT, BATTLE, WM, "/castsequence [nomod] reset=target 772, null", "/cast [nomod] 12294", "/cast [nomod] 1464" },
         { TGT, BATTLE, WM, "/cast [nomod] 5308", "/cast [nomod] 7384", "/cast [nomod] 1464" },
         { BATTLE, WM, BSH, "/cast [nomod] 7384", "/cast [nomod] 78" },
@@ -1292,17 +1292,17 @@ local FFUR = Flat("RoninFDPS_Warrior_Fury", 1491,
     "Fury Warrior DPS for WoW: Forever. Levels 1-10, 10-40 (Battle Stance until you learn Berserker Stance), 40-60 (Berserker Stance: Whirlwind, Bloodthirst, Execute). Keys: Shift = Victory Rush, Ctrl = Pummel, Alt = Intimidating Shout.",
     {
     { "Level 1-10", {
-        { TGT, WM, "/castsequence [nomod] reset=target 772, null" },
+        { TGT, WM, "/castsequence [nomod] reset=target 772, null", "/cast [nomod] 78" },
         { TGT, WM, "/cast [nomod] 78" },
     } },
     { "Level 10-40", {
-        { TGT, BATTLE, WM, "/cast [nomod] 7384", "/cast [nomod] 5308" },
+        { TGT, BATTLE, WM, "/cast [nomod] 7384", "/cast [nomod] 5308", "/cast [nomod] 78" },
         { TGT, BATTLE, WM, "/castsequence [nomod] reset=target 772, null", "/cast [nomod] 78" },
         { TGT, BATTLE, WM, BSH, "/cast [nomod] 5308", "/cast [nomod] 78" },
     } },
     { "Level 40-60", {
-        { TGT, BERS, WM, "/cast [nomod] 1680", "/cast [nomod] 23881" },
-        { TGT, BERS, WM, "/cast [nomod] 23881", "/cast [nomod] 5308" },
+        { TGT, BERS, WM, "/cast [nomod] 1680", "/cast [nomod] 23881", "/cast [nomod] 78" },
+        { TGT, BERS, WM, "/cast [nomod] 23881", "/cast [nomod] 5308", "/cast [nomod] 78" },
         { TGT, BERS, WM, "/cast [nomod] 5308", "/cast [nomod] 78" },
         { TGT, BERS, WM, BSH, "/cast [nomod] 78" },
     } },
@@ -1570,7 +1570,7 @@ local FPRI = Flat("RoninFDPS_Priest", 1487,
         { TGT, PRA, WAND },
     } },
     { "Level 40-60", {
-        { CHAN, TGT, PRB, "/castsequence [nomod] reset=target/18 589, null", "/cast [nomod] 8092" },
+        { CHAN, PRB, "/castsequence [nomod] reset=target/18 589, null", "/cast [nomod] 8092", "/cast [nomod] 15407" },
         { CHAN, TGT, PRB, "/cast [nomod] 8092", "/cast [nomod] 15407" },
         { CHAN, TGT, PRB, "/castsequence [nomod] reset=target/24 Devouring Plague, null", "/cast [nomod] 15407" },
         { CHAN, TGT, PRB, "/castsequence [nomod] reset=target/60 Vampiric Embrace, null", "/cast [nomod] 15407" },

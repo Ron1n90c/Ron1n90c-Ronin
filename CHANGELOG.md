@@ -1,3 +1,13 @@
+RONIN - GSE SUITE 4.2.2 - 2026-11-26   (WoW: Forever pack 4.1.1, checked against the Forever hotfixes up to 25 November)
+ * Arms Warrior: Mortal Strike now needs its talent (Forever hotfix 23 November), so at 10-40 Heroic Strike fills
+   the steps where Mortal Strike, Overpower or Execute are not ready. 40-60: Slam as backup in the opening step.
+ * Fury Warrior: Heroic Strike added where Overpower / Execute (10-40) or Whirlwind / Bloodthirst (40-60) are on cooldown.
+ * Warrior 1-10 (Arms and Fury): the Rend step now has Heroic Strike after it.
+ * Shadow Priest 40-60: Mind Flay as filler in the Shadow Word: Pain / Mind Blast step.
+ * Checked, no change needed: Summon Hawk (shares its cooldown with Arcane Shot), Balance Druid talent changes
+   (Moonkin Form and Starfire stay), Enhancement Stormstrike cooldown, Affliction Wrack, Paladin Judgement / Exorcism.
+ * Retail is the same as 4.2.1.
+
 RONIN - GSE SUITE 4.2.1 - 2026-11-25
  * Fix: the Update button no longer imports the whole pack again. Ronin now remembers which sequences you imported
    after a /reload or a new login, so Update replaces only the sequences that really changed.

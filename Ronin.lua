@@ -27,7 +27,7 @@ do
     end)
 end
 
-local ADDON_VERSION = "4.2.1"
+local ADDON_VERSION = "4.2.2"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -108,7 +108,7 @@ local PACKS = {
         },
     },
     forever = {
-        key = "forever", world = "forever", name = "Forever", version = "4.1.0",
+        key = "forever", world = "forever", name = "Forever", version = "4.1.1",
         sub = "WoW: Forever",
         seqs = Ronin.ForeverSequences or {},
         regkey = "RoninForever",
