@@ -1,4 +1,4 @@
--- Ronin Retail V7.2.0 - Tank Priority Edition (tiered chains)
+-- Ronin Retail V7.2.1 - Tank Priority Edition (tiered chains)
 --
 -- Each version is ONE Loop block with StepFunction = "Priority" and THREE
 -- actions (tiers A, B, C). GSE clicks them A, AB, ABC (A x3, B x2, C x1 per
@@ -260,24 +260,28 @@ local DK_DEATHBRINGER_CS = {
 }
 
 -- VENGEANCE (Method Midnight priority as plain ladders, no castsequences: they stalled on
--- Spirit Bomb / Fracture charges). Fracture builds, Soul Cleave spends, Spirit Bomb in two steps.
+-- Spirit Bomb / Fracture charges). Spenders BEFORE Fracture (they only fire with Fury / souls),
+-- cooldowns first in their step, Fracture as the builder (4.2.4: Fracture first starved them).
+-- Spirit Bomb (40 Fury + Soul Fragments) ALWAYS before Soul Cleave (30 Fury, eats 2 fragments), or it never fires.
+-- Midnight: Fracture overrides Demon's Bite for Vengeance (Shear is gone). /cast Demon's Bite after Fracture casts
+-- Fracture through the override when /cast Fracture does not resolve. Spirit Bomb has a 25 s cooldown, Soul Cleave 35 Fury.
 -- Fiery Brand + Fel Devastation + Soul Carver together in the cooldown step (Brand first).
 -- Fel Devastation is protected by the /stopmacro [channeling:Fel Devastation] line.
 local DH_CS_ALDRACHI = {
-    { S("Reaver's Glaive"), S("Fracture"), S("Soul Cleave"), S("Throw Glaive") },
-    { S("Fracture"), S("Spirit Bomb"), S("Soul Cleave"), S("Felblade") },
-    { S("Immolation Aura"), S("Sigil of Flame", "p"), S("Fracture"), S("Throw Glaive") },
-    { S("Sigil of Spite", "p"), S("Soul Cleave"), S("Fracture"), S("Felblade") },
-    { S("Demon Spikes", "c"), S("Fracture"), S("Spirit Bomb"), S("Throw Glaive") },
-    { S("Fiery Brand", "c"), S("Soul Carver", "c"), S("Fel Devastation", "c"), S("Felblade") },
+    { S("Fel Devastation"), S("Reaver's Glaive"), S("Spirit Bomb"), S("Soul Cleave"), S("Fracture"), S("Demon's Bite") },
+    { S("Sigil of Spite", "p"), S("Soul Carver"), S("Spirit Bomb"), S("Fracture"), S("Demon's Bite"), S("Throw Glaive") },
+    { S("Immolation Aura"), S("Sigil of Flame", "p"), S("Spirit Bomb"), S("Soul Cleave"), S("Fracture"), S("Demon's Bite") },
+    { S("Immolation Aura"), S("Felblade"), S("Soul Cleave"), S("Fracture"), S("Demon's Bite"), S("Throw Glaive") },
+    { S("Demon Spikes", "c"), S("Spirit Bomb"), S("Fracture"), S("Demon's Bite"), S("Felblade"), S("Throw Glaive") },
+    { S("Fiery Brand", "c"), S("Fel Devastation", "c"), S("Soul Carver", "c"), S("Felblade"), S("Throw Glaive") },
 }
 local DH_CS_ANNIHILATOR = {
-    { S("Fracture"), S("Soul Cleave"), S("Throw Glaive") },
-    { S("Immolation Aura"), S("Fracture"), S("Spirit Bomb"), S("Felblade") },
-    { S("Soul Carver"), S("Sigil of Spite", "p"), S("Soul Cleave"), S("Fracture") },
-    { S("Sigil of Flame", "p"), S("Fracture"), S("Soul Cleave"), S("Throw Glaive") },
-    { S("Demon Spikes", "c"), S("Fracture"), S("Spirit Bomb"), S("Felblade") },
-    { S("Metamorphosis", "c"), S("Fiery Brand", "c"), S("Fel Devastation", "c"), S("Felblade") },
+    { S("Fel Devastation"), S("Immolation Aura"), S("Spirit Bomb"), S("Soul Cleave"), S("Fracture"), S("Demon's Bite") },
+    { S("Soul Carver"), S("Sigil of Spite", "p"), S("Spirit Bomb"), S("Fracture"), S("Demon's Bite"), S("Throw Glaive") },
+    { S("Sigil of Flame", "p"), S("Spirit Bomb"), S("Soul Cleave"), S("Fracture"), S("Demon's Bite"), S("Throw Glaive") },
+    { S("Felblade"), S("Spirit Bomb"), S("Soul Cleave"), S("Fracture"), S("Demon's Bite"), S("Throw Glaive") },
+    { S("Demon Spikes", "c"), S("Spirit Bomb"), S("Fracture"), S("Demon's Bite"), S("Throw Glaive") },
+    { S("Metamorphosis", "c"), S("Fiery Brand", "c"), S("Fel Devastation", "c"), S("Felblade"), S("Throw Glaive") },
 }
 
 -- "Beginner" version (4th, pick it by hand) for every class: the same steps plus ONE
@@ -291,9 +295,9 @@ end
 local DEF_PAL  = { S("Ardent Defender", "c"), S("Hammer of Wrath"), S("Judgment"), S("Hammer of the Righteous"), S("Blessed Hammer") }
 local DEF_DRU  = { S("Barkskin", "c"), S("Mangle"), S("Thrash"), S("Swipe") }
 local DEF_WAR  = { S("Shield Wall", "c"), S("Shield Slam"), S("Thunder Clap"), S("Revenge") }
-local DEF_DH   = { S("Fiery Brand", "c"), S("Fracture"), S("Shear"), S("Throw Glaive") }      -- Leveling only
-local DEF_DH_ALD = { S("Metamorphosis", "c"), S("Fracture"), S("Soul Cleave") }
-local DEF_DH_ANN = { S("Demon Spikes", "c"), S("Fracture"), S("Soul Cleave") }
+local DEF_DH   = { S("Fiery Brand", "c"), S("Fracture"), S("Demon's Bite"), S("Throw Glaive") }      -- Leveling only
+local DEF_DH_ALD = { S("Metamorphosis", "c"), S("Spirit Bomb"), S("Soul Cleave"), S("Fracture"), S("Demon's Bite") }
+local DEF_DH_ANN = { S("Demon Spikes", "c"), S("Spirit Bomb"), S("Soul Cleave"), S("Fracture"), S("Demon's Bite") }
 local DEF_BREW = { S("Celestial Brew", "c"), S("Blackout Kick"), S("Breath of Fire"), S("Tiger Palm") }
 local DEF_DK   = { S("Vampiric Blood", "c"), S("Heart Strike"), S("Blood Boil") }
 
@@ -339,10 +343,10 @@ local LV_BREW = {
     { S("Chi Burst"), S("Spinning Crane Kick"), S("Tiger Palm") },
 }
 local LV_DH = {
-    { S("Fracture"), S("Shear"), S("Soul Cleave"), S("Throw Glaive") },
-    { S("Immolation Aura"), S("Sigil of Flame", "p"), S("Fracture"), S("Shear") },
-    { S("Soul Cleave"), S("Spirit Bomb"), S("Fracture"), S("Shear") },
-    { S("Fel Devastation", "c"), S("Felblade"), S("Fracture"), S("Shear") },
+    { S("Spirit Bomb"), S("Soul Cleave"), S("Fracture"), S("Demon's Bite"), S("Throw Glaive") },
+    { S("Immolation Aura"), S("Sigil of Flame", "p"), S("Fracture"), S("Demon's Bite") },
+    { S("Fel Devastation"), S("Spirit Bomb"), S("Soul Cleave"), S("Fracture"), S("Demon's Bite") },
+    { S("Fel Devastation", "c"), S("Felblade"), S("Fracture"), S("Demon's Bite") },
 }
 local LV_DK = {
     { S("Marrowrend"), S("Heart Strike"), S("Blood Boil") },

@@ -1,3 +1,18 @@
+RONIN - GSE SUITE 4.2.4 - 2026-11-26   (Retail pack 7.2.1)
+ * Vengeance Demon Hunter (Aldrachi Reaver + Annihilator, all versions): rebuilt on the current Midnight priority.
+   Fracture came first in almost every step, so with haste it took nearly every press and Soul Cleave, Spirit Bomb,
+   Fel Devastation, Soul Carver and the Sigils were rarely cast. Now the spenders come before Fracture (they only fire
+   with Fury and Soul Fragments), Fel Devastation, Immolation Aura and the Sigils sit first in the busy steps and
+   Fracture builds when there is nothing to spend.
+ * Spirit Bomb (40 Fury + Soul Fragments) now always comes before Soul Cleave (30 Fury, eats 2 fragments).
+   Before, Soul Cleave spent the Fury and the fragments first, so Spirit Bomb almost never fired.
+ * Midnight: Fracture overrides Demon's Bite for Vengeance (Shear is gone). Every Vengeance step now has
+   Demon's Bite right after Fracture, so the builder always fires, even when the game only knows the base spell.
+   Without it there was no builder, no Fury and no Soul Cleave / Spirit Bomb.
+ * Spirit Bomb now has a 25 s cooldown and Soul Cleave costs 35 Fury in Midnight: the priority follows that.
+ * Vengeance Leveling: Spirit Bomb and Fel Devastation are now used.
+ * Everything else is the same as 4.2.3.
+
 RONIN - GSE SUITE 4.2.3 - 2026-11-26
  * Update button: GSE saves an import a few seconds later (out of combat). Ronin now waits for that before it
    remembers your sequence, so rows no longer show "Edited by you" by mistake and keep getting updates.
