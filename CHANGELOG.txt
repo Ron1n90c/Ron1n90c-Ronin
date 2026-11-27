@@ -1,3 +1,8 @@
+RONIN - GSE SUITE 4.3.2 - 2026-11-27   (Retail pack 7.3.2)
+ * Elemental Shaman Stormbringer: Mythic+ / Delve talent string from a top Mythic+ player (Stormbringer is the most
+   played Elemental hero tree in high keys). The macro already uses every key spell of it (Voltaic Blaze, Earth Shock,
+   Tempest, Stormkeeper).
+
 RONIN - GSE SUITE 4.3.1 - 2026-11-27   (Retail pack 7.3.1)
  * Talent strings for 4 more hero trees (checked against the current talent trees, read twice):
    - Frost DK Rider of the Apocalypse: Delve build. The macro no longer has Breath of Sindragosa (not in the Rider build).
