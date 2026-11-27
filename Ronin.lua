@@ -27,7 +27,7 @@ do
     end)
 end
 
-local ADDON_VERSION = "4.3.3"
+local ADDON_VERSION = "4.4.0-beta1"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -93,7 +93,7 @@ end
 
 local PACKS = {
     retail = {
-        key = "retail", world = "retail", name = "Retail", version = "7.3.2",
+        key = "retail", world = "retail", name = "Retail", version = "7.3.3",
         sub = "Midnight 12.0",
         seqs = Ronin.RetailSequences or {},
         regkey = "RoninRetail",
@@ -608,6 +608,7 @@ local function RefreshStatus(page)
     return needs
 end
 
+local MarkForYouRef
 local function ShowPage(name)
     for _, p in pairs(UI.pages) do p:Hide() end
     local p = UI.pages[name]
@@ -618,6 +619,8 @@ local function ShowPage(name)
         if p.SetScroll then p.scrollPos = 0; p.SetScroll(0) end
         DB.last = p.pack.key
         local needs = RefreshStatus(p)
+        local mineRow = MarkForYouRef and MarkForYouRef(p)
+        if mineRow and p.rows[mineRow] and p.rows[mineRow].y and p.SetScroll then p.SetScroll(p.rows[mineRow].y) end
         local wrongWorld = ((p.pack.world or p.pack.key) == "retail") ~= IsRetailClient()
         if not EnsureGSE() then
             SetMsg(p, RED .. "GSE is not loaded or too old. Install/enable GSE first.|r")
@@ -1054,6 +1057,14 @@ local function BuildInstallPage(inner, pack)
         status:SetJustifyH("RIGHT")
         row.status = status
 
+        local hasTal = false
+        for _, key in ipairs(g.seqs) do if Ronin.Meta and Ronin.Meta[key] and Ronin.Meta[key].tal and not Ronin.Meta[key].same then hasTal = true end end
+        if hasTal then
+            local tb = MakeButton(row, "Talents", 64, 22, false)
+            tb:SetPoint("RIGHT", status, "LEFT", -10, 0)
+            tb:SetScript("OnClick", function() if Ronin.ShowTalents then Ronin.ShowTalents(g.seqs, g.name .. " talents") end end)
+            row.talBtn = tb
+        end
         row:SetScript("OnClick", function() cb:SetChecked(not cb:GetChecked()) end)
         row:EnableMouseWheel(true)
         row:SetScript("OnMouseWheel", function(_, delta) page.SetScroll((page.scrollPos or 0) - delta * 60) end)
@@ -1218,10 +1229,11 @@ local function LayoutInstall(page, w, h)
         local k = math.floor((i - 1) / cols)
         r:ClearAllPoints()
         r:SetPoint("TOPLEFT", page.content, "TOPLEFT", c * (colW + colGap), -(k * (rh + gap)))
+        r.y = k * (rh + gap)
         r:SetSize(colW, rh)
         r.icon:SetSize(rh - 12, rh - 12)
         r.name:SetFontObject(nameFont)
-        local textW = colW - (8 + 26 + 8 + (rh - 12) + 12) - 118   -- room left of the status text
+        local textW = colW - (8 + 26 + 8 + (rh - 12) + 12) - 118 - (r.talBtn and 74 or 0)   -- room left of the status text (and the Talents button)
         r.name:SetWidth(textW)
         r.sub:SetWidth(textW)
     end
@@ -1388,6 +1400,369 @@ local function Debug()
     end
 end
 
+-- ---------------------------------------------------------------------------
+-- Ronin tools (4.4): /ronin check, Copy talents, "for you" rows, /ronin report
+-- Ronin.Meta (Data_Meta.lua): per Retail sequence the hero tree, the talent import strings and the
+-- spells the build needs. Forever: the spells of the version for your level are read from the macro.
+-- ---------------------------------------------------------------------------
+
+local META = Ronin.Meta or {}
+
+local function PlayerSpec()
+    if type(GetSpecialization) ~= "function" then return nil end
+    local ok, idx = pcall(GetSpecialization)
+    if not ok or not idx then return nil end
+    local ok2, id, name = pcall(GetSpecializationInfo, idx)
+    if ok2 then return id, name end
+end
+
+local function PlayerHero()
+    if type(C_ClassTalents) ~= "table" or type(C_ClassTalents.GetActiveHeroTalentSpec) ~= "function" then return nil end
+    local ok, sub = pcall(C_ClassTalents.GetActiveHeroTalentSpec)
+    if not ok or not sub then return nil end
+    if type(C_Traits) == "table" and type(C_Traits.GetSubTreeInfo) == "function" and type(C_ClassTalents.GetActiveConfigID) == "function" then
+        local okc, cfg = pcall(C_ClassTalents.GetActiveConfigID)
+        if okc and cfg then
+            local oki, info = pcall(C_Traits.GetSubTreeInfo, cfg, sub)
+            if oki and type(info) == "table" and info.name then return info.name end
+        end
+    end
+end
+
+local function LoadoutString()
+    if type(C_ClassTalents) ~= "table" or type(C_Traits) ~= "table" then return nil end
+    if type(C_ClassTalents.GetActiveConfigID) ~= "function" or type(C_Traits.GenerateImportString) ~= "function" then return nil end
+    local ok, cfg = pcall(C_ClassTalents.GetActiveConfigID)
+    if not ok or not cfg then return nil end
+    local ok2, s = pcall(C_Traits.GenerateImportString, cfg)
+    if ok2 then return s end
+end
+
+-- is this spell (name or spell ID) known by your character right now?
+local function Known(spell)
+    local id = tonumber(spell)
+    if not id then
+        if type(C_Spell) == "table" and type(C_Spell.GetSpellInfo) == "function" then
+            local ok, info = pcall(C_Spell.GetSpellInfo, spell)
+            if not ok or type(info) ~= "table" then return false end
+            id = info.spellID
+        elseif type(GetSpellInfo) == "function" then
+            local r = { pcall(GetSpellInfo, spell) }
+            if not r[1] or not r[2] then return false end
+            id = r[8]
+            if not id then return true end
+        else
+            return nil
+        end
+    end
+    if not id then return false end
+    if type(IsPlayerSpell) == "function" then
+        local ok, v = pcall(IsPlayerSpell, id); if ok and v then return true end
+    end
+    if type(IsSpellKnownOrOverridesKnown) == "function" then
+        local ok, v = pcall(IsSpellKnownOrOverridesKnown, id); if ok and v then return true end
+    end
+    if type(IsSpellKnown) == "function" then
+        local ok, v = pcall(IsSpellKnown, id); if ok and v then return true end
+    end
+    if type(C_SpellBook) == "table" and type(C_SpellBook.IsSpellKnown) == "function" then
+        local ok, v = pcall(C_SpellBook.IsSpellKnown, id); if ok and v then return true end
+    end
+    return false
+end
+Ronin.Known = Known
+
+-- spells used by one macro text (names or IDs), conditions and resets removed
+local function MacroSpells(text, out, seen)
+    for line in tostring(text):gmatch("[^\n]+") do
+        local cmd, body = line:match("^%s*/(%a+)%s+(.*)$")
+        if cmd == "cast" or cmd == "castsequence" or cmd == "use" then
+            for rawClause in (body .. ";"):gmatch("([^;]*);") do
+                local clause = rawClause:gsub("%b[]", ""):gsub("^%s*reset=%S+%s*", "")
+                local parts = {}
+                if cmd == "castsequence" then
+                    for p in clause:gmatch("[^,]+") do parts[#parts + 1] = p end
+                else
+                    parts[1] = clause
+                end
+                for _, raw in ipairs(parts) do
+                    local p = raw:gsub("^%s+", ""):gsub("%s+$", ""):gsub("^!", ""):gsub("%s%s+", " ")
+                    if p ~= "" and p:lower() ~= "null" and not seen[p] and not (cmd == "use" and tonumber(p) and tonumber(p) < 20) then
+                        seen[p] = true; out[#out + 1] = p
+                    end
+                end
+            end
+        end
+    end
+end
+local function VersionSpells(seq, label)
+    local out, seen = {}, {}
+    local function walk(t)
+        if type(t) ~= "table" then return end
+        if type(t.macro) == "string" then MacroSpells(t.macro, out, seen) end
+        for k, v in pairs(t) do if type(v) == "table" then walk(v) end end
+    end
+    for _, v in pairs(seq.Versions or {}) do
+        if v.Label == label then walk(v) end
+    end
+    return out
+end
+Ronin.MacroSpells = MacroSpells
+
+local FOREVER_CLASS = { WARRIOR = "Warrior", PALADIN = "Paladin", DRUID = "Druid", SHAMAN = "Shaman", WARLOCK = "Warlock",
+    MAGE = "Mage", HUNTER = "Hunter", PRIEST = "Priest" }
+
+-- which Ronin sequences are for your character (Retail: your spec, Forever: your class)
+local function MySequences()
+    local list = {}
+    local retail = IsRetailClient()
+    local spec = PlayerSpec()
+    local classTag
+    if type(UnitClass) == "function" then classTag = select(2, UnitClass("player")) end
+    for name, seq in pairs(Ronin.Sequences) do
+        local pack = PACK_OF[name]
+        local isRetail = pack and (pack.world or pack.key) == "retail"
+        if retail and isRetail then
+            if spec and seq.MetaData and tonumber(seq.MetaData.SpecID) == spec then list[#list + 1] = name end
+        elseif not retail and not isRetail then
+            local cls = FOREVER_CLASS[classTag or ""]
+            if cls and name:find(cls, 1, true) then list[#list + 1] = name end
+        end
+    end
+    table.sort(list)
+    return list
+end
+
+local function ForeverLabel()
+    local lvl = (UnitLevel and UnitLevel("player")) or 60
+    if lvl < 10 then return "Level 1-10" elseif lvl < 40 then return "Level 10-40" end
+    return "Level 40-60"
+end
+
+-- returns { {name=, hero=, missing={...}, checked=n}, ... }, header text
+function Ronin.Check()
+    local res = {}
+    local retail = IsRetailClient()
+    local hero = PlayerHero()
+    for _, name in ipairs(MySequences()) do
+        local m = META[name]
+        local need
+        if retail then
+            need = m and m.need or {}
+        else
+            need = VersionSpells(Ronin.Sequences[name], ForeverLabel())
+        end
+        local miss = {}
+        for _, e in ipairs(need) do
+            local sp, eng = e, nil
+            if type(e) == "table" then sp, eng = e[1], e[2] end      -- Retail: { spellID, English name }
+            if Known(sp) == false then
+                local shown
+                if tonumber(sp) then
+                    if type(C_Spell) == "table" and type(C_Spell.GetSpellName) == "function" then
+                        local ok, n = pcall(C_Spell.GetSpellName, tonumber(sp)); if ok and n then shown = n end
+                    end
+                    if not shown and type(GetSpellInfo) == "function" then
+                        local ok, n = pcall(GetSpellInfo, tonumber(sp)); if ok and n then shown = n end
+                    end
+                end
+                miss[#miss + 1] = shown or eng or tostring(sp)
+            end
+        end
+        res[#res + 1] = { name = name, hero = m and m.hero, missing = miss, checked = #need,
+            yours = (hero and m and m.hero == hero) or false }
+    end
+    -- you play one hero tree: the macros of the other one are not checked (their hero spells are not yours)
+    local any = false
+    for _, r in ipairs(res) do if r.yours then any = true end end
+    if any then
+        local keep = {}
+        for _, r in ipairs(res) do if r.yours or not r.hero then keep[#keep + 1] = r end end
+        res = keep
+    end
+    return res, hero
+end
+
+local function CheckText()
+    local res, hero = Ronin.Check()
+    local retail = IsRetailClient()
+    local _, specName = PlayerSpec()
+    local lines = {}
+    if #res == 0 then
+        lines[1] = retail and "No Ronin sequence for your spec." or "No Ronin sequence for your class."
+        return table.concat(lines, "\n"), res
+    end
+    lines[#lines + 1] = "Ronin check for " .. tostring(specName or (UnitClass and UnitClass("player")) or "you")
+        .. (hero and (" (" .. hero .. ")") or "") .. (retail and "" or (" - " .. ForeverLabel()))
+    for _, r in ipairs(res) do
+        local mark = r.yours and "  <- your hero tree" or ""
+        if #r.missing == 0 then
+            lines[#lines + 1] = r.name .. ": all " .. r.checked .. " spells known" .. mark
+        else
+            lines[#lines + 1] = r.name .. ": missing " .. table.concat(r.missing, ", ") .. mark
+        end
+    end
+    if retail then
+        lines[#lines + 1] = "Missing spells: import the talents of that macro (Talents button in /ronin or its GSE Notes)."
+        lines[#lines + 1] = "\"You can't do that yet\" below max level is normal: the spell comes with a later level."
+    else
+        lines[#lines + 1] = "Missing spells in WoW: Forever: not learned yet (trainer, level, talent or rune). The macro skips them."
+    end
+    return table.concat(lines, "\n"), res
+end
+Ronin.CheckText = CheckText
+
+-- one copy box for talents, check and report
+local copyBox
+local function CopyBox()
+    if copyBox then return copyBox end
+    local f = CreateFrame("Frame", "RoninCopyBox", UIParent, "BackdropTemplate")
+    f:SetSize(620, 360)
+    f:SetPoint("CENTER", 0, 40)
+    f:SetFrameStrata("FULLSCREEN_DIALOG")
+    f:SetMovable(true); f:EnableMouse(true); f:RegisterForDrag("LeftButton")
+    f:SetScript("OnDragStart", f.StartMoving); f:SetScript("OnDragStop", f.StopMovingOrSizing)
+    f:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 2 })
+    f:SetBackdropColor(unpack(C.bg)); f:SetBackdropBorderColor(unpack(C.gold))
+    tinsert(UISpecialFrames, "RoninCopyBox")
+    f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    f.title:SetPoint("TOPLEFT", 16, -14)
+    f.hint = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    f.hint:SetPoint("TOPLEFT", f.title, "BOTTOMLEFT", 0, -4)
+    f.hint:SetJustifyH("LEFT")
+    local close = MakeButton(f, "X", 24, 24, false)
+    close:SetPoint("TOPRIGHT", -10, -10)
+    close:SetScript("OnClick", function() f:Hide() end)
+    f.tabs = {}
+    local sf = CreateFrame("ScrollFrame", "RoninCopyScroll", f, "UIPanelScrollFrameTemplate")
+    sf:SetPoint("TOPLEFT", 16, -96)
+    sf:SetPoint("BOTTOMRIGHT", -34, 16)
+    local eb = CreateFrame("EditBox", nil, sf)
+    eb:SetMultiLine(true); eb:SetAutoFocus(false); eb:SetFontObject("ChatFontNormal")
+    eb:SetWidth(560)
+    eb:SetScript("OnEscapePressed", function() f:Hide() end)
+    eb:SetScript("OnTextChanged", function(self, user) if user and f.text then self:SetText(f.text); self:HighlightText() end end)
+    sf:SetScrollChild(eb)
+    f.eb = eb
+    f:Hide()
+    copyBox = f
+    return f
+end
+local function ShowCopy(title, hint, text, choices)
+    local f = CopyBox()
+    f.title:SetText(GOLD .. title .. "|r")
+    f.hint:SetText(DIM .. hint .. "|r")
+    for _, b in ipairs(f.tabs) do b:Hide() end
+    local function put(t)
+        f.text = t
+        f.eb:SetText(t); f.eb:SetFocus(); f.eb:HighlightText()
+    end
+    if choices and #choices > 0 then
+        local x = 16
+        for i, c in ipairs(choices) do
+            local b = f.tabs[i]
+            if not b then b = MakeButton(f, "", 140, 26, false); f.tabs[i] = b end
+            b:ClearAllPoints(); b:SetPoint("TOPLEFT", x, -62)
+            local w = math.min(190, 24 + #c.label * 7); b:SetWidth(w); x = x + w + 8
+            b.label:SetText(c.label)
+            b:SetScript("OnClick", function() put(c.text) end)
+            b:Show()
+        end
+        put(choices[1].text)
+    else
+        put(text or "")
+    end
+    f:Show()
+    return f
+end
+Ronin.ShowCopy = ShowCopy
+
+-- the talent strings of a row (both hero trees), your hero tree first
+local function TalentChoices(keys)
+    local hero = PlayerHero()
+    local list = {}
+    for _, key in ipairs(keys) do
+        local m = META[key]
+        if m and m.tal and not m.same then
+            for _, t in ipairs(m.tal) do
+                list[#list + 1] = { label = (m.hero or key) .. ": " .. t[1], text = t[2], mine = (hero and m.hero == hero) }
+            end
+        end
+    end
+    table.sort(list, function(a, b) if a.mine ~= b.mine then return a.mine end return false end)
+    return list
+end
+Ronin.TalentChoices = TalentChoices
+
+function Ronin.ShowTalents(keys, title)
+    local ch = TalentChoices(keys)
+    if #ch == 0 then
+        Print(DIM .. "No talent string for this one: pick the hero tree in your talent window.|r"); return
+    end
+    ShowCopy(title or "Talents", "Ctrl+C, then in the talent window: Import (the button at the bottom), Ctrl+V. Pick the macro version that matches (Mythic+ / Delve or Raid).", nil, ch)
+end
+
+function Ronin.ShowCheck()
+    local text, res = CheckText()
+    local missing = 0
+    for _, r in ipairs(res) do if #r.missing > 0 then missing = missing + 1 end end
+    if #res > 0 then
+        Print((missing == 0 and GREEN .. "Check: every spell of your Ronin macros is known.|r") or
+            (GOLD .. "Check: " .. missing .. " macro(s) use spells you do not have.|r Details in the window."))
+    end
+    ShowCopy("Ronin check", "Which spells of your Ronin macros your character knows right now.", text)
+end
+
+function Ronin.ReportText()
+    local lines = {}
+    local _, specName = PlayerSpec()
+    local spec = PlayerSpec()
+    local gse = type(GSE) == "table" and (GSE.VersionString or GSE.VersionNumber) or "not loaded"
+    local _, _, _, toc = GetBuildInfo()
+    lines[#lines + 1] = "Ronin " .. ADDON_VERSION .. " (Retail " .. PACKS.retail.version .. ", Forever " .. PACKS.forever.version .. ") | GSE " .. tostring(gse) .. " | client " .. tostring(toc)
+    lines[#lines + 1] = "Character: " .. tostring(UnitClass and UnitClass("player") or "?") .. " " .. tostring(specName or "") ..
+        (spec and (" (" .. spec .. ")") or "") .. " | hero tree: " .. tostring(PlayerHero() or "-") .. " | level " .. tostring(UnitLevel and UnitLevel("player") or "?")
+    lines[#lines + 1] = "Talents: " .. tostring(LoadoutString() or "-")
+    local mine = MySequences()
+    local st = {}
+    for _, n in ipairs(mine) do st[#st + 1] = n .. "=" .. tostring((StatusOf(n))) end
+    lines[#lines + 1] = "Ronin sequences: " .. (#st > 0 and table.concat(st, ", ") or "-")
+    local text = CheckText()
+    lines[#lines + 1] = "Check: " .. text:gsub("\n", " | ")
+    lines[#lines + 1] = "Which version (Mythic+ / Raid / Delve / Beginner / Leveling): "
+    lines[#lines + 1] = "What happens: "
+    return table.concat(lines, "\n")
+end
+function Ronin.ShowReport()
+    ShowCopy("Ronin report", "Ctrl+C and paste it in a comment on the Ronin CurseForge page. Add the version and what happens at the end.", Ronin.ReportText())
+end
+
+-- rows for your spec: gold border + "for you" (and your hero tree when it is known)
+local function MarkForYou(page)
+    if not page or not page.rows then return nil end
+    local spec = PlayerSpec()
+    local hero = PlayerHero()
+    local first
+    for i, r in ipairs(page.rows) do
+        local g = r.group
+        local mine = spec and g.specID and g.specID == spec
+        if mine then
+            local h
+            for _, key in ipairs(g.seqs) do local m = META[key]; if hero and m and m.hero == hero and not h then h = m.hero end end
+            r.sub:SetText(DIM .. (g.sub or "") .. "|r  " .. GOLD .. "For you" .. (h and (": " .. h) or "") .. "|r")
+            r:SetBackdropBorderColor(unpack(C.gold))
+            r.forYou = true
+            first = first or i
+        elseif r.forYou then
+            r.sub:SetText(DIM .. (g.sub or "") .. "|r"); r.forYou = nil
+            r:SetBackdropBorderColor(0.10, 0.20, 0.30, 1)
+        end
+    end
+    return first
+end
+Ronin.MarkForYou = MarkForYou
+MarkForYouRef = MarkForYou
+
 SLASH_RONIN1 = "/ronin"
 SLASH_RONIN2 = "/roninforever"
 SLASH_RONIN3 = "/roninretail"
@@ -1396,6 +1771,17 @@ SlashCmdList["RONIN"] = function(msg, editbox)
     if msg == "debug" then Debug(); return end
     if msg == "update" then Ronin.UpdateAll(); return end
     if msg == "retail" or msg == "forever" then Toggle("roles_" .. msg); return end
+    if msg == "check" then Ronin.ShowCheck(); return end
+    if msg == "report" then Ronin.ShowReport(); return end
+    if msg == "talents" then
+        local keys = MySequences()
+        if #keys == 0 then Print(DIM .. "No Ronin sequence for your spec.|r") else Ronin.ShowTalents(keys, "Talents for your spec") end
+        return
+    end
+    if msg == "help" then
+        Print("/ronin  open the installer  |  /ronin update  |  /ronin check  spells you miss  |  /ronin talents  copy the talent string  |  /ronin report  text for a bug report  |  /ronin retail  |  /ronin forever")
+        return
+    end
     Toggle(nil)
 end
 
@@ -1437,6 +1823,10 @@ loginCheck:SetScript("OnEvent", function()
         local ok, keys = pcall(AllUpdatable)
         if ok and #keys > 0 then
             Print(GOLD .. #keys .. " of your Ronin sequence(s) have an update.|r Type |cffffffff/ronin update|r or open |cffffffff/ronin|r and press Update.")
+        end
+        if DB.toolsHint ~= ADDON_VERSION then
+            DB.toolsHint = ADDON_VERSION
+            Print("New: |cffffffff/ronin check|r (spells you miss), |cffffffff/ronin talents|r (copy the build), |cffffffff/ronin report|r (bug report text).")
         end
     end)
 end)

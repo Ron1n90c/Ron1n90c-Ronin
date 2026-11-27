@@ -1,3 +1,19 @@
+RONIN - GSE SUITE 4.4.0-beta1 - 2026-11-27   (Retail pack 7.3.3)
+ * /ronin check: looks at your spec, hero tree and talents and tells you which Ronin macro fits you and which
+   key spells of that macro you have not learned. Works in every client language (spell IDs).
+ * Talents button: every macro with a talent string has a "Talents" button in /ronin. It opens a copy box with
+   the strings (your hero tree first): Ctrl+C, then import in the talent window. Also: /ronin talents.
+ * "For you": /ronin marks the macro that fits your spec and hero tree with a gold border and scrolls to it.
+   WoW: Forever picks the level range for your level.
+ * /ronin report: one box with your Ronin version, spec, hero tree, talent string and macro status.
+   Copy it into a CurseForge comment when something feels wrong.
+ * /ronin help lists all commands. A short hint is printed once after an update.
+ * Fixes found by the new check:
+   - Fire and Frost Mage: Shift is now Blazing Barrier / Ice Barrier (Prismatic Barrier is Arcane only).
+   - Devourer Demon Hunter: Alt is Sigil of Misery (Chaos Nova is not in the Devourer tree).
+   - Guardian Druid Elune: Fury of Elune removed (Balance talent); Lunar Beam and Red Moon stay.
+ * Every macro tested again: 629 of 636 versions keep the GCD busy 90% or more.
+
 RONIN - GSE SUITE 4.3.3 - 2026-11-27   (WoW: Forever pack 4.1.2)
  * Forever Balance Druid (10-40 and 40-60): every step with the Wrath, Starfire, Starfire chain now has Wrath as
    a plain fallback. Before, a step could do nothing while the chain waited (Starfire fails while moving).

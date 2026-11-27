@@ -1,4 +1,4 @@
-RONIN - GSE SUITE                                                    V4.3.3
+RONIN - GSE SUITE                                                    V4.4.0-beta1
 Tank, DPS and Heal macros for GSE (Gnome Sequencer Enhanced). Retail AND WoW: Forever in one add-on.
 Website: https://ron1n.cc   |   CurseForge: https://www.curseforge.com/wow/addons/ronin
 Ko-fi: https://ko-fi.com/ron1n90c   |   Patreon: https://www.patreon.com/RON1N90C
@@ -13,6 +13,7 @@ START
 
 COMMANDS
  /ronin  /ronin retail  /ronin forever  /ronin update  /ronin debug
+ /ronin check (does your build fit the macro?)  /ronin talents (copy the talent strings)  /ronin report  /ronin help
  Update: the installer shows which sequences have a newer Ronin version; press Update (or type /ronin update) to replace only those.
 
 RETAIL V7.3.2 (Midnight)

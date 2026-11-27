@@ -88,7 +88,7 @@ local D_DK = { S("Anti-Magic Shell", "c") }
 local C_DH = { gate = "nochanneling:Eye Beam", stop = false, util = { "/cast [mod:shift]Disrupt;[mod:alt]Chaos Nova" } }
 local D_DH = { S("Blur", "c") }
 
-local C_DEV = { gate = "nochanneling", stop = false, util = { "/cast [mod:shift]Disrupt;[mod:alt]Chaos Nova" } }
+local C_DEV = { gate = "nochanneling", stop = false, util = { "/cast [mod:shift]Disrupt;[mod:alt,@cursor]Sigil of Misery" } }
 local D_DEV = { S("Soul Immolation", "c") }
 
 local C_SHA = { stop = false, util = { "/cast [mod:shift,@player]Healing Surge;[mod:alt]Capacitor Totem" } }
@@ -129,6 +129,12 @@ local D_DEMO = { S("Unending Resolve", "c") }
 
 local C_MAGE = { gate = "nochanneling", stop = false, util = { "/cast [mod:shift,@player]Prismatic Barrier;[mod:alt]Frost Nova" } }
 local D_MAGE = { S("Mirror Image", "c") }
+
+local C_MAGF = { gate = "nochanneling", stop = false, util = { "/cast [mod:shift,@player]Blazing Barrier;[mod:alt]Frost Nova" } }
+local D_MAGF = { S("Mirror Image", "c") }
+
+local C_MAGI = { gate = "nochanneling", stop = false, util = { "/cast [mod:shift,@player]Ice Barrier;[mod:alt]Frost Nova" } }
+local D_MAGI = { S("Mirror Image", "c") }
 
 local Retail = {}
 
@@ -295,7 +301,7 @@ Retail.RoninDPS_DH_Devourer_Annih = DPS("RoninDPS_DH_Devourer_Annih", 1480, C_DE
     { S("Consume"), S("Reap"), S("Void Ray") },
     { S("Reap"), S("Consume") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
-}, { S("Soul Immolation", "c"), S("Consume") }, "Devourer DH, Annihilator. Annihilator hero tree (Voidfall stacks, Void Meteors, 4-5 Collapsing Stars per Void Metamorphosis). Raid single target and Mythic+ AoE. Void Ray and Collapsing Star are long casts: stand still while they run, the macro will not interrupt them. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMzMzMzMzMDzsYGjFZhZmZmt2mZmBwwAQgHYMDjZA | Raid: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMzMzMjZmZGzsYGjFtswMzMzWbzMzAYGDABegxghB | Leveling: take these talents as they unlock. Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Soul Immolation", "c"), S("Consume") }, "Devourer DH, Annihilator. Annihilator hero tree (Voidfall stacks, Void Meteors, 4-5 Collapsing Stars per Void Metamorphosis). Raid single target and Mythic+ AoE. Void Ray and Collapsing Star are long casts: stand still while they run, the macro will not interrupt them. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMzMzMzMzMDzsYGjFZhZmZmt2mZmBwwAQgHYMDjZA | Raid: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMzMzMjZmZGzsYGjFtswMzMzWbzMzAYGDABegxghB | Leveling: take these talents as they unlock. Keys: Shift = Disrupt, Alt = Sigil of Misery. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Consume"), S("Reap"), S("Void Ray") },
     { S("Collapsing Star"), S("Cull"), S("Consume") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
@@ -308,7 +314,7 @@ Retail.RoninDPS_DH_Dev_Annih_AoE = DPS("RoninDPS_DH_Dev_Annih_AoE", 1480, C_DEV,
     { S("Reap"), S("Collapsing Star"), S("Consume") },
     { S("Consume"), S("Reap") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
-}, { S("Soul Immolation", "c"), S("Consume") }, "Devourer DH, Annihilator. Annihilator hero tree (Voidfall stacks, Void Meteors, 4-5 Collapsing Stars per Void Metamorphosis). Raid single target and Mythic+ AoE. Void Ray and Collapsing Star are long casts: stand still while they run, the macro will not interrupt them. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DH_Devourer_Annih (import string in its Notes). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Soul Immolation", "c"), S("Consume") }, "Devourer DH, Annihilator. Annihilator hero tree (Voidfall stacks, Void Meteors, 4-5 Collapsing Stars per Void Metamorphosis). Raid single target and Mythic+ AoE. Void Ray and Collapsing Star are long casts: stand still while they run, the macro will not interrupt them. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DH_Devourer_Annih (import string in its Notes). Keys: Shift = Disrupt, Alt = Sigil of Misery. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Consume"), S("Reap"), S("Void Ray") },
     { S("Collapsing Star"), S("Cull"), S("Consume") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
@@ -321,7 +327,7 @@ Retail.RoninDPS_DH_Dev_VoidScar = DPS("RoninDPS_DH_Dev_VoidScar", 1480, C_DEV, {
     { S("Pierce the Veil"), S("Predator's Wake"), S("Consume") },
     { S("Soul Immolation", "c"), S("Reap"), S("Consume") },
     { S("Voidblade"), S("Void Metamorphosis", "c"), S("The Hunt"), S("Consume") },
-}, { S("Soul Immolation", "c"), S("Consume") }, "Devourer DH, Void-Scarred. Void-Scarred hero tree (Hungering Slash, Voidstep, Burning Blades; Voidblade and The Hunt become Pierce the Veil and Predator's Wake inside Void Metamorphosis). Melee build: easier to disrupt than Annihilator, so use it when you can stay on the boss. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMmZmZmZmZYmlZYsplFAEwAYMzMbzMTz2MbzMDmxA | Raid: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMmZmZMzMDzsMzYsptFAEwAYMzMbzMTz2MbzMMmxA | Leveling: take these talents as they unlock. Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Soul Immolation", "c"), S("Consume") }, "Devourer DH, Void-Scarred. Void-Scarred hero tree (Hungering Slash, Voidstep, Burning Blades; Voidblade and The Hunt become Pierce the Veil and Predator's Wake inside Void Metamorphosis). Melee build: easier to disrupt than Annihilator, so use it when you can stay on the boss. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMmZmZmZmZYmlZYsplFAEwAYMzMbzMTz2MbzMDmxA | Raid: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMmZmZMzMDzsMzYsptFAEwAYMzMbzMTz2MbzMMmxA | Leveling: take these talents as they unlock. Keys: Shift = Disrupt, Alt = Sigil of Misery. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Consume"), S("Reap"), S("Void Ray") },
     { S("Collapsing Star"), S("Cull"), S("Consume") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
@@ -334,7 +340,7 @@ Retail.RoninDPS_DH_Dev_VScar_AoE = DPS("RoninDPS_DH_Dev_VScar_AoE", 1480, C_DEV,
     { S("Pierce the Veil"), S("Predator's Wake"), S("Reap") },
     { S("Soul Immolation", "c"), S("Cull"), S("Consume") },
     { S("Voidblade"), S("Void Metamorphosis", "c"), S("The Hunt"), S("Consume") },
-}, { S("Soul Immolation", "c"), S("Consume") }, "Devourer DH, Void-Scarred. Void-Scarred hero tree (Hungering Slash, Voidstep, Burning Blades; Voidblade and The Hunt become Pierce the Veil and Predator's Wake inside Void Metamorphosis). Melee build: easier to disrupt than Annihilator, so use it when you can stay on the boss. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DH_Dev_VoidScar (import string in its Notes). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Soul Immolation", "c"), S("Consume") }, "Devourer DH, Void-Scarred. Void-Scarred hero tree (Hungering Slash, Voidstep, Burning Blades; Voidblade and The Hunt become Pierce the Veil and Predator's Wake inside Void Metamorphosis). Melee build: easier to disrupt than Annihilator, so use it when you can stay on the boss. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DH_Dev_VoidScar (import string in its Notes). Keys: Shift = Disrupt, Alt = Sigil of Misery. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Consume"), S("Reap"), S("Void Ray") },
     { S("Collapsing Star"), S("Cull"), S("Consume") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
@@ -1052,105 +1058,105 @@ Retail.RoninDPS_Destro_Diab_AoE = DPS("RoninDPS_Destro_Diab_AoE", 267, C_LOCK, {
     { S("Incinerate") },
 })
 
-Retail.RoninDPS_Frost_Spellslinger = DPS("RoninDPS_Frost_Spellslinger", 64, C_MAGE, {
+Retail.RoninDPS_Frost_Spellslinger = DPS("RoninDPS_Frost_Spellslinger", 64, C_MAGI, {
     { S("Glacial Spike"), S("Frozen Orb", "c"), R("/cast [nochanneling,buff:Brain Freeze]Flurry"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Brain Freeze]Flurry"), R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Frozen Orb", "c") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Ray of Frost"), S("Glacial Spike") },
     { S("Ray of Frost"), S("Ice Lance"), S("Frostbolt") },
     { S("Frostbolt"), S("Ice Lance") },
     { S("Icy Veins", "c"), S("Frozen Orb", "c"), S("Frostbolt") },
-}, { S("Mirror Image", "c"), S("Frostbolt") }, "Frost Mage, Spellslinger. Flurry on Brain Freeze, Ice Lance on Fingers of Frost, Glacial Spike, Ray of Frost. Spellslinger hero tree; AoE: Blizzard (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZm5BmFMzEzMGzMzMziZmZMjZgAAAzMzssMz0GAAsBAAAWAYbZMzMzwsNMmhFAAAmZDYGGDYGMMA | Raid: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZm5BmFMzEzMGzMzMziZmZMjZAAAgZmZWWmZaDAA2AAAALAstMmZmZY2GGzwCAAAzsBMTGDYGMMA | Leveling: take these talents as they unlock. Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Mirror Image", "c"), S("Frostbolt") }, "Frost Mage, Spellslinger. Flurry on Brain Freeze, Ice Lance on Fingers of Frost, Glacial Spike, Ray of Frost. Spellslinger hero tree; AoE: Blizzard (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZm5BmFMzEzMGzMzMziZmZMjZgAAAzMzssMz0GAAsBAAAWAYbZMzMzwsNMmhFAAAmZDYGGDYGMMA | Raid: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZm5BmFMzEzMGzMzMziZmZMjZAAAgZmZWWmZaDAA2AAAALAstMmZmZY2GGzwCAAAzsBMTGDYGMMA | Leveling: take these talents as they unlock. Keys: Shift = Ice Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,buff:Brain Freeze]Flurry"), S("Frozen Orb", "c"), S("Glacial Spike"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Ray of Frost") },
     { S("Frostbolt"), S("Frostfire Bolt") },
 })
 
-Retail.RoninDPS_Frost_Spell_AoE = DPS("RoninDPS_Frost_Spell_AoE", 64, C_MAGE, {
+Retail.RoninDPS_Frost_Spell_AoE = DPS("RoninDPS_Frost_Spell_AoE", 64, C_MAGI, {
     { S("Glacial Spike"), S("Frozen Orb", "c"), R("/cast [nochanneling,buff:Brain Freeze]Flurry"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Freezing Rain,@cursor]Blizzard"), R("/cast [nochanneling,buff:Brain Freeze]Flurry"), R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Ray of Frost"), S("Glacial Spike") },
     { S("Ray of Frost"), S("Ice Lance"), S("Frostbolt") },
     { S("Frostbolt"), S("Ice Lance") },
     { S("Icy Veins", "c"), S("Frozen Orb", "c"), S("Frostbolt") },
-}, { S("Mirror Image", "c"), S("Frostbolt") }, "Frost Mage, Spellslinger. Flurry on Brain Freeze, Ice Lance on Fingers of Frost, Glacial Spike, Ray of Frost. Spellslinger hero tree; AoE: Blizzard (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Frost_Spellslinger (import string in its Notes). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Mirror Image", "c"), S("Frostbolt") }, "Frost Mage, Spellslinger. Flurry on Brain Freeze, Ice Lance on Fingers of Frost, Glacial Spike, Ray of Frost. Spellslinger hero tree; AoE: Blizzard (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Frost_Spellslinger (import string in its Notes). Keys: Shift = Ice Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,@cursor]Blizzard"), R("/cast [nochanneling,buff:Brain Freeze]Flurry"), S("Frozen Orb", "c"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Glacial Spike"), S("Ray of Frost") },
     { S("Frostbolt"), S("Frostfire Bolt") },
 })
 
-Retail.RoninDPS_Frost_Frostfire = DPS("RoninDPS_Frost_Frostfire", 64, C_MAGE, {
+Retail.RoninDPS_Frost_Frostfire = DPS("RoninDPS_Frost_Frostfire", 64, C_MAGI, {
     { S("Glacial Spike"), S("Comet Storm"), S("Frozen Orb", "c"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Brain Freeze]Flurry"), R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Frozen Orb", "c") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Ray of Frost"), S("Glacial Spike") },
     { S("Comet Storm"), S("Ice Lance"), S("Frostfire Bolt") },
     { S("Frostfire Bolt"), S("Ice Lance") },
     { S("Icy Veins", "c"), S("Frozen Orb", "c"), S("Frostfire Bolt") },
-}, { S("Mirror Image", "c"), S("Frostbolt") }, "Frost Mage, Frostfire. Glacial Spike then Comet Storm, Frostfire Bolt as filler. Frostfire hero tree. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZmZmFMzEzMGzMzMWMzMzMGzsMTzMLzCAAAaBAA2AAAALAstMmZm5BYMjxM2WAAAAzMYmMGwADD | Raid: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZm5BmFMzEzMGzMzMWMzMzMGzsMTzMLzCAAAaBAA2AAAALAstMmZmZYMjxM2WAAAAzMYGGDYghB | Leveling: take these talents as they unlock. Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Mirror Image", "c"), S("Frostbolt") }, "Frost Mage, Frostfire. Glacial Spike then Comet Storm, Frostfire Bolt as filler. Frostfire hero tree. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZmZmFMzEzMGzMzMWMzMzMGzsMTzMLzCAAAaBAA2AAAALAstMmZm5BYMjxM2WAAAAzMYmMGwADD | Raid: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZm5BmFMzEzMGzMzMWMzMzMGzsMTzMLzCAAAaBAA2AAAALAstMmZmZYMjxM2WAAAAzMYGGDYghB | Leveling: take these talents as they unlock. Keys: Shift = Ice Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,buff:Brain Freeze]Flurry"), S("Frozen Orb", "c"), S("Glacial Spike"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Ray of Frost") },
     { S("Frostbolt"), S("Frostfire Bolt") },
 })
 
-Retail.RoninDPS_Frost_FF_AoE = DPS("RoninDPS_Frost_FF_AoE", 64, C_MAGE, {
+Retail.RoninDPS_Frost_FF_AoE = DPS("RoninDPS_Frost_FF_AoE", 64, C_MAGI, {
     { S("Glacial Spike"), S("Comet Storm"), S("Frozen Orb", "c"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Brain Freeze]Flurry"), R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Frozen Orb", "c") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Comet Storm"), S("Glacial Spike") },
     { S("Comet Storm"), S("Ice Lance"), S("Frostfire Bolt") },
     { S("Frostfire Bolt"), S("Ice Lance") },
     { S("Icy Veins", "c"), S("Frozen Orb", "c"), S("Frostfire Bolt") },
-}, { S("Mirror Image", "c"), S("Frostbolt") }, "Frost Mage, Frostfire. Glacial Spike then Comet Storm, Frostfire Bolt as filler. Frostfire hero tree. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Frost_Frostfire (import string in its Notes). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Mirror Image", "c"), S("Frostbolt") }, "Frost Mage, Frostfire. Glacial Spike then Comet Storm, Frostfire Bolt as filler. Frostfire hero tree. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Frost_Frostfire (import string in its Notes). Keys: Shift = Ice Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,@cursor]Blizzard"), R("/cast [nochanneling,buff:Brain Freeze]Flurry"), S("Frozen Orb", "c"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Glacial Spike"), S("Ray of Frost") },
     { S("Frostbolt"), S("Frostfire Bolt") },
 })
 
-Retail.RoninDPS_Fire_Frostfire = DPS("RoninDPS_Fire_Frostfire", 63, C_MAGE, {
+Retail.RoninDPS_Fire_Frostfire = DPS("RoninDPS_Fire_Frostfire", 63, C_MAGF, {
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), R("/cast [nochanneling,buff:Hot Streak!]Pyroblast"), S("Fireball") },
     { R("/cast [nochanneling,buff:Hot Streak!]Pyroblast"), R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch") },
     { R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch"), S("Frostfire Bolt") },
     { S("Frostfire Bolt"), S("Fireball"), S("Scorch") },
     { S("Scorch"), S("Fireball") },
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), S("Fireball") },
-}, { S("Mirror Image", "c"), S("Fireball") }, "Fire Mage, Frostfire. Combustion with Meteor, Pyroblast on Hot Streak, Frostfire Bolt filler. Frostfire hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Talents: pick the Frostfire hero tree in your talent window (no current top build string for it yet). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Mirror Image", "c"), S("Fireball") }, "Fire Mage, Frostfire. Combustion with Meteor, Pyroblast on Hot Streak, Frostfire Bolt filler. Frostfire hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Talents: pick the Frostfire hero tree in your talent window (no current top build string for it yet). Keys: Shift = Blazing Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Combustion", "c"), R("/cast [nochanneling,buff:Hot Streak!]Pyroblast"), R("/cast [nochanneling,buff:Heating Up]Fire Blast") },
     { S("Fireball"), S("Scorch"), S("Frostfire Bolt") },
     { S("Scorch"), S("Fireball") },
 })
 
-Retail.RoninDPS_Fire_FF_AoE = DPS("RoninDPS_Fire_FF_AoE", 63, C_MAGE, {
+Retail.RoninDPS_Fire_FF_AoE = DPS("RoninDPS_Fire_FF_AoE", 63, C_MAGF, {
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), R("/cast [nochanneling,buff:Hot Streak!,@cursor]Flamestrike") },
     { R("/cast [nochanneling,buff:Hot Streak!,@cursor]Flamestrike"), R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch") },
     { R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch"), S("Frostfire Bolt") },
     { S("Frostfire Bolt"), S("Fireball"), S("Scorch") },
     { S("Scorch"), S("Fireball") },
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), S("Fireball") },
-}, { S("Mirror Image", "c"), S("Fireball") }, "Fire Mage, Frostfire. Combustion with Meteor, Pyroblast on Hot Streak, Frostfire Bolt filler. Frostfire hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Fire_Frostfire (import string in its Notes). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Mirror Image", "c"), S("Fireball") }, "Fire Mage, Frostfire. Combustion with Meteor, Pyroblast on Hot Streak, Frostfire Bolt filler. Frostfire hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Fire_Frostfire (import string in its Notes). Keys: Shift = Blazing Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Combustion", "c"), R("/cast [nochanneling,buff:Hot Streak!,@cursor]Flamestrike"), R("/cast [nochanneling,buff:Heating Up]Fire Blast") },
     { R("/cast [nochanneling,@cursor]Meteor"), S("Fireball"), S("Frostfire Bolt") },
     { S("Scorch"), S("Fireball") },
 })
 
-Retail.RoninDPS_Fire_Sunfury = DPS("RoninDPS_Fire_Sunfury", 63, C_MAGE, {
+Retail.RoninDPS_Fire_Sunfury = DPS("RoninDPS_Fire_Sunfury", 63, C_MAGF, {
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), R("/cast [nochanneling,buff:Hot Streak!]Pyroblast"), S("Fireball") },
     { R("/cast [nochanneling,buff:Hot Streak!]Pyroblast"), R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch") },
     { R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch"), S("Fireball") },
     { S("Fireball"), S("Scorch") },
     { S("Scorch"), S("Fireball") },
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), S("Fireball") },
-}, { S("Mirror Image", "c"), S("Fireball") }, "Fire Mage, Sunfury. Combustion summons an Arcane Phoenix, Meteor, Pyroblast on Hot Streak, Scorch kept in your build. Sunfury hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Raid / Delve: C8DAAAAAAAAAAAAAAAAAAAAAAYGGLzMzswMzIzMGAAAGAwMz0sstMDAwmZmx2MzMzYBAAAAALmZmZAAgZMmZmZMzsMAMzQGjBMDjB | Leveling: take these talents as they unlock. Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Mirror Image", "c"), S("Fireball") }, "Fire Mage, Sunfury. Combustion summons an Arcane Phoenix, Meteor, Pyroblast on Hot Streak, Scorch kept in your build. Sunfury hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Raid / Delve: C8DAAAAAAAAAAAAAAAAAAAAAAYGGLzMzswMzIzMGAAAGAwMz0sstMDAwmZmx2MzMzYBAAAAALmZmZAAgZMmZmZMzsMAMzQGjBMDjB | Leveling: take these talents as they unlock. Keys: Shift = Blazing Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Combustion", "c"), R("/cast [nochanneling,buff:Hot Streak!]Pyroblast"), R("/cast [nochanneling,buff:Heating Up]Fire Blast") },
     { S("Fireball"), S("Scorch"), S("Frostfire Bolt") },
     { S("Scorch"), S("Fireball") },
 })
 
-Retail.RoninDPS_Fire_Sun_AoE = DPS("RoninDPS_Fire_Sun_AoE", 63, C_MAGE, {
+Retail.RoninDPS_Fire_Sun_AoE = DPS("RoninDPS_Fire_Sun_AoE", 63, C_MAGF, {
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), R("/cast [nochanneling,buff:Hot Streak!,@cursor]Flamestrike") },
     { R("/cast [nochanneling,buff:Hot Streak!,@cursor]Flamestrike"), R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch") },
     { R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch"), S("Fireball") },
     { S("Fireball"), S("Scorch") },
     { S("Scorch"), S("Fireball") },
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), S("Fireball") },
-}, { S("Mirror Image", "c"), S("Fireball") }, "Fire Mage, Sunfury. Combustion summons an Arcane Phoenix, Meteor, Pyroblast on Hot Streak, Scorch kept in your build. Sunfury hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Fire_Sunfury (import string in its Notes). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, { S("Mirror Image", "c"), S("Fireball") }, "Fire Mage, Sunfury. Combustion summons an Arcane Phoenix, Meteor, Pyroblast on Hot Streak, Scorch kept in your build. Sunfury hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Fire_Sunfury (import string in its Notes). Keys: Shift = Blazing Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Combustion", "c"), R("/cast [nochanneling,buff:Hot Streak!,@cursor]Flamestrike"), R("/cast [nochanneling,buff:Heating Up]Fire Blast") },
     { R("/cast [nochanneling,@cursor]Meteor"), S("Fireball"), S("Frostfire Bolt") },
     { S("Scorch"), S("Fireball") },
