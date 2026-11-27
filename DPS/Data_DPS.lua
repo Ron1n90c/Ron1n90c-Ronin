@@ -1590,6 +1590,8 @@ local BMC = "/cast [mod:shift,@player]8936;[mod:ctrl]339;[mod:alt,@cursor]16914"
 local UNMK = "/cancelform [mod:shift]"
 local MKF = "/cast [noform:5,nomod]24858"
 local WSS = "/castsequence [nomod] reset=8 5176, 2912, 2912"
+-- 4.3.3: a castsequence always gets a plain fallback in the same step (Starfire fails while moving, then the chain waits)
+local WRF = "/cast [nomod] 5176"
 local FBAL = Flat("RoninFDPS_Druid_Balance", 103,
     "Balance Druid for WoW: Forever. Levels 1-10, 10-40, 40-60. Keys: Shift = Healing Touch (Regrowth from 10) on yourself, Ctrl = Entangling Roots, Alt = Faerie Fire (from 40: Hurricane at your cursor). Moonfire, Faerie Fire and Insect Swarm go once on each target, then Wrath and two Starfire. From 40 the macro keeps Moonkin Form up (if you have the talent).",
     {
@@ -1598,16 +1600,16 @@ local FBAL = Flat("RoninFDPS_Druid_Balance", 103,
         { TGT, BMA, "/cast [nomod] 5176" },
     } },
     { "Level 10-40", {
-        { TGT, BMB, "/castsequence [nomod] reset=target/12 8921, null", "/castsequence [nomod] reset=8 5176, 2912, 2912" },
-        { TGT, BMB, "/castsequence [nomod] reset=target/40 Faerie Fire, null", "/castsequence [nomod] reset=8 5176, 2912, 2912" },
+        { TGT, BMB, "/castsequence [nomod] reset=target/12 8921, null", "/castsequence [nomod] reset=8 5176, 2912, 2912", "/cast [nomod] 5176" },
+        { TGT, BMB, "/castsequence [nomod] reset=target/40 Faerie Fire, null", "/castsequence [nomod] reset=8 5176, 2912, 2912", "/cast [nomod] 5176" },
         { TGT, BMB, "/castsequence [nomod] reset=target/12 5570, null", "/cast [nomod] 5176" },
         { TGT, BMB, "/castsequence [nomod] reset=8 5176, 2912, 2912", "/cast [nomod] 5176" },
     } },
     { "Level 40-60", {
-        { UNMK, BMC, "/castsequence [nomod] reset=target/12 5570, null", WSS },
-        { UNMK, BMC, "/castsequence [nomod] reset=target/12 8921, null", WSS },
-        { TGT, UNMK, MKF, BMC, WSS },
-        { UNMK, BMC, "/castsequence [nomod] reset=target/40 Faerie Fire, null", WSS },
+        { UNMK, BMC, "/castsequence [nomod] reset=target/12 5570, null", WSS, WRF },
+        { UNMK, BMC, "/castsequence [nomod] reset=target/12 8921, null", WSS, WRF },
+        { TGT, UNMK, MKF, BMC, WRF },
+        { UNMK, BMC, "/castsequence [nomod] reset=target/40 Faerie Fire, null", WSS, WRF },
     } },
 })
 

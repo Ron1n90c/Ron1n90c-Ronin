@@ -1,4 +1,4 @@
--- Ronin Forever V4.1.1 - Tank macros for WoW: Forever (GSE)
+-- Ronin Forever V4.1.2 - Tank macros for WoW: Forever (GSE)
 --
 -- Same style for all three classes: PRIORITY mode like Ronin Retail (the list order below is the
 -- priority order), spell IDs (rank 1 ID; the client casts the highest rank you know). The source below uses names, the build replaces them with IDs, short

@@ -1,3 +1,9 @@
+RONIN - GSE SUITE 4.3.3 - 2026-11-27   (WoW: Forever pack 4.1.2)
+ * Forever Balance Druid (10-40 and 40-60): every step with the Wrath, Starfire, Starfire chain now has Wrath as
+   a plain fallback. Before, a step could do nothing while the chain waited (Starfire fails while moving).
+   The Moonkin Form step casts Wrath after the form.
+ * Retail is the same as 4.3.2.
+
 RONIN - GSE SUITE 4.3.2 - 2026-11-27   (Retail pack 7.3.2)
  * Elemental Shaman Stormbringer: Mythic+ / Delve talent string from a top Mythic+ player (Stormbringer is the most
    played Elemental hero tree in high keys). The macro already uses every key spell of it (Voltaic Blaze, Earth Shock,
