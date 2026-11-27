@@ -1,3 +1,11 @@
+RONIN - GSE SUITE 4.4.0-beta2 - 2026-11-27   (Retail pack 7.3.4)
+ * Leveling talents: every Retail macro now has a Leveling talent string (Talents button and GSE Notes).
+   18 specs use the leveling build of their guide; the others use their Delve build (made for solo play).
+   Tip: a talent loadout helper shows each talent of the string as you level.
+ * Leveling versions built on the leveling build: Arms adds Avatar next to Bladestorm (AoE adds Whirlwind),
+   Windwalker adds Whirling Dragon Punch next to Strike of the Windlord.
+ * Brewmaster: Celestial Infusion next to Celestial Brew (talent choice) in Delve, Beginner and Leveling.
+
 RONIN - GSE SUITE 4.4.0-beta1 - 2026-11-27   (Retail pack 7.3.3)
  * /ronin check: looks at your spec, hero tree and talents and tells you which Ronin macro fits you and which
    key spells of that macro you have not learned. Works in every client language (spell IDs).
