@@ -27,7 +27,7 @@ do
     end)
 end
 
-local ADDON_VERSION = "4.4.0-beta3"
+local ADDON_VERSION = "4.4.0-beta4"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -93,7 +93,7 @@ end
 
 local PACKS = {
     retail = {
-        key = "retail", world = "retail", name = "Retail", version = "7.3.4",
+        key = "retail", world = "retail", name = "Retail", version = "7.3.5",
         sub = "Midnight 12.0",
         seqs = Ronin.RetailSequences or {},
         regkey = "RoninRetail",
@@ -1628,7 +1628,12 @@ function Ronin.Check()
         if mine and m and m.tal and not m.same then
             for _, t in ipairs(m.tal) do
                 local d = TalentDiff(mine, t[2])
-                if d and (not tal or d < tal.diff) then tal = { label = t[1], diff = d } end
+                if d and (not tal or d < tal.diff) then tal = { label = t[1], diff = d, s = t[2] } end
+            end
+            if tal then      -- the same string for several contents: name them all (Mythic+ / Delve ...)
+                local labs = {}
+                for _, t in ipairs(m.tal) do if t[2] == tal.s then labs[#labs + 1] = t[1] end end
+                tal.label = table.concat(labs, " / ")
             end
         end
         res[#res + 1] = { name = name, hero = m and m.hero, missing = miss, checked = #need, tal = tal,
@@ -1710,7 +1715,7 @@ local copyBox
 local function CopyBox()
     if copyBox then return copyBox end
     local f = CreateFrame("Frame", "RoninCopyBox", UIParent, "BackdropTemplate")
-    f:SetSize(620, 360)
+    f:SetSize(780, 420)
     f:SetPoint("CENTER", 0, 40)
     f:SetFrameStrata("FULLSCREEN_DIALOG")
     f:SetMovable(true); f:EnableMouse(true); f:RegisterForDrag("LeftButton")
@@ -1732,7 +1737,7 @@ local function CopyBox()
     sf:SetPoint("BOTTOMRIGHT", -34, 16)
     local eb = CreateFrame("EditBox", nil, sf)
     eb:SetMultiLine(true); eb:SetAutoFocus(false); eb:SetFontObject("ChatFontNormal")
-    eb:SetWidth(560)
+    eb:SetWidth(700)
     eb:SetScript("OnEscapePressed", function() f:Hide() end)
     eb:SetScript("OnTextChanged", function(self, user) if user and f.text then self:SetText(f.text); self:HighlightText() end end)
     sf:SetScrollChild(eb)
@@ -1746,25 +1751,61 @@ local function ShowCopy(title, hint, text, choices)
     f.title:SetText(GOLD .. title .. "|r")
     f.hint:SetText(DIM .. hint .. "|r")
     for _, b in ipairs(f.tabs) do b:Hide() end
+    f.groups = f.groups or {}
+    for _, g in ipairs(f.groups) do g:Hide() end
     if f.info then f.info:Hide() end
     f.sf:Show()
-    local function put(t)
+    local function put(t, btn)
         f.text = t
         f.eb:SetText(t); f.eb:SetFocus(); f.eb:HighlightText()
-    end
-    if choices and #choices > 0 then
-        local x = 16
-        for i, c in ipairs(choices) do
-            local b = f.tabs[i]
-            if not b then b = MakeButton(f, "", 140, 26, false); f.tabs[i] = b end
-            b:ClearAllPoints(); b:SetPoint("TOPLEFT", x, -62)
-            local w = math.min(190, 24 + #c.label * 7); b:SetWidth(w); x = x + w + 8
-            b.label:SetText(c.label)
-            b:SetScript("OnClick", function() put(c.text) end)
-            b:Show()
+        for _, b in ipairs(f.tabs) do
+            if b:IsShown() then
+                local on = (b == btn)
+                b.sel = on
+                b:SetBackdropBorderColor(unpack(on and C.gold or C.cyanDim))
+                b.label:SetTextColor(on and 1 or 0.78, on and 0.82 or 0.95, on and 0.30 or 1)
+            end
         end
-        put(choices[1].text)
+    end
+    local top = 62
+    if choices and #choices > 0 then
+        -- rows: one per hero tree (group), buttons: Mythic+, Delve, Raid, Leveling
+        local rows, order = {}, {}
+        for _, c in ipairs(choices) do
+            local g = c.group or ""
+            if not rows[g] then rows[g] = {}; order[#order + 1] = g end
+            table.insert(rows[g], c)
+        end
+        local n, first = 0, nil
+        for ri, g in ipairs(order) do
+            local y = -(top + (ri - 1) * 34)
+            local gl = f.groups[ri]
+            if not gl then gl = f:CreateFontString(nil, "OVERLAY", "GameFontNormal"); f.groups[ri] = gl end
+            gl:ClearAllPoints(); gl:SetPoint("TOPLEFT", 16, y - 6); gl:SetWidth(190); gl:SetJustifyH("LEFT")
+            gl:SetText(g ~= "" and (GOLD .. g .. "|r") or ""); gl:Show()
+            local x = (g ~= "" and 210) or 16
+            for _, c in ipairs(rows[g]) do
+                n = n + 1
+                local b = f.tabs[n]
+                if not b then b = MakeButton(f, "", 120, 26, false); f.tabs[n] = b end
+                b:ClearAllPoints(); b:SetPoint("TOPLEFT", x, y); b:SetSize(130, 26); x = x + 136
+                b.label:SetText(c.label)
+                b:SetScript("OnClick", function(self) put(c.text, self) end)
+                b:SetScript("OnLeave", function(self)
+                    self:SetBackdropColor(0.07, 0.11, 0.19, 1)
+                    self:SetBackdropBorderColor(unpack(self.sel and C.gold or C.cyanDim))
+                end)
+                b:Show()
+                first = first or { c = c, b = b }
+            end
+        end
+        top = top + #order * 34 + 8
+        f.sf:ClearAllPoints(); f.sf:SetPoint("TOPLEFT", 16, -top); f.sf:SetPoint("BOTTOMRIGHT", -34, 16)
+        f:SetHeight(math.max(300, top + 170))
+        put(first.c.text, first.b)
     else
+        f.sf:ClearAllPoints(); f.sf:SetPoint("TOPLEFT", 16, -top - 8); f.sf:SetPoint("BOTTOMRIGHT", -34, 16)
+        f:SetHeight(360)
         put(text or "")
     end
     f:Show()
@@ -1780,11 +1821,15 @@ local function TalentChoices(keys)
         local m = META[key]
         if m and m.tal and not m.same then
             for _, t in ipairs(m.tal) do
-                list[#list + 1] = { label = (m.hero or key) .. ": " .. t[1], text = t[2], mine = (hero and m.hero == hero) }
+                list[#list + 1] = { group = m.hero or key, label = t[1], text = t[2], mine = (hero and m.hero == hero) }
             end
         end
     end
-    table.sort(list, function(a, b) if a.mine ~= b.mine then return a.mine end return false end)
+    -- your hero tree first, the order inside a hero tree stays (Mythic+, Delve, Raid, Leveling)
+    local mineL, other = {}, {}
+    for _, c in ipairs(list) do if c.mine then mineL[#mineL + 1] = c else other[#other + 1] = c end end
+    for _, c in ipairs(other) do mineL[#mineL + 1] = c end
+    list = mineL
     return list
 end
 Ronin.TalentChoices = TalentChoices
@@ -1794,7 +1839,7 @@ function Ronin.ShowTalents(keys, title)
     if #ch == 0 then
         Print(DIM .. "No talent string for this one: pick the hero tree in your talent window.|r"); return
     end
-    ShowCopy(title or "Talents", "Ctrl+C, then in the talent window: Import (the button at the bottom), Ctrl+V. Pick the macro version that matches (Mythic+ / Delve or Raid).", nil, ch)
+    ShowCopy(title or "Talents", "Pick your hero tree and content, Ctrl+C, then in the talent window: Import, Ctrl+V. Use the same version of the macro.", nil, ch)
 end
 
 function Ronin.ShowCheck()

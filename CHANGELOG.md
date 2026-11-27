@@ -1,3 +1,13 @@
+RONIN - GSE SUITE 4.4.0-beta4 - 2026-11-27   (Retail pack 7.3.5)
+ * Talents for every hero tree, every content: each Retail macro with talents now has Mythic+, Delve, Raid and
+   Leveling. A hero tree without its own build for one content uses its closest own build.
+ * New builds: Templar (Mythic+ and Delve), Keeper of the Grove (Mythic+ and Delve), Sentinel (Raid and Delve),
+   Slayer (Mythic+), Farseer Restoration (Delve), Lightsmith Holy (its own Mythic+ build).
+ * Holy Paladin Lightsmith spends with Word of Glory (Eternal Flame is not in the Lightsmith builds).
+ * Talents window: bigger, one row per hero tree (yours first) with Mythic+ / Delve / Raid / Leveling buttons,
+   the chosen one in gold.
+ * /ronin check names every content of the build you have (for example Mythic+ / Delve).
+
 RONIN - GSE SUITE 4.4.0-beta3 - 2026-11-27
  * /ronin check is clean now: one panel with a green check or a red cross per line.
    Spells: all known, or which ones are missing in which macro.
