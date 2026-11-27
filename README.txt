@@ -1,4 +1,4 @@
-RONIN - GSE SUITE                                                    V4.3.0
+RONIN - GSE SUITE                                                    V4.3.1
 Tank, DPS and Heal macros for GSE (Gnome Sequencer Enhanced). Retail AND WoW: Forever in one add-on.
 Website: https://ron1n.cc   |   CurseForge: https://www.curseforge.com/wow/addons/ronin
 Ko-fi: https://ko-fi.com/ron1n90c   |   Patreon: https://www.patreon.com/RON1N90C
@@ -15,7 +15,7 @@ COMMANDS
  /ronin  /ronin retail  /ronin forever  /ronin update  /ronin debug
  Update: the installer shows which sequences have a newer Ronin version; press Update (or type /ronin update) to replace only those.
 
-RETAIL V7.3.0 (Midnight)
+RETAIL V7.3.1 (Midnight)
  TANK : every tank spec, both hero trees.
  DPS  : Death Knight, Demon Hunter (Havoc, Devourer), Druid, Hunter, Mage, Monk, Paladin, Shaman, Warlock, Warrior.
         One single target and one AoE macro per hero tree.

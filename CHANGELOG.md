@@ -1,3 +1,14 @@
+RONIN - GSE SUITE 4.3.1 - 2026-11-27   (Retail pack 7.3.1)
+ * Talent strings for 4 more hero trees (checked against the current talent trees, read twice):
+   - Frost DK Rider of the Apocalypse: Delve build. The macro no longer has Breath of Sindragosa (not in the Rider build).
+   - Fury Warrior Mountain Thane: Mythic+ / Delve build. Bladestorm added to the cooldown step, and Rallying Cry is
+     its one defensive (the Thane build has no Enraged Regeneration).
+   - Guardian Druid of the Claw: Raid build. Lunar Beam and Red Moon added.
+   - Elemental Stormbringer: Raid build.
+ * Delve and Beginner versions (DPS and Heal): the defensive step now also has the spec filler,
+   so that step is never a dead press when the defensive is on cooldown.
+ * Fire Frostfire still has no string: almost nobody at the top plays it right now.
+
 RONIN - GSE SUITE 4.3.0 - 2026-11-27   (Retail pack 7.3.0)
  * Talents first: every Retail Tank, DPS and Heal macro is now built on the talent build the top players use.
    Mythic+ and Raid builds come from the top Mythic+ players and the current Midnight 12.1.5 guides, and the
