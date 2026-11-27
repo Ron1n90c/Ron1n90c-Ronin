@@ -27,7 +27,7 @@ do
     end)
 end
 
-local ADDON_VERSION = "4.4.0-beta4"
+local ADDON_VERSION = "4.4.0-beta5"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -1652,6 +1652,7 @@ end
 
 local OK_ICON = "|TInterface\\RaidFrame\\ReadyCheck-Ready:16|t "
 local NO_ICON = "|TInterface\\RaidFrame\\ReadyCheck-NotReady:16|t "
+local WAIT_ICON = "|TInterface\\RaidFrame\\ReadyCheck-Waiting:16|t "
 local function MaxLevel()
     if type(GetMaxLevelForPlayerExpansion) == "function" then
         local ok, v = pcall(GetMaxLevelForPlayerExpansion); if ok and tonumber(v) then return tonumber(v) end
@@ -1690,16 +1691,20 @@ local function CheckText(plain)
     for _, r in ipairs(res) do
         if r.tal and (not best or r.tal.diff < best.tal.diff) then best = r end
     end
+    local lvl = UnitLevel and UnitLevel("player")
+    local low = lvl and lvl < MaxLevel()
     if best then
         if best.tal.diff == 0 then
             lines[#lines + 1] = okI .. "Talents: Ronin " .. best.tal.label .. " build"
+        elseif low then      -- below max level the last talent points are simply not there yet
+            lines[#lines + 1] = (plain and "~ " or WAIT_ICON) .. "Talents: " .. best.tal.diff .. " still to come with levels (normal below level " ..
+                MaxLevel() .. ", Ronin " .. best.tal.label .. " build)"
         else
             lines[#lines + 1] = noI .. "Talents: " .. best.tal.diff .. " different from the Ronin " .. best.tal.label ..
                 " build (Talents button in /ronin)"
         end
     end
-    local lvl = UnitLevel and UnitLevel("player")
-    if lvl and lvl < MaxLevel() then
+    if low and #bad > 0 then
         lines[#lines + 1] = ""
         lines[#lines + 1] = (plain and "" or DIM) .. "Level " .. lvl .. ": spells you do not have yet come with later levels." .. (plain and "" or "|r")
     end
@@ -1852,7 +1857,9 @@ function Ronin.ShowCheck()
         local sp = (missing == 0 and GREEN .. "spells OK|r") or (GOLD .. "spells missing in " .. missing .. " macro(s)|r")
         local tl = ""
         if best then
+            local lv = UnitLevel and UnitLevel("player")
             tl = " · " .. ((best.diff == 0 and GREEN .. "talents = Ronin " .. best.label .. "|r") or
+                (lv and lv < MaxLevel() and (GOLD .. "talents: " .. best.diff .. " still to come with levels|r")) or
                 (GOLD .. "talents: " .. best.diff .. " different|r"))
         end
         Print("Check: " .. sp .. tl)

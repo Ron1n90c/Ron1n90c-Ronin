@@ -1,3 +1,7 @@
+RONIN - GSE SUITE 4.4.0-beta5 - 2026-11-27
+ * /ronin check below max level: talents that are not there yet show a yellow "still to come with levels"
+   instead of a red cross. The red cross stays for max level characters with a different build.
+
 RONIN - GSE SUITE 4.4.0-beta4 - 2026-11-27   (Retail pack 7.3.5)
  * Talents for every hero tree, every content: each Retail macro with talents now has Mythic+, Delve, Raid and
    Leveling. A hero tree without its own build for one content uses its closest own build.
