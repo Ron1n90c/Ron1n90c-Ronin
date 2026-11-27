@@ -1,4 +1,4 @@
-RONIN - GSE SUITE                                                    V4.4.0-beta2
+RONIN - GSE SUITE                                                    V4.4.0-beta3
 Tank, DPS and Heal macros for GSE (Gnome Sequencer Enhanced). Retail AND WoW: Forever in one add-on.
 Website: https://ron1n.cc   |   CurseForge: https://www.curseforge.com/wow/addons/ronin
 Ko-fi: https://ko-fi.com/ron1n90c   |   Patreon: https://www.patreon.com/RON1N90C

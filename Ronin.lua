@@ -27,7 +27,7 @@ do
     end)
 end
 
-local ADDON_VERSION = "4.4.0-beta2"
+local ADDON_VERSION = "4.4.0-beta3"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -1539,6 +1539,59 @@ local function ForeverLabel()
     return "Level 40-60"
 end
 
+-- talent loadout strings: read the nodes (same format the game exports) and count the differences.
+-- The header (version, spec, tree hash) is skipped, so a string from a guide and your own export compare fine.
+local B64I = {}
+do local a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+   for i = 1, #a do B64I[a:sub(i, i)] = i - 1 end end
+local function TalentNodes(str)
+    if type(str) ~= "string" then return nil end
+    local vals = {}
+    for ch in str:gsub("%s", ""):gmatch(".") do
+        local v = B64I[ch]; if not v then return nil end
+        vals[#vals + 1] = v
+    end
+    local total, pos = #vals * 6, 0
+    local function get(n)
+        local v = 0
+        for i = 0, n - 1 do
+            local c = vals[math.floor(pos / 6) + 1]
+            local b = c and (math.floor(c / 2 ^ (pos % 6)) % 2) or 0
+            v = v + b * 2 ^ i; pos = pos + 1
+        end
+        return v
+    end
+    if get(8) ~= 2 then return nil end
+    local spec = get(16); get(128)
+    local nodes = {}
+    while pos < total do
+        local key = "-"
+        if get(1) == 1 then
+            key = "g"
+            if get(1) == 1 then
+                key = "p"
+                if get(1) == 1 then key = key .. "r" .. get(6) end
+                if get(1) == 1 then key = key .. "c" .. get(2) end
+            end
+        end
+        nodes[#nodes + 1] = key
+    end
+    return nodes, spec
+end
+local function TalentDiff(a, b)
+    local na, sa = TalentNodes(a); local nb, sb = TalentNodes(b)
+    if not na or not nb or sa ~= sb then return nil end
+    local d = 0
+    for i = 1, math.max(#na, #nb) do
+        local x, y = na[i] or "-", nb[i] or "-"
+        if x == "g" then x = "-" end; if y == "g" then y = "-" end   -- granted nodes do not count
+        if x ~= y then d = d + 1 end
+    end
+    return d
+end
+Ronin.TalentNodes = TalentNodes
+Ronin.TalentDiff = TalentDiff
+
 -- returns { {name=, hero=, missing={...}, checked=n}, ... }, header text
 function Ronin.Check()
     local res = {}
@@ -1569,7 +1622,16 @@ function Ronin.Check()
                 miss[#miss + 1] = shown or eng or tostring(sp)
             end
         end
-        res[#res + 1] = { name = name, hero = m and m.hero, missing = miss, checked = #need,
+        -- talents: your loadout against the strings of this macro, the closest one wins
+        local tal
+        local mine = retail and LoadoutString()
+        if mine and m and m.tal and not m.same then
+            for _, t in ipairs(m.tal) do
+                local d = TalentDiff(mine, t[2])
+                if d and (not tal or d < tal.diff) then tal = { label = t[1], diff = d } end
+            end
+        end
+        res[#res + 1] = { name = name, hero = m and m.hero, missing = miss, checked = #need, tal = tal,
             yours = (hero and m and m.hero == hero) or false }
     end
     -- you play one hero tree: the macros of the other one are not checked (their hero spells are not yours)
@@ -1583,30 +1645,61 @@ function Ronin.Check()
     return res, hero
 end
 
-local function CheckText()
+local OK_ICON = "|TInterface\\RaidFrame\\ReadyCheck-Ready:16|t "
+local NO_ICON = "|TInterface\\RaidFrame\\ReadyCheck-NotReady:16|t "
+local function MaxLevel()
+    if type(GetMaxLevelForPlayerExpansion) == "function" then
+        local ok, v = pcall(GetMaxLevelForPlayerExpansion); if ok and tonumber(v) then return tonumber(v) end
+    end
+    return IsRetailClient() and 90 or 60
+end
+-- plain = text for the report (no icons)
+local function CheckText(plain)
     local res, hero = Ronin.Check()
     local retail = IsRetailClient()
     local _, specName = PlayerSpec()
+    local okI, noI = plain and "OK " or OK_ICON, plain and "X " or NO_ICON
     local lines = {}
     if #res == 0 then
         lines[1] = retail and "No Ronin sequence for your spec." or "No Ronin sequence for your class."
         return table.concat(lines, "\n"), res
     end
-    lines[#lines + 1] = "Ronin check for " .. tostring(specName or (UnitClass and UnitClass("player")) or "you")
-        .. (hero and (" (" .. hero .. ")") or "") .. (retail and "" or (" - " .. ForeverLabel()))
+    local head = tostring(specName or (UnitClass and UnitClass("player")) or "you") .. (hero and (" - " .. hero) or "") ..
+        (retail and "" or (" - " .. ForeverLabel()))
+    lines[#lines + 1] = plain and ("Ronin check: " .. head) or (GOLD .. head .. "|r")
+    lines[#lines + 1] = ""
+    -- spells
+    local bad, known = {}, 0
     for _, r in ipairs(res) do
-        local mark = r.yours and "  <- your hero tree" or ""
-        if #r.missing == 0 then
-            lines[#lines + 1] = r.name .. ": all " .. r.checked .. " spells known" .. mark
-        else
-            lines[#lines + 1] = r.name .. ": missing " .. table.concat(r.missing, ", ") .. mark
+        if #r.missing > 0 then bad[#bad + 1] = r else known = known + 1 end
+    end
+    if #bad == 0 then
+        lines[#lines + 1] = okI .. "Spells: all known" .. (#res > 1 and (" (" .. #res .. " macros)") or "")
+    else
+        for _, r in ipairs(bad) do
+            lines[#lines + 1] = noI .. "Spells missing in " .. r.name .. ": " .. table.concat(r.missing, ", ")
         end
     end
-    if retail then
-        lines[#lines + 1] = "Missing spells: import the talents of that macro (Talents button in /ronin or its GSE Notes)."
-        lines[#lines + 1] = "\"You can't do that yet\" below max level is normal: the spell comes with a later level."
-    else
-        lines[#lines + 1] = "Missing spells in WoW: Forever: not learned yet (trainer, level, talent or rune). The macro skips them."
+    -- talents (Retail): the closest Ronin build of your macro
+    local best
+    for _, r in ipairs(res) do
+        if r.tal and (not best or r.tal.diff < best.tal.diff) then best = r end
+    end
+    if best then
+        if best.tal.diff == 0 then
+            lines[#lines + 1] = okI .. "Talents: Ronin " .. best.tal.label .. " build"
+        else
+            lines[#lines + 1] = noI .. "Talents: " .. best.tal.diff .. " different from the Ronin " .. best.tal.label ..
+                " build (Talents button in /ronin)"
+        end
+    end
+    local lvl = UnitLevel and UnitLevel("player")
+    if lvl and lvl < MaxLevel() then
+        lines[#lines + 1] = ""
+        lines[#lines + 1] = (plain and "" or DIM) .. "Level " .. lvl .. ": spells you do not have yet come with later levels." .. (plain and "" or "|r")
+    end
+    if not retail and #bad > 0 then
+        lines[#lines + 1] = (plain and "" or DIM) .. "WoW: Forever: not learned yet (trainer, talent or rune). The macro skips them." .. (plain and "" or "|r")
     end
     return table.concat(lines, "\n"), res
 end
@@ -1643,7 +1736,7 @@ local function CopyBox()
     eb:SetScript("OnEscapePressed", function() f:Hide() end)
     eb:SetScript("OnTextChanged", function(self, user) if user and f.text then self:SetText(f.text); self:HighlightText() end end)
     sf:SetScrollChild(eb)
-    f.eb = eb
+    f.eb = eb; f.sf = sf
     f:Hide()
     copyBox = f
     return f
@@ -1653,6 +1746,8 @@ local function ShowCopy(title, hint, text, choices)
     f.title:SetText(GOLD .. title .. "|r")
     f.hint:SetText(DIM .. hint .. "|r")
     for _, b in ipairs(f.tabs) do b:Hide() end
+    if f.info then f.info:Hide() end
+    f.sf:Show()
     local function put(t)
         f.text = t
         f.eb:SetText(t); f.eb:SetFocus(); f.eb:HighlightText()
@@ -1707,10 +1802,25 @@ function Ronin.ShowCheck()
     local missing = 0
     for _, r in ipairs(res) do if #r.missing > 0 then missing = missing + 1 end end
     if #res > 0 then
-        Print((missing == 0 and GREEN .. "Check: every spell of your Ronin macros is known.|r") or
-            (GOLD .. "Check: " .. missing .. " macro(s) use spells you do not have.|r Details in the window."))
+        local best
+        for _, r in ipairs(res) do if r.tal and (not best or r.tal.diff < best.diff) then best = r.tal end end
+        local sp = (missing == 0 and GREEN .. "spells OK|r") or (GOLD .. "spells missing in " .. missing .. " macro(s)|r")
+        local tl = ""
+        if best then
+            tl = " · " .. ((best.diff == 0 and GREEN .. "talents = Ronin " .. best.label .. "|r") or
+                (GOLD .. "talents: " .. best.diff .. " different|r"))
+        end
+        Print("Check: " .. sp .. tl)
     end
-    ShowCopy("Ronin check", "Which spells of your Ronin macros your character knows right now.", text)
+    local f = ShowCopy("Ronin check", "Your spells and talents against your Ronin macro.", "")
+    f.text = nil; f.eb:ClearFocus()
+    f.sf:Hide()
+    if not f.info then
+        f.info = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        f.info:SetPoint("TOPLEFT", 20, -70); f.info:SetPoint("RIGHT", -20, 0)
+        f.info:SetJustifyH("LEFT"); f.info:SetJustifyV("TOP"); f.info:SetSpacing(6)
+    end
+    f.info:SetText(text); f.info:Show()
 end
 
 function Ronin.ReportText()
@@ -1727,8 +1837,8 @@ function Ronin.ReportText()
     local st = {}
     for _, n in ipairs(mine) do st[#st + 1] = n .. "=" .. tostring((StatusOf(n))) end
     lines[#lines + 1] = "Ronin sequences: " .. (#st > 0 and table.concat(st, ", ") or "-")
-    local text = CheckText()
-    lines[#lines + 1] = "Check: " .. text:gsub("\n", " | ")
+    local text = CheckText(true)
+    lines[#lines + 1] = "Check: " .. text:gsub("\n+", " | ")
     lines[#lines + 1] = "Which version (Mythic+ / Raid / Delve / Beginner / Leveling): "
     lines[#lines + 1] = "What happens: "
     return table.concat(lines, "\n")

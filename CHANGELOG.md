@@ -1,3 +1,10 @@
+RONIN - GSE SUITE 4.4.0-beta3 - 2026-11-27
+ * /ronin check is clean now: one panel with a green check or a red cross per line.
+   Spells: all known, or which ones are missing in which macro.
+   Talents: compares your talents with the Ronin strings of your macro (Mythic+ / Delve, Raid, Leveling) and
+   says which build you have, or how many talents are different.
+ * The "below max level" line only shows when you are below max level.
+
 RONIN - GSE SUITE 4.4.0-beta2 - 2026-11-27   (Retail pack 7.3.4)
  * Leveling talents: every Retail macro now has a Leveling talent string (Talents button and GSE Notes).
    18 specs use the leveling build of their guide; the others use their Delve build (made for solo play).
