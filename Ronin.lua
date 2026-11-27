@@ -27,7 +27,7 @@ do
     end)
 end
 
-local ADDON_VERSION = "4.4.0-beta5"
+local ADDON_VERSION = "4.4.0-beta6"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -108,7 +108,7 @@ local PACKS = {
         },
     },
     forever = {
-        key = "forever", world = "forever", name = "Forever", version = "4.1.2",
+        key = "forever", world = "forever", name = "Forever", version = "4.1.3",
         sub = "WoW: Forever",
         seqs = Ronin.ForeverSequences or {},
         regkey = "RoninForever",
@@ -1512,7 +1512,80 @@ Ronin.MacroSpells = MacroSpells
 local FOREVER_CLASS = { WARRIOR = "Warrior", PALADIN = "Paladin", DRUID = "Druid", SHAMAN = "Shaman", WARLOCK = "Warlock",
     MAGE = "Mage", HUNTER = "Hunter", PRIEST = "Priest" }
 
--- which Ronin sequences are for your character (Retail: your spec, Forever: your class)
+-- WoW: Forever: your talent tree decides the macro (tab order of the talent window)
+local FOREVER_TREES = {
+    PALADIN = { { "Holy", "RoninFHeal_Paladin" }, { "Protection", "RoninForever_Paladin" }, { "Retribution", "RoninFDPS_Paladin_Ret" } },
+    WARRIOR = { { "Arms", "RoninFDPS_Warrior" }, { "Fury", "RoninFDPS_Warrior_Fury" }, { "Protection", "RoninForever_Warrior" } },
+    DRUID   = { { "Balance", "RoninFDPS_Druid_Balance" }, { "Feral", "RoninForever_Druid", "RoninFDPS_Druid_Cat" }, { "Restoration", "RoninFHeal_Druid" } },
+    SHAMAN  = { { "Elemental", "RoninFDPS_Shaman_Ele" }, { "Enhancement", "RoninFDPS_Shaman_Enh" }, { "Restoration", "RoninFHeal_Shaman" } },
+    PRIEST  = { { "Discipline", "RoninFHeal_Priest" }, { "Holy", "RoninFHeal_Priest" }, { "Shadow", "RoninFDPS_Priest" } },
+    MAGE    = { { "Arcane", "RoninFDPS_Mage_Arcane" }, { "Fire", "RoninFDPS_Mage_Fire" }, { "Frost", "RoninFDPS_Mage_Frost" } },
+    WARLOCK = { { "Affliction", "RoninFDPS_Warlock_Aff" }, { "Demonology", "RoninFDPS_Warlock_Demo" }, { "Destruction", "RoninFDPS_Warlock_Destro" } },
+    HUNTER  = { { "Beast Mastery", "RoninFDPS_Hunter" }, { "Marksmanship", "RoninFDPS_Hunter" }, { "Survival", "RoninFDPS_Hunter" } },
+}
+-- WoW: Forever: spells our macros use as runes / Forever spells (the macro skips them when you do not have them).
+-- Talents are found in the game itself (your talent window), so this list stays short.
+local FOREVER_RUNE = {
+    [402927] = true, [407995] = true,
+    ["Arcane Blast"] = true, ["Frostfire Bolt"] = true, ["Penance"] = true, ["Circle of Healing"] = true,
+    ["Prayer of Mending"] = true, ["Riptide"] = true, ["Lifebloom"] = true, ["Incinerate"] = true, ["Fire Nova"] = true,
+    ["Bane of Agony"] = true, ["Wrack"] = true, ["Lightning Mastery"] = true, ["Rage of the Farseer"] = true,
+    ["Shifting Power"] = true, ["Summon Hawk"] = true, ["Hammer of the Righteous"] = true, ["Arcane Wrath"] = true,
+    ["Shoot"] = true, ["Auto Shot"] = true, ["Devouring Plague"] = true,
+}
+-- names of every talent of your class (talent window), read once per check
+local function ForeverTalentNames()
+    local set = {}
+    if type(GetTalentInfo) ~= "function" then return set end
+    local tabs = (type(GetNumTalentTabs) == "function" and GetNumTalentTabs()) or 3
+    for t = 1, tabs do
+        local n = (type(GetNumTalents) == "function" and GetNumTalents(t)) or 30
+        for i = 1, n do
+            local ok, name = pcall(GetTalentInfo, t, i)
+            if ok and type(name) == "string" then set[name] = true end
+        end
+    end
+    -- rune names, when the client has runes
+    if type(C_Engraving) == "table" and type(C_Engraving.GetRuneCategories) == "function" then
+        local ok, cats = pcall(C_Engraving.GetRuneCategories, false, false)
+        if ok and type(cats) == "table" then
+            for _, c in ipairs(cats) do
+                local ok2, runes = pcall(C_Engraving.GetRunesForCategory, c, false)
+                if ok2 and type(runes) == "table" then
+                    for _, r in ipairs(runes) do if r and r.name then set[r.name] = "r" end end
+                end
+            end
+        end
+    end
+    return set
+end
+local function ForeverSpellInfo(sp, name, talents)
+    if FOREVER_RUNE[tonumber(sp) or sp] or (name and FOREVER_RUNE[name]) then return "r" end
+    if name and talents and talents[name] then return "t" end
+    return nil
+end
+-- your main talent tree in WoW: Forever: index, name, points (nil before the first talent point)
+local function ForeverTree()
+    local classTag = type(UnitClass) == "function" and select(2, UnitClass("player"))
+    local trees = FOREVER_TREES[classTag or ""]
+    if not trees or type(GetTalentTabInfo) ~= "function" then return nil end
+    local n = (type(GetNumTalentTabs) == "function" and GetNumTalentTabs()) or 3
+    local best, bestPts = nil, 0
+    for i = 1, math.min(n, 3) do
+        local r = { pcall(GetTalentTabInfo, i) }
+        if r[1] then
+            -- older clients: name, icon, points ...; newer: id, name, description, icon, points ...
+            local pts = (type(r[2]) == "number") and r[6] or r[4]
+            pts = tonumber(pts) or 0
+            if pts > bestPts then best, bestPts = i, pts end
+        end
+    end
+    if not best then return nil end
+    return best, trees[best][1], bestPts, trees[best]
+end
+Ronin.ForeverTree = ForeverTree
+
+-- which Ronin sequences are for your character (Retail: your spec, Forever: your talent tree, else your class)
 local function MySequences()
     local list = {}
     local retail = IsRetailClient()
@@ -1527,6 +1600,16 @@ local function MySequences()
         elseif not retail and not isRetail then
             local cls = FOREVER_CLASS[classTag or ""]
             if cls and name:find(cls, 1, true) then list[#list + 1] = name end
+        end
+    end
+    if not retail then
+        local _, _, _, tree = ForeverTree()
+        if tree then
+            local keep = {}
+            for _, n in ipairs(list) do
+                for k = 2, #tree do if tree[k] == n then keep[#keep + 1] = n end end
+            end
+            if #keep > 0 then list = keep end
         end
     end
     table.sort(list)
@@ -1595,6 +1678,7 @@ Ronin.TalentDiff = TalentDiff
 -- returns { {name=, hero=, missing={...}, checked=n}, ... }, header text
 function Ronin.Check()
     local res = {}
+    local ftal
     local retail = IsRetailClient()
     local hero = PlayerHero()
     for _, name in ipairs(MySequences()) do
@@ -1605,7 +1689,9 @@ function Ronin.Check()
         else
             need = VersionSpells(Ronin.Sequences[name], ForeverLabel())
         end
-        local miss = {}
+        local miss, opt, later = {}, {}, {}
+        local lvl = UnitLevel and UnitLevel("player")
+        ftal = ftal or ((not retail) and ForeverTalentNames()) or {}
         for _, e in ipairs(need) do
             local sp, eng = e, nil
             if type(e) == "table" then sp, eng = e[1], e[2] end      -- Retail: { spellID, English name }
@@ -1619,7 +1705,15 @@ function Ronin.Check()
                         local ok, n = pcall(GetSpellInfo, tonumber(sp)); if ok and n then shown = n end
                     end
                 end
-                miss[#miss + 1] = shown or eng or tostring(sp)
+                shown = shown or eng or tostring(sp)
+                local info = (not retail) and ForeverSpellInfo(sp, shown, ftal) or nil
+                if info then
+                    opt[#opt + 1] = shown                                   -- talent / rune: the macro skips it
+                elseif not retail and lvl and lvl < 60 then
+                    later[#later + 1] = shown                               -- trainer or a later level
+                else
+                    miss[#miss + 1] = shown                                 -- learn it at the class trainer
+                end
             end
         end
         -- talents: your loadout against the strings of this macro, the closest one wins
@@ -1636,7 +1730,7 @@ function Ronin.Check()
                 tal.label = table.concat(labs, " / ")
             end
         end
-        res[#res + 1] = { name = name, hero = m and m.hero, missing = miss, checked = #need, tal = tal,
+        res[#res + 1] = { name = name, hero = m and m.hero, missing = miss, optional = opt, later = later, checked = #need, tal = tal,
             yours = (hero and m and m.hero == hero) or false }
     end
     -- you play one hero tree: the macros of the other one are not checked (their hero spells are not yours)
@@ -1670,14 +1764,50 @@ local function CheckText(plain)
         lines[1] = retail and "No Ronin sequence for your spec." or "No Ronin sequence for your class."
         return table.concat(lines, "\n"), res
     end
-    local head = tostring(specName or (UnitClass and UnitClass("player")) or "you") .. (hero and (" - " .. hero) or "") ..
-        (retail and "" or (" - " .. ForeverLabel()))
+    local head
+    if retail then
+        head = tostring(specName or "you") .. (hero and (" - " .. hero) or "")
+    else
+        local _, tname, pts = ForeverTree()
+        head = tostring((UnitClass and UnitClass("player")) or "you") .. " - " ..
+            (tname and (tname .. " (" .. pts .. " points)") or "no talent points yet") .. " - " .. ForeverLabel()
+    end
     lines[#lines + 1] = plain and ("Ronin check: " .. head) or (GOLD .. head .. "|r")
     lines[#lines + 1] = ""
     -- spells
     local bad, known = {}, 0
     for _, r in ipairs(res) do
         if #r.missing > 0 then bad[#bad + 1] = r else known = known + 1 end
+    end
+    local waitI = plain and "~ " or WAIT_ICON
+    if not retail then
+        -- WoW: Forever: one list for your macro(s): trainer, later levels, talents / runes
+        local function union(key)
+            local seen, out = {}, {}
+            for _, r in ipairs(res) do for _, x in ipairs(r[key] or {}) do if not seen[x] then seen[x] = true; out[#out + 1] = x end end end
+            return out
+        end
+        local miss, later, opt = union("missing"), union("later"), union("optional")
+        local macros = {}
+        for _, r in ipairs(res) do macros[#macros + 1] = r.name end
+        lines[#lines + 1] = (plain and "" or DIM) .. "Macro: " .. table.concat(macros, ", ") .. (plain and "" or "|r")
+        if #miss == 0 and #later == 0 then
+            lines[#lines + 1] = okI .. "Spells: all learned"
+        end
+        if #later > 0 then
+            lines[#lines + 1] = waitI .. "Not learned yet (class trainer or a later level): " .. table.concat(later, ", ")
+        end
+        if #miss > 0 then
+            lines[#lines + 1] = noI .. "Learn at your class trainer: " .. table.concat(miss, ", ")
+        end
+        if #opt > 0 then
+            lines[#lines + 1] = (plain and "" or DIM) .. "Talent or rune spells you do not have (the macro skips them): " ..
+                table.concat(opt, ", ") .. (plain and "" or "|r")
+        end
+        if not ForeverTree() and #res > 1 then
+            lines[#lines + 1] = (plain and "" or DIM) .. "Spend your first talent point: then check shows only the macro of your tree." .. (plain and "" or "|r")
+        end
+        return table.concat(lines, "\n"), res
     end
     if #bad == 0 then
         lines[#lines + 1] = okI .. "Spells: all known" .. (#res > 1 and (" (" .. #res .. " macros)") or "")
@@ -1707,9 +1837,6 @@ local function CheckText(plain)
     if low and #bad > 0 then
         lines[#lines + 1] = ""
         lines[#lines + 1] = (plain and "" or DIM) .. "Level " .. lvl .. ": spells you do not have yet come with later levels." .. (plain and "" or "|r")
-    end
-    if not retail and #bad > 0 then
-        lines[#lines + 1] = (plain and "" or DIM) .. "WoW: Forever: not learned yet (trainer, talent or rune). The macro skips them." .. (plain and "" or "|r")
     end
     return table.concat(lines, "\n"), res
 end
@@ -1849,12 +1976,16 @@ end
 
 function Ronin.ShowCheck()
     local text, res = CheckText()
-    local missing = 0
-    for _, r in ipairs(res) do if #r.missing > 0 then missing = missing + 1 end end
+    local missing, notyet = 0, 0
+    for _, r in ipairs(res) do
+        if #r.missing > 0 then missing = missing + 1 end
+        notyet = notyet + #(r.later or {})
+    end
     if #res > 0 then
         local best
         for _, r in ipairs(res) do if r.tal and (not best or r.tal.diff < best.diff) then best = r.tal end end
-        local sp = (missing == 0 and GREEN .. "spells OK|r") or (GOLD .. "spells missing in " .. missing .. " macro(s)|r")
+        local sp = (missing > 0 and (GOLD .. "spells missing in " .. missing .. " macro(s)|r")) or
+            (notyet > 0 and (GOLD .. notyet .. " spells not learned yet|r")) or (GREEN .. "spells OK|r")
         local tl = ""
         if best then
             local lv = UnitLevel and UnitLevel("player")
@@ -1905,9 +2036,18 @@ local function MarkForYou(page)
     local spec = PlayerSpec()
     local hero = PlayerHero()
     local first
+    local fset                    -- WoW: Forever: the macro(s) of your talent tree
+    if not IsRetailClient() and ForeverTree() then
+        fset = {}
+        for _, n in ipairs(MySequences()) do fset[n] = true end
+    end
     for i, r in ipairs(page.rows) do
         local g = r.group
         local mine = spec and g.specID and g.specID == spec
+        if fset then
+            mine = false
+            for _, key in ipairs(g.seqs or {}) do if fset[key] then mine = true end end
+        end
         if mine then
             local h
             for _, key in ipairs(g.seqs) do local m = META[key]; if hero and m and m.hero == hero and not h then h = m.hero end end

@@ -1486,7 +1486,7 @@ local FARC = Flat("RoninFDPS_Mage_Arcane", 1485,
     { "Level 40-60", {
         { TGT, MGM, "/cast [nomod] Arcane Blast", "/cast [nomod] 5143" },
         { TGT, MGM, "/castsequence [nomod] reset=30 2136, 2136, 2136, Pyroblast", "/cast [nomod] Arcane Blast" },
-        { TGT, MGM, "/cast [nomod] Arcane 5176", "/cast [nomod] Arcane Blast" },
+        { TGT, MGM, "/cast [nomod] Arcane Wrath", "/cast [nomod] Arcane Blast" },
         { TGT, MGM, "/cast [combat,nomod] 12042", "/cast [nomod] Arcane Blast" },
     } },
 })

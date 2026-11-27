@@ -1,3 +1,13 @@
+RONIN - GSE SUITE 4.4.0-beta6 - 2026-11-27   (Forever pack 4.1.3)
+ * /ronin check in WoW: Forever:
+   - finds your talent tree (the tree with the most points) and checks only that macro: a Protection Paladin
+     sees the tank macro, no Retribution or Heal spells any more. Before your first talent point it checks all.
+   - spells are sorted: talent and rune spells you do not have are only listed (the macro skips them),
+     spells not learned yet are yellow (class trainer or a later level), red only at level 60.
+   - the header shows class, tree, points and level range.
+   - "For you" in /ronin marks the macro of your talent tree in WoW: Forever too.
+ * Fix: WoW: Forever Arcane Mage 40-60 had a broken spell name ("Arcane Wrath" was written wrong); it casts again.
+
 RONIN - GSE SUITE 4.4.0-beta5 - 2026-11-27
  * /ronin check below max level: talents that are not there yet show a yellow "still to come with levels"
    instead of a red cross. The red cross stays for max level characters with a different build.
