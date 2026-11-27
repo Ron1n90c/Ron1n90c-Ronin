@@ -1,4 +1,4 @@
--- Ronin Retail V7.2.1 - Tank Priority Edition (tiered chains)
+-- Ronin Retail V7.3.0 - Tank Priority Edition (tiered chains)
 --
 -- Each version is ONE Loop block with StepFunction = "Priority" and THREE
 -- actions (tiers A, B, C). GSE clicks them A, AB, ABC (A x3, B x2, C x1 per
@@ -31,7 +31,7 @@ end
 
 local function CastLine(e, nomod, gate)
     if e.raw then return e.raw end
-    -- flag "s": cast once per target, then two empty presses (your MOONSPAM macro)
+    -- flag "s": cast once per target, then two empty presses (no GCD wasted on a DoT that is up)
     if e.flags:find("s", 1, true) then
         return "/castsequence [nomod,nochanneling] reset=12/target " .. e.spell .. ", Null, Null"
     end
@@ -99,13 +99,30 @@ local function DelveOrder(list, def)
     return o
 end
 
+-- @@NOTES_BEGIN
+local NOTES = {
+    RoninPaladin_Lightsmith = "Protection Paladin, Lightsmith. Talents (import in game): Mythic+ / Delve: CIEAAAAAAAAAAAAAAAAAAAAAAsZsNLjZMzMzMLLjxYWmlZMAADAAAAAAaamZZmxMDzMbtBgBGwAbAAAEgZmltlWmZsYbBDAYGGDAmZAwMDyYB | Raid: CIEAAAAAAAAAAAAAAAAAAAAAAsNDzyMzYmZmx2yYMLzithBAYAAAAAAQamZZmxMzYMbtBgBMwMYDAAgAMzsst0yMjFbbYAwYGGAwMDAmZQGL | Leveling: take these talents as they unlock. Keys: Shift = Word of Glory, Alt = Hammer of Justice; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+    RoninPaladin_Templar = "Protection Paladin, Templar. Talents (import in game): Raid: CIEAAAAAAAAAAAAAAAAAAAAAAsNzYWmZMzYmxyyALzCDDAwAAAAAAg0MDzYmZMzs1GAGYGYGsNAAwMTbzMLzAEYzyGGAGmhxAAsNDwMAjN | Leveling: take these talents as they unlock. Keys: Shift = Word of Glory, Alt = Hammer of Justice; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+    RoninBrewmaster_Harmony = "Brewmaster Monk, Master of Harmony. Purifying Brew, Celestial Brew and Black Ox Brew stay in your hands. Talents (import in game): Mythic+ / Delve: CwQAQnG51S19isUJoJoTeJ/IKDAAAgZbzYGGzyMzGzMjBAAAAAAYZBzEzMwMM2MMmZmZY2YmxYZYZ7BW2mNMLAAwysMtMbzsMAAz2s0MzMbMsBmZmZYaMAAgB | Raid: CwQAAAAAAAAAAAAAAAAAAAAAAAAAAgZbzYGGz2M2YmZMAAAAAAALLYEzMwMM2MjxMzMDz2YmxMLYZb22mthZBAAWmlplZbmlBAACghNwMDYaMAAgB | Leveling: take these talents as they unlock. Keys: Shift = Vivify, Alt = Leg Sweep; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+    RoninBrewmaster_ShadoPan = "Brewmaster Monk, Shado-Pan. Purifying Brew, Celestial Brew and Black Ox Brew stay in your hands. Talents (import in game): Mythic+ / Delve: CwQAQnG51S19isUJoJoTeJ/IKDAAAgZbzYGGzyMzGzMjBAAAAAAYZBzEzMwMM2MMmZmZY2YmxYZYZ7BW2mNMLAAwGCAAwsNLNzMzGDbAMzw0YAAAD | Raid: CwQAAAAAAAAAAAAAAAAAAAAAAAAAAwMbbGzwYWmxGzMjBAAAAAAYZBzEzMwMMzGDmZmZY2GmxMLPALbPwy2sNmBAAshAAAMbzSzMzsxwGAzMMNGAAwA | Leveling: take these talents as they unlock. Keys: Shift = Vivify, Alt = Leg Sweep; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+    RoninDruid_Elune = "Guardian Druid, Elune's Chosen (Lunar Beam, Fury of Elune, Red Moon). Incarnation and Survival Instincts stay in your hands. Talents (import in game): Mythic+ / Delve: CgGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgZmxsYmZMziZxMmZZZgZzwoJamZWmZmZmlxMMAAAAAgZsZALbzMYMLDgpAAAAbYmHAYxMYALWAYmBwA | Raid: CgGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgZmhFzYMzmZZGMLLDMbMGNRzMzyMzMzYMjZAAAAAAzYZGwy2MDGz2AYKAAAwGmxAWMDGwiltBYmBwA | Leveling: take these talents as they unlock. Keys: Shift = Frenzied Regeneration, Alt = Mighty Bash; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+    RoninDruid_Claw = "Guardian Druid, Druid of the Claw (Ravage). Incarnation and Survival Instincts stay in your hands. Talents: pick the Druid of the Claw hero tree in your talent window (no current top build string for it yet). Keys: Shift = Frenzied Regeneration, Alt = Mighty Bash; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+    RoninWarrior_Thane = "Protection Warrior, Mountain Thane (Thunder Blast). Talents (import in game): Mythic+ / Delve: CkEAAAAAAAAAAAAAAAAAAAAAA0yAAAjZMmZmZGzmZmlZMGjGzYGLzMzMDDzMAAAAYZmBwYAGYDWWMaMDgZLmZDGzMDjNAYmBAADMG | Raid: CkEAAAAAAAAAAAAAAAAAAAAAA0yAAAzMzwMzYGzmxsMjxY0wMDLzMzMDGzMAAAAYZMAzYAGYDWWMaMDgZLmZDzMmZwsBAzMAAMDMG | Leveling: take these talents as they unlock. Keys: Shift = Impending Victory, Alt = Shockwave; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+    RoninWarrior_Colossus = "Protection Warrior, Colossus (Demolish). Talents (import in game): Raid: CkEAAAAAAAAAAAAAAAAAAAAAA02AAAzMDzMzMzMzmxsMjxYmGGDLzMzMDGzMAAAAYZAYGDAsYGDbwAzwCNmZBmxMDmNAAzMAgZgxA | Leveling: take these talents as they unlock. Keys: Shift = Impending Victory, Alt = Shockwave; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+    RoninDH_Vengeance_Aldrachi = "Vengeance Demon Hunter, Aldrachi Reaver (Reaver's Glaive). Spirit Bomb before Soul Cleave, Fracture builds. Talents (import in game): Mythic+ / Delve: CUkAAAAAAAAAAAAAAAAAAAAAAAAMjZmZMMzkZmB2MjZwMjZGzMzMzYwMzM2YmtxwAAAAwsNDGGLLMhhZmZWAAAAwADgAMzAMAAAAG | Raid: CUkAAAAAAAAAAAAAAAAAAAAAAAAMjZmZMzMjMzMYWMzMjBjZGzYGzMDzMzM2MzsNGAAAAwsNDGGLLMhhZmxCAAAAGMAEgZGgBAAAwA | Leveling: take these talents as they unlock. Keys: Shift = Soul Cleave, Alt = Chaos Nova; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+    RoninDH_Vengeance_Annihil = "Vengeance Demon Hunter, Annihilator. Spirit Bomb before Soul Cleave, Fracture builds. Talents (import in game): Mythic+ / Delve: CUkAAAAAAAAAAAAAAAAAAAAAAAAMjZmZMMzkZmB2MjZwMjZGzMzMzYwMzM2YmtxwAAAAAAAIgZmZ2AAAAwAzMzMzWbzMzAADAAAgB | Raid: CUkAAAAAAAAAAAAAAAAAAAAAAAAMjZmZMzMjMzMYWMzMjBjZGzYGzMDzMzM2MzsNGAAAAAAAIgZmxGAAAAGMmZmZ2abmZGAYAAAAMA | Leveling: take these talents as they unlock. Keys: Shift = Soul Cleave, Alt = Chaos Nova; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+    RoninDK_Blood_Deathbringer = "Blood Death Knight, Deathbringer (Reaper's Mark). Dancing Rune Weapon and Vampiric Blood stay in your hands. Talents (import in game): Mythic+ / Delve: CoPAAAAAAAAAAAAAAAAAAAAAAwMzyMzwMmZmhZZmZmmZxYmxMGAAAAwMmZmZmZYGDAYmZmZGAAgxsNwAWC2GmADLAmxMAAMzAYYA | Raid: CoPAAAAAAAAAAAAAAAAAAAAAAwYWGzMmxMzMYbmZmmZZGjxMGAAAAwMzMzMzMDzYMAYMzMzAAAMmtBGwSwywEYYBwMmBAgZGAzYA | Leveling: take these talents as they unlock. Keys: Shift = Death Strike, Alt = Asphyxiate; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+    RoninDK_Blood_Sanlayn = "Blood Death Knight, San'layn. Dancing Rune Weapon and Vampiric Blood stay in your hands. Talents (import in game): Mythic+ / Delve: CoPAAAAAAAAAAAAAAAAAAAAAAwMzyMzMmxMzMMLzMz0MLGjxMGAAAAwMmZmZmZYGDAYmZmZGAAADMwMW0YZBklBsBYGzAAAmZghB | Raid: CoPAAAAAAAAAAAAAAAAAAAAAAwYWmZGmxMzMMbzMz0MbGzMmxAAAAAmZmZmZmZYGjBAjZmZGAAADMwMW0YZDklBsBYGzAAAmZghB | Leveling: take these talents as they unlock. Keys: Shift = Death Strike, Alt = Asphyxiate; put your interrupt on its own key. Versions: Mythic (cooldowns right at the pull), Raid (keeps your target), Delve (solo: one defensive at step 4), Beginner (one defensive included), Leveling (basic spells, pick it by hand while you level).",
+}
+-- @@NOTES_END
+
 -- Seq(name, specID, spec, mythic, raid [, delve])  -- each = { tierA, tierB, tierC }
 local function Seq(name, specID, spec, mythic, raid, delve, allin, def)
     local seq = {
         MetaData = {
             Name = name, Author = "Ronin", SpecID = specID, Default = 1,
             MythicPlus = 1, Heroic = 1, Dungeon = 1, Timewalking = 1, Mythic = 1,
-            PVP = 1, Raid = 2, Scenario = 3,
+            PVP = 1, Raid = 2, Scenario = 3, Notes = NOTES[name], Help = NOTES[name],
         },
         Versions = {
             [1] = { Label = "Mythic", Actions = BuildActions("group", spec, MplusOrder(mythic)), InbuiltVariables = { Combat = true } },
@@ -184,12 +201,38 @@ local BREW_SHADOPAN = {
     { S("Blackout Kick"), S("Breath of Fire"), S("Tiger Palm") },
     { S("Invoke Niuzao, the Black Ox", "c"), S("Exploding Keg", "cp"), S("Tiger Palm") },
 }
-local BREW_HARMONY_BEGINNER = BREW_HARMONY
-local BREW_SHADOPAN_BEGINNER = BREW_SHADOPAN
+-- 4.3.0 talents-first: the Mythic+ builds have no Exploding Keg (Raid builds do), so the Mythic+ / Delve /
+-- Beginner lists drop it (Blackout Kick + Breath of Fire take its place, so that step never goes dead).
+-- Niuzao then is the only cooldown, so CdFirst() puts that step at 2 by hand.
+local function NoKeg(list)
+    local o = {}
+    for i, st in ipairs(list) do
+        local n = {}
+        local had = false
+        for _, e in ipairs(st) do
+            if e.spell == "Exploding Keg" then had = true
+            else
+                if had and e.spell == "Tiger Palm" then n[#n + 1] = S("Blackout Kick"); n[#n + 1] = S("Breath of Fire") end
+                n[#n + 1] = e
+            end
+        end
+        o[i] = n
+    end
+    return o
+end
+local function CdFirst(list)
+    local o = {}
+    for i, v in ipairs(list) do o[i] = v end
+    local cd = table.remove(o)
+    table.insert(o, 2, cd)
+    return o
+end
+local BREW_HARMONY_M = NoKeg(BREW_HARMONY)
+local BREW_SHADOPAN_M = NoKeg(BREW_SHADOPAN)
 
 -- GUARDIAN DRUID (6 steps): Mangle / Thrash / Ironfur, Raze + Maul as the
 -- rage spenders, Swipe as the filler.
--- 7 steps. Moonfire is your MOONSPAM castsequence (flag "s") and sits FIRST in
+-- 7 steps. Moonfire is the once-per-target castsequence (flag "s") and sits FIRST in
 -- steps 1, 2 and 7: after it has been cast on a target it is stuck on "Null",
 -- so it costs no GCD, and it can no longer be starved by Mangle / Thrash.
 -- reset=12/target recasts it about every 12 s and on every new target.
@@ -197,9 +240,9 @@ local DRU_ELUNE = {
     { S("Moonfire", "s"), S("Mangle"), S("Thrash"), S("Moonfire") },
     { S("Moonfire", "s"), S("Thrash"), S("Mangle"), S("Moonfire") },
     { S("Ironfur"), S("Mangle"), S("Thrash"), S("Moonfire") },
-    { S("Raze"), S("Thrash"), S("Moonfire") },
+    { S("Thrash"), S("Mangle"), S("Moonfire") },
     { S("Maul"), S("Mangle"), S("Moonfire") },
-    { S("Fury of Elune", "c"), S("Lunar Beam", "c"), S("Moonfire") },
+    { S("Fury of Elune", "c"), S("Lunar Beam", "c"), S("Red Moon"), S("Moonfire") },
     { S("Moonfire", "s"), S("Thrash"), S("Moonfire") },
 }
 local DRU_CLAW = {
@@ -232,19 +275,19 @@ local WAR_THANE = {
     { S("Avatar", "c"), S("Demoralizing Shout", "c"), S("Ravager", "cp"), S("Thunder Clap"), S("Revenge") },
 }
 
--- SAN'LAYN (RoninDK_Blood_Sanlayn) (adapted from the imported BDK_SL_AIO sequence): its two
--- ideas are kept - Marrowrend -> Heart Strike x2 as a castsequence (Bone Shield
--- refresh, then spend the runes) and Blood Boil -> Death Strike - plus Raise Dead
--- on its own. Dancing Rune Weapon and trinket 13 of the original are NOT used.
+-- SAN'LAYN (RoninDK_Blood_Sanlayn): Marrowrend -> Heart Strike x2 as a castsequence (Bone Shield
+-- refresh, then spend the runes) and Blood Boil -> Death Strike, plus Raise Dead on its own.
+-- Dancing Rune Weapon and Vampiric Blood stay in your hands (big cooldowns).
+-- 4.3.0 talents-first: Consumption is not in the top Mythic+ / Raid builds, so it is gone.
 -- "Heart  Strike" has two spaces on purpose (so GSE cannot rewrite it as
 -- Vampiric Strike). All castsequences reset after 4 s so they can never get stuck.
 local DK_SANLAYN_AIO = {
     { S("Death Strike"), R("/castsequence reset=4 Marrowrend, Heart  Strike, Heart  Strike"), S("Blood Boil") },
     { R("/castsequence reset=4 Blood Boil, Death Strike"), S("Heart Strike") },
     { S("Death and Decay", "p"), S("Heart Strike"), S("Blood Boil") },
-    { S("Raise Dead"), S("Consumption"), S("Heart Strike") },
+    { S("Raise Dead"), S("Heart Strike"), S("Blood Boil") },
     { R("/castsequence reset=4 Heart  Strike, Heart  Strike, Blood Boil"), S("Death Strike") },
-    { S("Consumption"), S("Marrowrend"), S("Heart Strike") },
+    { S("Marrowrend"), S("Heart Strike"), S("Blood Boil") },
 }
 
 -- DEATHBRINGER in the same castsequence style (Reaper's Mark instead of Raise
@@ -254,9 +297,9 @@ local DK_DEATHBRINGER_CS = {
     { S("Death Strike"), R("/castsequence reset=4 Marrowrend, Heart Strike, Heart Strike"), S("Blood Boil") },
     { R("/castsequence reset=4 Blood Boil, Death Strike"), S("Heart Strike") },
     { S("Death and Decay", "p"), S("Heart Strike"), S("Blood Boil") },
-    { S("Reaper's Mark"), S("Consumption"), S("Heart Strike") },
+    { S("Reaper's Mark"), S("Heart Strike"), S("Blood Boil") },
     { R("/castsequence reset=4 Heart Strike, Heart Strike, Blood Boil"), S("Death Strike") },
-    { S("Raise Dead"), S("Consumption"), S("Marrowrend") },
+    { S("Raise Dead"), S("Marrowrend"), S("Heart Strike") },
 }
 
 -- VENGEANCE (Method Midnight priority as plain ladders, no castsequences: they stalled on
@@ -283,6 +326,18 @@ local DH_CS_ANNIHILATOR = {
     { S("Demon Spikes", "c"), S("Spirit Bomb"), S("Fracture"), S("Demon's Bite"), S("Throw Glaive") },
     { S("Metamorphosis", "c"), S("Fiery Brand", "c"), S("Fel Devastation", "c"), S("Felblade"), S("Throw Glaive") },
 }
+-- 4.3.0 talents-first: Soul Carver is in the Raid builds only (top Mythic+ players skip it).
+local function Without(list, spell)
+    local o = {}
+    for i, st in ipairs(list) do
+        local n = {}
+        for _, e in ipairs(st) do if e.spell ~= spell then n[#n + 1] = e end end
+        o[i] = n
+    end
+    return o
+end
+local DH_CS_ALDRACHI_M = Without(DH_CS_ALDRACHI, "Soul Carver")
+local DH_CS_ANNIHILATOR_M = Without(DH_CS_ANNIHILATOR, "Soul Carver")
 
 -- "Beginner" version (4th, pick it by hand) for every class: the same steps plus ONE
 -- extra step (3rd) with ONE defensive (off-GCD defensives would all fire together), so a new player can just press and go.
@@ -304,14 +359,14 @@ local DEF_DK   = { S("Vampiric Blood", "c"), S("Heart Strike"), S("Blood Boil") 
 Ronin.RetailSequences = {
     RoninPaladin_Lightsmith     = Seq("RoninPaladin_Lightsmith",     66,  PALADIN,     PAL_LIGHTSMITH,  PAL_LIGHTSMITH,  nil, Beginner(PAL_LIGHTSMITH, DEF_PAL), DEF_PAL),
     RoninPaladin_Templar        = Seq("RoninPaladin_Templar",        66,  PALADIN,     PAL_TEMPLAR,     PAL_TEMPLAR,     nil, Beginner(PAL_TEMPLAR, DEF_PAL), DEF_PAL),
-    RoninBrewmaster_Harmony     = Seq("RoninBrewmaster_Harmony",     268, BREWMASTER,  BREW_HARMONY,    BREW_HARMONY,    BREW_HARMONY,    Beginner(BREW_HARMONY, DEF_BREW), DEF_BREW),
-    RoninBrewmaster_ShadoPan    = Seq("RoninBrewmaster_ShadoPan",    268, BREWMASTER,  BREW_SHADOPAN,   BREW_SHADOPAN,   BREW_SHADOPAN,   Beginner(BREW_SHADOPAN, DEF_BREW), DEF_BREW),
+    RoninBrewmaster_Harmony     = Seq("RoninBrewmaster_Harmony",     268, BREWMASTER,  CdFirst(BREW_HARMONY_M),  BREW_HARMONY,  CdFirst(BREW_HARMONY_M),  Beginner(BREW_HARMONY_M, DEF_BREW), DEF_BREW),
+    RoninBrewmaster_ShadoPan    = Seq("RoninBrewmaster_ShadoPan",    268, BREWMASTER,  CdFirst(BREW_SHADOPAN_M), BREW_SHADOPAN, CdFirst(BREW_SHADOPAN_M), Beginner(BREW_SHADOPAN_M, DEF_BREW), DEF_BREW),
     RoninDruid_Elune            = Seq("RoninDruid_Elune",            104, DRUID,       DRU_ELUNE,       DRU_ELUNE,       nil, Beginner(DRU_ELUNE, DEF_DRU), DEF_DRU),
     RoninDruid_Claw             = Seq("RoninDruid_Claw",             104, DRUID,       DRU_CLAW,        DRU_CLAW,        nil, Beginner(DRU_CLAW, DEF_DRU), DEF_DRU),
     RoninWarrior_Thane          = Seq("RoninWarrior_Thane",          73,  WARRIOR,     WAR_THANE,       WAR_THANE,       nil, Beginner(WAR_THANE, DEF_WAR), DEF_WAR),
     RoninWarrior_Colossus       = Seq("RoninWarrior_Colossus",       73,  WARRIOR,     WAR_COLOSSUS,    WAR_COLOSSUS,    nil, Beginner(WAR_COLOSSUS, DEF_WAR), DEF_WAR),
-    RoninDH_Vengeance_Aldrachi    = Seq("RoninDH_Vengeance_Aldrachi",    581, DEMONHUNTER, DH_CS_ALDRACHI,    DH_CS_ALDRACHI,    nil, Beginner(DH_CS_ALDRACHI, DEF_DH_ALD), DEF_DH_ALD),
-    RoninDH_Vengeance_Annihil     = Seq("RoninDH_Vengeance_Annihil", 581, DEMONHUNTER, DH_CS_ANNIHILATOR, DH_CS_ANNIHILATOR, nil, Beginner(DH_CS_ANNIHILATOR, DEF_DH_ANN), DEF_DH_ANN),
+    RoninDH_Vengeance_Aldrachi    = Seq("RoninDH_Vengeance_Aldrachi",    581, DEMONHUNTER, DH_CS_ALDRACHI_M,    DH_CS_ALDRACHI,    nil, Beginner(DH_CS_ALDRACHI_M, DEF_DH_ALD), DEF_DH_ALD),
+    RoninDH_Vengeance_Annihil     = Seq("RoninDH_Vengeance_Annihil", 581, DEMONHUNTER, DH_CS_ANNIHILATOR_M, DH_CS_ANNIHILATOR, nil, Beginner(DH_CS_ANNIHILATOR_M, DEF_DH_ANN), DEF_DH_ANN),
     RoninDK_Blood_Deathbringer = Seq("RoninDK_Blood_Deathbringer", 250, DEATHKNIGHT, DK_DEATHBRINGER_CS, DK_DEATHBRINGER_CS, nil, Beginner(DK_DEATHBRINGER_CS, DEF_DK), DEF_DK),
     RoninDK_Blood_Sanlayn      = Seq("RoninDK_Blood_Sanlayn",       250, DEATHKNIGHT, DK_SANLAYN_AIO,  DK_SANLAYN_AIO,  nil, Beginner(DK_SANLAYN_AIO, DEF_DK), DEF_DK),
 }
@@ -330,7 +385,7 @@ local LV_PAL = {
 local LV_DRU = {
     { S("Mangle"), S("Thrash"), S("Moonfire") },
     { S("Ironfur"), S("Mangle"), S("Swipe") },
-    { S("Maul"), S("Raze"), S("Swipe") },
+    { S("Maul"), S("Thrash"), S("Swipe") },
 }
 local LV_WAR = {
     { S("Shield Slam"), S("Thunder Clap"), S("Revenge"), S("Devastate"), S("Shield Charge") },
@@ -351,7 +406,7 @@ local LV_DH = {
 local LV_DK = {
     { S("Marrowrend"), S("Heart Strike"), S("Blood Boil") },
     { S("Death Strike"), S("Heart Strike"), S("Blood Boil") },
-    { S("Death and Decay", "p"), S("Consumption"), S("Heart Strike") },
+    { S("Death and Decay", "p"), S("Blood Boil"), S("Heart Strike") },
 }
 local LEVELING = {
     RoninPaladin_Lightsmith = { PALADIN, LV_PAL, DEF_PAL },  RoninPaladin_Templar = { PALADIN, LV_PAL, DEF_PAL },

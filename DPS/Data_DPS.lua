@@ -103,10 +103,10 @@ local D_HUNM = { S("Survival of the Fittest", "c") }
 local C_PAL = { stop = false, util = { "/cast [mod:shift,@player]Word of Glory;[mod:alt]Hammer of Justice" } }
 local D_PAL = { S("Shield of Vengeance", "c") }
 
-local C_WAR = { stop = false, util = { "/cast [mod:shift]Impending Victory;[mod:alt]Shockwave" } }
+local C_WAR = { stop = false, util = { "/cast [mod:shift]Impending Victory;[mod:alt]Storm Bolt" } }
 local D_WAR = { S("Die by the Sword", "c") }
 
-local C_WARF = { stop = false, util = { "/cast [mod:shift]Impending Victory;[mod:alt]Shockwave" } }
+local C_WARF = { stop = false, util = { "/cast [mod:shift]Impending Victory;[mod:alt]Storm Bolt" } }
 local D_WARF = { S("Enraged Regeneration", "c") }
 
 local C_MONK = { gate = "nochanneling:Fists of Fury", stop = false, util = { "/cast [mod:shift,@player]Vivify;[mod:alt]Leg Sweep" } }
@@ -118,7 +118,7 @@ local D_FERAL = { S("Barkskin", "c") }
 local C_BAL = { stop = false, preall = true, pre = { "/cast [noform:4]Moonkin Form" }, util = { "/cast [mod:shift,@player]Regrowth;[mod:alt]Mighty Bash" } }
 local D_BAL = { S("Barkskin", "c") }
 
-local C_LOCK = { gate = "nochanneling", stop = false, util = { "/cast [mod:shift]Drain Life;[mod:alt,@cursor]Shadowfury" } }
+local C_LOCK = { gate = "nochanneling", stop = false, util = { "/cast [mod:shift]Drain Life;[mod:alt]Mortal Coil" } }
 local D_LOCK = { S("Unending Resolve", "c") }
 
 local C_DEMO = { gate = "nochanneling", stop = false, preall = true, pre = { "/cast [nopet,nodead]Summon Felguard" }, util = { "/cast [mod:shift]Drain Life;[mod:alt,@cursor]Shadowfury" } }
@@ -136,7 +136,7 @@ Retail.RoninDPS_DK_Unholy_Rider = DPS("RoninDPS_DK_Unholy_Rider", 252, C_DK, {
     { R("/castsequence reset=5 Festering Strike, Scourge Strike, Scourge Strike"), S("Death Coil"), S("Festering Strike") },
     { S("Death Coil"), S("Scourge Strike"), S("Festering Strike") },
     { S("Summon Gargoyle", "c"), S("Army of the Dead", "c"), S("Scourge Strike") },
-}, D_DK, "Unholy DK, Rider of the Apocalypse. Raid and Delve: Rider of the Apocalypse (Army of the Dead, Summon Gargoyle, Dark Transformation). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DK, "Unholy DK, Rider of the Apocalypse. Raid and Delve: Rider of the Apocalypse (Army of the Dead, Summon Gargoyle, Dark Transformation). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CwPAAAAAAAAAAAAAAAAAAAAAAAYmhZMDDz2MzMTzmxMzMjBAAAAAAAgZGzYAwyMmZ2MzYMDYzsZYIDMbM0YBDYGAGzMjZAmZmxYA | Raid: CwPAAAAAAAAAAAAAAAAAAAAAAAwMjZMDDz2MzMTzmZmZMjBAAAAAAAgZGmZAwyMmZ2mZGjZAbmFDDZgZjhGLAYGAGzMjZAmZmxYA | Leveling: take these talents as they unlock. Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Outbreak"), S("Putrefy"), S("Festering Strike"), S("Death Coil") },
     { S("Dark Transformation", "c"), S("Festering Scythe"), S("Scourge Strike"), S("Death Coil") },
     { S("Soul Reaper"), S("Death and Decay", "p"), S("Festering Strike"), S("Death Coil") },
@@ -149,7 +149,7 @@ Retail.RoninDPS_DK_Unh_Rider_AoE = DPS("RoninDPS_DK_Unh_Rider_AoE", 252, C_DK, {
     { R("/castsequence reset=5 Festering Strike, Scourge Strike, Scourge Strike"), S("Epidemic"), S("Festering Strike") },
     { S("Scourge Strike"), S("Festering Strike"), S("Epidemic") },
     { S("Summon Gargoyle", "c"), S("Army of the Dead", "c"), S("Epidemic") },
-}, D_DK, "Unholy DK, Rider of the Apocalypse. Raid and Delve: Rider of the Apocalypse (Army of the Dead, Summon Gargoyle, Dark Transformation). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DK, "Unholy DK, Rider of the Apocalypse. Raid and Delve: Rider of the Apocalypse (Army of the Dead, Summon Gargoyle, Dark Transformation). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DK_Unholy_Rider (import string in its Notes). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Outbreak"), S("Death and Decay", "p"), S("Epidemic") },
     { S("Dark Transformation", "c"), S("Festering Scythe"), S("Festering Strike"), S("Epidemic") },
     { S("Putrefy"), S("Scourge Strike"), S("Epidemic"), S("Death Coil") },
@@ -162,7 +162,7 @@ Retail.RoninDPS_DK_Unholy_Sanlayn = DPS("RoninDPS_DK_Unholy_Sanlayn", 252, C_DK,
     { R("/castsequence reset=5 Festering Strike, Scourge Strike, Scourge Strike"), S("Death Coil"), S("Festering Strike") },
     { S("Vampiric Strike"), S("Death Coil"), S("Scourge Strike") },
     { S("Summon Gargoyle", "c"), S("Army of the Dead", "c"), S("Scourge Strike") },
-}, D_DK, "Unholy DK, San'layn. Mythic+: San'layn (Vampiric Strike, Essence of the Blood Queen, Dark Transformation windows). No Death and Decay on single target. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DK, "Unholy DK, San'layn. Mythic+: San'layn (Vampiric Strike, Essence of the Blood Queen, Dark Transformation windows). No Death and Decay on single target. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CwPAAAAAAAAAAAAAAAAAAAAAAAYmhZMGDz2MzMTzyMzYMjBAAAAAAAg5BGDDAWmhZ2MzYMjBGYGbassAYbiNMgZAMzMzMmBzMYMjB | Raid: CwPAAAAAAAAAAAAAAAAAAAAAAAwMjZMDDz2MzMTjZmxYGDAAAAAAAAzDMMGAsMDzsZmxMzYgBmxiGLbA2mYDAzAYmZmZMDmZwMzYA | Leveling: take these talents as they unlock. Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Outbreak"), S("Putrefy"), S("Festering Strike"), S("Death Coil") },
     { S("Dark Transformation", "c"), S("Festering Scythe"), S("Scourge Strike"), S("Death Coil") },
     { S("Soul Reaper"), S("Death and Decay", "p"), S("Festering Strike"), S("Death Coil") },
@@ -175,7 +175,7 @@ Retail.RoninDPS_DK_Unh_Sanlayn_AoE = DPS("RoninDPS_DK_Unh_Sanlayn_AoE", 252, C_D
     { R("/castsequence reset=5 Festering Strike, Scourge Strike, Scourge Strike"), S("Epidemic"), S("Festering Strike") },
     { S("Vampiric Strike"), S("Scourge Strike"), S("Epidemic") },
     { S("Summon Gargoyle", "c"), S("Army of the Dead", "c"), S("Epidemic") },
-}, D_DK, "Unholy DK, San'layn. Mythic+: San'layn (Vampiric Strike, Essence of the Blood Queen, Dark Transformation windows). No Death and Decay on single target. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DK, "Unholy DK, San'layn. Mythic+: San'layn (Vampiric Strike, Essence of the Blood Queen, Dark Transformation windows). No Death and Decay on single target. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DK_Unholy_Sanlayn (import string in its Notes). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Outbreak"), S("Death and Decay", "p"), S("Epidemic") },
     { S("Dark Transformation", "c"), S("Festering Scythe"), S("Festering Strike"), S("Epidemic") },
     { S("Putrefy"), S("Scourge Strike"), S("Epidemic"), S("Death Coil") },
@@ -187,8 +187,8 @@ Retail.RoninDPS_DK_Frost_Deathbr = DPS("RoninDPS_DK_Frost_Deathbr", 251, C_DK, {
     { S("Frost Strike"), S("Obliterate"), S("Howling Blast") },
     { R("/castsequence reset=5 Obliterate, Obliterate, Frost Strike"), S("Howling Blast"), S("Frost Strike") },
     { S("Reaper's Mark"), S("Empower Rune Weapon", "c"), S("Obliterate") },
-    { S("Pillar of Frost", "c"), S("Frostwyrm's Fury", "c"), S("Remorseless Winter", "c"), S("Frost Strike") },
-}, D_DK, "Frost DK, Deathbringer. Raid and Mythic+: Deathbringer (Reaper's Mark before Pillar of Frost, Frostwyrm's Fury, Breath of Sindragosa). AoE uses Frostscythe and Glacial Advance. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+    { S("Pillar of Frost", "c"), S("Breath of Sindragosa", "c"), S("Frostwyrm's Fury", "c"), S("Remorseless Winter", "c"), S("Frost Strike") },
+}, D_DK, "Frost DK, Deathbringer. Raid and Mythic+: Deathbringer (Reaper's Mark before Pillar of Frost, Frostwyrm's Fury, Breath of Sindragosa). AoE uses Frostscythe and Glacial Advance. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CsPAAAAAAAAAAAAAAAAAAAAAAMAzMMjZAz2MzMzMLzMjMjxYYmxgZmZmZmZmZAAAAAAAAAYMbDMgFwywEyYBzMmZGYAYYmBYmBD | Raid: CsPAAAAAAAAAAAAAAAAAAAAAAMAmZMjZAz2MzMzMLzMjMjxYYmxgZmZmZmZmZAAAAAAAAAYMbDMgFwywEyYBzMmZGYAYYmBYmBD | Leveling: take these talents as they unlock. Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Obliterate"), S("Frost Strike"), S("Howling Blast") },
     { S("Howling Blast"), S("Obliterate"), S("Frost Strike") },
     { S("Pillar of Frost", "c"), S("Remorseless Winter", "c"), S("Frost Strike") },
@@ -201,7 +201,7 @@ Retail.RoninDPS_DK_Frost_Dbr_AoE = DPS("RoninDPS_DK_Frost_Dbr_AoE", 251, C_DK, {
     { S("Reaper's Mark"), S("Remorseless Winter", "c"), S("Frostscythe") },
     { S("Empower Rune Weapon", "c"), S("Frostscythe"), S("Howling Blast") },
     { S("Pillar of Frost", "c"), S("Frostwyrm's Fury", "c"), S("Breath of Sindragosa", "c"), S("Howling Blast") },
-}, D_DK, "Frost DK, Deathbringer. Raid and Mythic+: Deathbringer (Reaper's Mark before Pillar of Frost, Frostwyrm's Fury, Breath of Sindragosa). AoE uses Frostscythe and Glacial Advance. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DK, "Frost DK, Deathbringer. Raid and Mythic+: Deathbringer (Reaper's Mark before Pillar of Frost, Frostwyrm's Fury, Breath of Sindragosa). AoE uses Frostscythe and Glacial Advance. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DK_Frost_Deathbr (import string in its Notes). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Frostscythe"), S("Howling Blast"), S("Obliterate") },
     { S("Remorseless Winter", "c"), S("Glacial Advance"), S("Frost Strike") },
     { S("Pillar of Frost", "c"), S("Obliterate"), S("Frost Strike") },
@@ -214,7 +214,7 @@ Retail.RoninDPS_DK_Frost_Rider = DPS("RoninDPS_DK_Frost_Rider", 251, C_DK, {
     { R("/castsequence reset=5 Obliterate, Obliterate, Frost Strike"), S("Howling Blast"), S("Frost Strike") },
     { S("Empower Rune Weapon", "c"), S("Breath of Sindragosa", "c"), S("Obliterate") },
     { S("Pillar of Frost", "c"), S("Frostwyrm's Fury", "c"), S("Remorseless Winter", "c"), S("Frost Strike") },
-}, D_DK, "Frost DK, Rider of the Apocalypse. Delve: Rider of the Apocalypse (Breath of Sindragosa, Frostbane, Remorseless Winter). AoE uses Frostscythe and Glacial Advance. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DK, "Frost DK, Rider of the Apocalypse. Delve: Rider of the Apocalypse (Breath of Sindragosa, Frostbane, Remorseless Winter). AoE uses Frostscythe and Glacial Advance. Single target macro, use the AoE macro for packs (3+ targets). Talents: pick the Rider of the Apocalypse hero tree in your talent window (no current top build string for it yet). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Obliterate"), S("Frost Strike"), S("Howling Blast") },
     { S("Howling Blast"), S("Obliterate"), S("Frost Strike") },
     { S("Pillar of Frost", "c"), S("Remorseless Winter", "c"), S("Frost Strike") },
@@ -227,7 +227,7 @@ Retail.RoninDPS_DK_Frost_Rider_AoE = DPS("RoninDPS_DK_Frost_Rider_AoE", 251, C_D
     { S("Remorseless Winter", "c"), S("Frostscythe"), S("Howling Blast") },
     { S("Empower Rune Weapon", "c"), S("Frostscythe"), S("Howling Blast") },
     { S("Pillar of Frost", "c"), S("Frostwyrm's Fury", "c"), S("Breath of Sindragosa", "c"), S("Howling Blast") },
-}, D_DK, "Frost DK, Rider of the Apocalypse. Delve: Rider of the Apocalypse (Breath of Sindragosa, Frostbane, Remorseless Winter). AoE uses Frostscythe and Glacial Advance. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DK, "Frost DK, Rider of the Apocalypse. Delve: Rider of the Apocalypse (Breath of Sindragosa, Frostbane, Remorseless Winter). AoE uses Frostscythe and Glacial Advance. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DK_Frost_Rider (import string in its Notes). Keys: Shift = Death Strike, Alt = Asphyxiate. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Frostscythe"), S("Howling Blast"), S("Obliterate") },
     { S("Remorseless Winter", "c"), S("Glacial Advance"), S("Frost Strike") },
     { S("Pillar of Frost", "c"), S("Obliterate"), S("Frost Strike") },
@@ -240,20 +240,20 @@ Retail.RoninDPS_DH_Havoc_Aldrachi = DPS("RoninDPS_DH_Havoc_Aldrachi", 577, C_DH,
     { S("Felblade"), S("Throw Glaive"), S("Chaos Strike") },
     { R("/castsequence [nochanneling:Eye Beam] reset=4 Chaos Strike, Chaos Strike, Blade Dance"), S("Blade Dance") },
     { S("Metamorphosis", "cp"), S("Sigil of Flame", "p"), S("Chaos Strike") },
-}, D_DH, "Havoc DH, Aldrachi Reaver. Raid: Aldrachi Reaver single target (Essence Break, Reaver's Glaive, Cycle of Hatred). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DH, "Havoc DH, Aldrachi Reaver. Raid: Aldrachi Reaver single target (Essence Break, Reaver's Glaive, Cycle of Hatred). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CEkAAAAAAAAAAAAAAAAAAAAAAYGMzMz2MmZmxMzkxMDAAAAAAY2MmtZYmZ2mZGLzMmhZGmZZmtZwwYbjJZMzYYBAAAAAAAMzAMAAAAM | Raid: CEkAAAAAAAAAAAAAAAAAAAAAAYgZmZ2mxMzMmZmMmZAAAAAAAzmxsNDzMz2MzYZmxMWmZYmlZ2mBDjlNmkxMjhFAAAAAAAwMDwAAAAwA | Leveling: take these talents as they unlock. Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Demon's Bite"), S("Chaos Strike"), S("Blade Dance") },
     { S("Immolation Aura"), S("Felblade"), S("Throw Glaive") },
     { S("Eye Beam"), S("Metamorphosis", "cp"), S("Chaos Strike") },
 })
 
 Retail.RoninDPS_DH_Hav_Aldr_AoE = DPS("RoninDPS_DH_Hav_Aldr_AoE", 577, C_DH, {
-    { S("Eye Beam"), S("Blade Dance"), S("Chaos Strike") },
+    { S("Eye Beam"), S("Essence Break"), S("Blade Dance"), S("Chaos Strike") },
     { S("Immolation Aura"), S("Blade Dance"), S("Chaos Strike") },
     { S("The Hunt"), S("Reaver's Glaive"), S("Chaos Strike") },
     { S("Blade Dance"), S("Felblade"), S("Chaos Strike") },
     { S("Throw Glaive"), S("Chaos Strike"), S("Demon's Bite") },
     { S("Metamorphosis", "cp"), S("Sigil of Flame", "p"), S("Blade Dance") },
-}, D_DH, "Havoc DH, Aldrachi Reaver. Raid: Aldrachi Reaver single target (Essence Break, Reaver's Glaive, Cycle of Hatred). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DH, "Havoc DH, Aldrachi Reaver. Raid: Aldrachi Reaver single target (Essence Break, Reaver's Glaive, Cycle of Hatred). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DH_Havoc_Aldrachi (import string in its Notes). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Blade Dance"), S("Chaos Strike"), S("Demon's Bite") },
     { S("Immolation Aura"), S("Eye Beam"), S("Throw Glaive") },
     { S("Felblade"), S("Metamorphosis", "cp"), S("Chaos Strike") },
@@ -262,24 +262,24 @@ Retail.RoninDPS_DH_Hav_Aldr_AoE = DPS("RoninDPS_DH_Hav_Aldr_AoE", 577, C_DH, {
 Retail.RoninDPS_DH_Havoc_FelScarred = DPS("RoninDPS_DH_Havoc_FelScarred", 577, C_DH, {
     { S("Immolation Aura"), S("Eye Beam"), S("Chaos Strike") },
     { S("Metamorphosis", "cp"), S("The Hunt"), S("Chaos Strike") },
-    { S("Eye Beam"), S("Blade Dance"), S("Chaos Strike") },
+    { S("Eye Beam"), S("Essence Break"), S("Blade Dance"), S("Chaos Strike") },
     { S("Felblade"), S("Throw Glaive"), S("Chaos Strike") },
     { R("/castsequence [nochanneling:Eye Beam] reset=4 Chaos Strike, Chaos Strike, Blade Dance"), S("Blade Dance") },
     { S("Sigil of Flame", "p"), S("Immolation Aura"), S("Chaos Strike") },
-}, D_DH, "Havoc DH, Fel-Scarred. Mythic+ and Delve: Fel-Scarred AoE (Eye Beam, Immolation Aura, Demonsurge, A Fire Inside). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DH, "Havoc DH, Fel-Scarred. Mythic+ and Delve: Fel-Scarred AoE (Eye Beam, Immolation Aura, Demonsurge, A Fire Inside). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CEkAAAAAAAAAAAAAAAAAAAAAAYmZGzMz2MmZmxMzkxMDAAAAAAY2MmtZYmBmxyMzDMDzMGzyAbziZMMbaaMzMG2AAAAGAAAAzMYAAAAYA | Raid: CEkAAAAAAAAAAAAAAAAAAAAAAYmZGzMz2MmZmxMzkxMDAAAAAAY2MmtZYmBPwMWmZegZYmxYWGYbWMjhZTTjZmxwGAAAAAAAAzMYAAAAYA | Leveling: take these talents as they unlock. Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Demon's Bite"), S("Chaos Strike"), S("Blade Dance") },
     { S("Immolation Aura"), S("Felblade"), S("Throw Glaive") },
     { S("Eye Beam"), S("Metamorphosis", "cp"), S("Chaos Strike") },
 })
 
 Retail.RoninDPS_DH_Hav_Fel_AoE = DPS("RoninDPS_DH_Hav_Fel_AoE", 577, C_DH, {
-    { S("Eye Beam"), S("Blade Dance"), S("Immolation Aura") },
+    { S("Eye Beam"), S("Essence Break"), S("Blade Dance"), S("Immolation Aura") },
     { S("Immolation Aura"), S("Blade Dance"), S("Chaos Strike") },
     { S("Metamorphosis", "cp"), S("Eye Beam"), S("Blade Dance") },
     { S("Blade Dance"), S("The Hunt"), S("Chaos Strike") },
     { S("Throw Glaive"), S("Felblade"), S("Chaos Strike") },
     { S("Sigil of Flame", "p"), S("Immolation Aura"), S("Blade Dance") },
-}, D_DH, "Havoc DH, Fel-Scarred. Mythic+ and Delve: Fel-Scarred AoE (Eye Beam, Immolation Aura, Demonsurge, A Fire Inside). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DH, "Havoc DH, Fel-Scarred. Mythic+ and Delve: Fel-Scarred AoE (Eye Beam, Immolation Aura, Demonsurge, A Fire Inside). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DH_Havoc_FelScarred (import string in its Notes). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Blade Dance"), S("Chaos Strike"), S("Demon's Bite") },
     { S("Immolation Aura"), S("Eye Beam"), S("Throw Glaive") },
     { S("Felblade"), S("Metamorphosis", "cp"), S("Chaos Strike") },
@@ -292,7 +292,7 @@ Retail.RoninDPS_DH_Devourer_Annih = DPS("RoninDPS_DH_Devourer_Annih", 1480, C_DE
     { S("Consume"), S("Reap"), S("Void Ray") },
     { S("Reap"), S("Consume") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
-}, D_DEV, "Devourer DH, Annihilator. Talents: Annihilator hero tree (Voidfall stacks, Void Meteors, 4-5 Collapsing Stars per Void Metamorphosis). Raid single target and Mythic+ AoE. Void Ray and Collapsing Star are long casts: stand still while they run, the macro will not interrupt them. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DEV, "Devourer DH, Annihilator. Annihilator hero tree (Voidfall stacks, Void Meteors, 4-5 Collapsing Stars per Void Metamorphosis). Raid single target and Mythic+ AoE. Void Ray and Collapsing Star are long casts: stand still while they run, the macro will not interrupt them. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMzMzMzMzMDzsYGjFZhZmZmt2mZmBwwAQgHYMDjZA | Raid: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMzMzMjZmZGzsYGjFtswMzMzWbzMzAYGDABegxghB | Leveling: take these talents as they unlock. Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Consume"), S("Reap"), S("Void Ray") },
     { S("Collapsing Star"), S("Cull"), S("Consume") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
@@ -305,7 +305,7 @@ Retail.RoninDPS_DH_Dev_Annih_AoE = DPS("RoninDPS_DH_Dev_Annih_AoE", 1480, C_DEV,
     { S("Reap"), S("Collapsing Star"), S("Consume") },
     { S("Consume"), S("Reap") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
-}, D_DEV, "Devourer DH, Annihilator. Talents: Annihilator hero tree (Voidfall stacks, Void Meteors, 4-5 Collapsing Stars per Void Metamorphosis). Raid single target and Mythic+ AoE. Void Ray and Collapsing Star are long casts: stand still while they run, the macro will not interrupt them. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DEV, "Devourer DH, Annihilator. Annihilator hero tree (Voidfall stacks, Void Meteors, 4-5 Collapsing Stars per Void Metamorphosis). Raid single target and Mythic+ AoE. Void Ray and Collapsing Star are long casts: stand still while they run, the macro will not interrupt them. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DH_Devourer_Annih (import string in its Notes). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Consume"), S("Reap"), S("Void Ray") },
     { S("Collapsing Star"), S("Cull"), S("Consume") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
@@ -318,7 +318,7 @@ Retail.RoninDPS_DH_Dev_VoidScar = DPS("RoninDPS_DH_Dev_VoidScar", 1480, C_DEV, {
     { S("Pierce the Veil"), S("Predator's Wake"), S("Consume") },
     { S("Soul Immolation", "c"), S("Reap"), S("Consume") },
     { S("Voidblade"), S("Void Metamorphosis", "c"), S("The Hunt"), S("Consume") },
-}, D_DEV, "Devourer DH, Void-Scarred. Talents: Void-Scarred hero tree (Hungering Slash, Voidstep, Burning Blades; Voidblade and The Hunt become Pierce the Veil and Predator's Wake inside Void Metamorphosis). Melee build: easier to disrupt than Annihilator, so use it when you can stay on the boss. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DEV, "Devourer DH, Void-Scarred. Void-Scarred hero tree (Hungering Slash, Voidstep, Burning Blades; Voidblade and The Hunt become Pierce the Veil and Predator's Wake inside Void Metamorphosis). Melee build: easier to disrupt than Annihilator, so use it when you can stay on the boss. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMmZmZmZmZYmlZYsplFAEwAYMzMbzMTz2MbzMDmxA | Raid: CgcBAAAAAAAAAAAAAAAAAAAAAAAWmxMzMzMzMGmBAAAAAAgxsNYGAAAAAAAAmxMMmZmZMzMDzsMzYsptFAEwAYMzMbzMTz2MbzMMmxA | Leveling: take these talents as they unlock. Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Consume"), S("Reap"), S("Void Ray") },
     { S("Collapsing Star"), S("Cull"), S("Consume") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
@@ -331,7 +331,7 @@ Retail.RoninDPS_DH_Dev_VScar_AoE = DPS("RoninDPS_DH_Dev_VScar_AoE", 1480, C_DEV,
     { S("Pierce the Veil"), S("Predator's Wake"), S("Reap") },
     { S("Soul Immolation", "c"), S("Cull"), S("Consume") },
     { S("Voidblade"), S("Void Metamorphosis", "c"), S("The Hunt"), S("Consume") },
-}, D_DEV, "Devourer DH, Void-Scarred. Talents: Void-Scarred hero tree (Hungering Slash, Voidstep, Burning Blades; Voidblade and The Hunt become Pierce the Veil and Predator's Wake inside Void Metamorphosis). Melee build: easier to disrupt than Annihilator, so use it when you can stay on the boss. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DEV, "Devourer DH, Void-Scarred. Void-Scarred hero tree (Hungering Slash, Voidstep, Burning Blades; Voidblade and The Hunt become Pierce the Veil and Predator's Wake inside Void Metamorphosis). Melee build: easier to disrupt than Annihilator, so use it when you can stay on the boss. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_DH_Dev_VoidScar (import string in its Notes). Keys: Shift = Disrupt, Alt = Chaos Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Consume"), S("Reap"), S("Void Ray") },
     { S("Collapsing Star"), S("Cull"), S("Consume") },
     { S("Void Metamorphosis", "c"), S("Void Ray"), S("Consume") },
@@ -344,7 +344,7 @@ Retail.RoninDPS_Ele_Farseer = DPS("RoninDPS_Ele_Farseer", 262, C_SHA, {
     { S("Voltaic Blaze"), S("Lava Burst"), S("Lightning Bolt") },
     { S("Earth Shock"), S("Lava Burst"), S("Lightning Bolt") },
     { S("Stormkeeper", "c"), S("Ascendance", "c"), S("Fire Elemental", "c"), S("Lightning Bolt") },
-}, D_SHA, "Elemental Shaman, Farseer. Talents: Farseer hero tree (Ancestral Swiftness calls your Ancestors). Raid build: Flame Shock kept up, Lava Burst and Elemental Blast before Lightning Bolt. AoE: Earthquake at your cursor and Chain Lightning. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_SHA, "Elemental Shaman, Farseer. Farseer hero tree (Ancestral Swiftness calls your Ancestors). Raid build: Flame Shock kept up, Lava Burst and Elemental Blast before Lightning Bolt. AoE: Earthquake at your cursor and Chain Lightning. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CYQALMl7AwW51MWzGneuHE3tPCAAAAzMbbzMGjZZbZMmhZAAAAgFzsBDYAzGTIzCAMLzMzYstYajZmtxyMzMjhFLzMLDjZmFAgBAmZMMMA | Raid: CYQALMl7AwW51MWzGneuHE3tPCAAAAzMbbzMmZmZZbZMMjBAAAAsYmNYADY2YCZWAgZbmZGjtlZajZmFWmZmZMDWGWMzwMLDAYYAMzYYYA | Leveling: take these talents as they unlock. Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Flame Shock", "s"), S("Lava Burst"), S("Lightning Bolt") },
     { S("Elemental Blast"), S("Earth Shock"), S("Lightning Bolt") },
     { S("Ascendance", "c"), S("Lava Burst"), S("Lightning Bolt") },
@@ -357,7 +357,7 @@ Retail.RoninDPS_Ele_Farseer_AoE = DPS("RoninDPS_Ele_Farseer_AoE", 262, C_SHA, {
     { R("/cast [nochanneling,@cursor]Earthquake"), S("Lava Burst"), S("Chain Lightning") },
     { S("Elemental Blast"), S("Chain Lightning") },
     { S("Stormkeeper", "c"), S("Ascendance", "c"), S("Fire Elemental", "c"), S("Chain Lightning") },
-}, D_SHA, "Elemental Shaman, Farseer. Talents: Farseer hero tree (Ancestral Swiftness calls your Ancestors). Raid build: Flame Shock kept up, Lava Burst and Elemental Blast before Lightning Bolt. AoE: Earthquake at your cursor and Chain Lightning. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_SHA, "Elemental Shaman, Farseer. Farseer hero tree (Ancestral Swiftness calls your Ancestors). Raid build: Flame Shock kept up, Lava Burst and Elemental Blast before Lightning Bolt. AoE: Earthquake at your cursor and Chain Lightning. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Ele_Farseer (import string in its Notes). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Flame Shock", "s"), S("Lava Burst"), S("Chain Lightning") },
     { S("Earthquake", "p"), S("Chain Lightning") },
     { S("Ascendance", "c"), S("Lava Burst"), S("Chain Lightning") },
@@ -365,12 +365,12 @@ Retail.RoninDPS_Ele_Farseer_AoE = DPS("RoninDPS_Ele_Farseer_AoE", 262, C_SHA, {
 
 Retail.RoninDPS_Ele_Stormbringer = DPS("RoninDPS_Ele_Stormbringer", 262, C_SHA, {
     { S("Lava Burst"), S("Elemental Blast"), S("Lightning Bolt") },
-    { S("Ancestral Swiftness", "c"), S("Voltaic Blaze"), S("Lightning Bolt") },
+    { S("Voltaic Blaze"), S("Lava Burst"), S("Lightning Bolt") },
     { S("Elemental Blast"), S("Earth Shock"), S("Lightning Bolt") },
     { S("Flame Shock", "s"), S("Lava Burst"), S("Lightning Bolt") },
     { S("Earth Shock"), S("Lava Burst"), S("Lightning Bolt") },
     { S("Stormkeeper", "c"), S("Ascendance", "c"), S("Fire Elemental", "c"), S("Lightning Bolt") },
-}, D_SHA, "Elemental Shaman, Stormbringer. Talents: Stormbringer hero tree (Tempest replaces Lightning Bolt when it is ready). Mythic+ build: Voltaic Blaze for Flame Shock. AoE: Earthquake at your cursor and Chain Lightning. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_SHA, "Elemental Shaman, Stormbringer. Stormbringer hero tree (Tempest replaces Lightning Bolt when it is ready). Mythic+ build: Voltaic Blaze for Flame Shock. AoE: Earthquake at your cursor and Chain Lightning. Single target macro, use the AoE macro for packs (3+ targets). Talents: pick the Stormbringer hero tree in your talent window (no current top build string for it yet). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Flame Shock", "s"), S("Lava Burst"), S("Lightning Bolt") },
     { S("Elemental Blast"), S("Earth Shock"), S("Lightning Bolt") },
     { S("Ascendance", "c"), S("Lava Burst"), S("Lightning Bolt") },
@@ -378,12 +378,12 @@ Retail.RoninDPS_Ele_Stormbringer = DPS("RoninDPS_Ele_Stormbringer", 262, C_SHA, 
 
 Retail.RoninDPS_Ele_Storm_AoE = DPS("RoninDPS_Ele_Storm_AoE", 262, C_SHA, {
     { S("Voltaic Blaze"), R("/cast [nochanneling,@cursor]Earthquake"), S("Chain Lightning") },
-    { S("Ancestral Swiftness", "c"), S("Lava Burst"), S("Chain Lightning") },
+    { S("Lava Burst"), S("Voltaic Blaze"), S("Chain Lightning") },
     { S("Flame Shock", "s"), S("Elemental Blast"), S("Chain Lightning") },
     { R("/cast [nochanneling,@cursor]Earthquake"), S("Lava Burst"), S("Chain Lightning") },
     { S("Elemental Blast"), S("Chain Lightning") },
     { S("Stormkeeper", "c"), S("Ascendance", "c"), S("Fire Elemental", "c"), S("Chain Lightning") },
-}, D_SHA, "Elemental Shaman, Stormbringer. Talents: Stormbringer hero tree (Tempest replaces Lightning Bolt when it is ready). Mythic+ build: Voltaic Blaze for Flame Shock. AoE: Earthquake at your cursor and Chain Lightning. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_SHA, "Elemental Shaman, Stormbringer. Stormbringer hero tree (Tempest replaces Lightning Bolt when it is ready). Mythic+ build: Voltaic Blaze for Flame Shock. AoE: Earthquake at your cursor and Chain Lightning. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Ele_Stormbringer (import string in its Notes). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Flame Shock", "s"), S("Lava Burst"), S("Chain Lightning") },
     { S("Earthquake", "p"), S("Chain Lightning") },
     { S("Ascendance", "c"), S("Lava Burst"), S("Chain Lightning") },
@@ -395,8 +395,8 @@ Retail.RoninDPS_Enh_Stormbringer = DPS("RoninDPS_Enh_Stormbringer", 263, C_SHA, 
     { S("Lightning Bolt"), S("Stormstrike") },
     { S("Lava Lash"), S("Stormstrike"), S("Voltaic Blaze") },
     { S("Stormstrike"), S("Crash Lightning"), S("Lava Lash") },
-    { S("Doom Winds", "c"), S("Ascendance", "c"), S("Sundering"), S("Lava Lash") },
-}, D_SHA, "Enhancement Shaman, Stormbringer. Talents: Stormbringer hero tree (Tempest). Stormstrike, Lava Lash and Crash Lightning on cooldown build Maelstrom Weapon; the spender (Lightning Bolt / Tempest, AoE: Chain Lightning) comes about every 7th press so the stacks can build up first. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+    { S("Doom Winds", "c"), S("Ascendance", "c"), S("Stormstrike") },
+}, D_SHA, "Enhancement Shaman, Stormbringer. Stormbringer hero tree (Tempest). Stormstrike, Lava Lash and Crash Lightning on cooldown build Maelstrom Weapon; the spender (Lightning Bolt / Tempest, AoE: Chain Lightning) comes about every 7th press so the stacks can build up first. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CcQAAAAAAAAAAAAAAAAAAAAAAMzMzgZmZmZmhZmZAAAAAAAAA2AsZGDbkFYGGawCAz2MmxYZZGbMzYsMzMzMGLjBAwMMmZYEYmBDGDA | Raid: CcQAAAAAAAAAAAAAAAAAAAAAAMzMzgZmZmZmhZmZAAAAAAAAA2AsZGDLkFYGGawCAz2MmxYZZGbMzsNWmZmZYsMGAAzwYmhZCMzgBjB | Leveling: take these talents as they unlock. Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Stormstrike"), S("Lava Lash"), S("Voltaic Blaze") },
     { S("Crash Lightning"), S("Stormstrike"), S("Lava Lash") },
     { S("Lightning Bolt"), S("Stormstrike") },
@@ -408,8 +408,8 @@ Retail.RoninDPS_Enh_Storm_AoE = DPS("RoninDPS_Enh_Storm_AoE", 263, C_SHA, {
     { S("Chain Lightning"), S("Crash Lightning") },
     { S("Voltaic Blaze"), S("Lava Lash"), S("Crash Lightning") },
     { S("Crash Lightning"), S("Stormstrike"), S("Lava Lash") },
-    { S("Doom Winds", "c"), S("Ascendance", "c"), S("Sundering"), S("Crash Lightning") },
-}, D_SHA, "Enhancement Shaman, Stormbringer. Talents: Stormbringer hero tree (Tempest). Stormstrike, Lava Lash and Crash Lightning on cooldown build Maelstrom Weapon; the spender (Lightning Bolt / Tempest, AoE: Chain Lightning) comes about every 7th press so the stacks can build up first. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+    { S("Doom Winds", "c"), S("Ascendance", "c"), S("Crash Lightning") },
+}, D_SHA, "Enhancement Shaman, Stormbringer. Stormbringer hero tree (Tempest). Stormstrike, Lava Lash and Crash Lightning on cooldown build Maelstrom Weapon; the spender (Lightning Bolt / Tempest, AoE: Chain Lightning) comes about every 7th press so the stacks can build up first. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Enh_Stormbringer (import string in its Notes). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Crash Lightning"), S("Stormstrike"), S("Lava Lash") },
     { S("Voltaic Blaze"), S("Crash Lightning"), S("Stormstrike") },
     { S("Chain Lightning"), S("Crash Lightning") },
@@ -422,7 +422,7 @@ Retail.RoninDPS_Enh_Totemic = DPS("RoninDPS_Enh_Totemic", 263, C_SHA, {
     { S("Lava Lash"), S("Stormstrike"), S("Voltaic Blaze") },
     { S("Sundering"), S("Stormstrike"), S("Lava Lash") },
     { S("Surging Totem", "cp"), S("Doom Winds", "c"), S("Sundering"), S("Lava Lash") },
-}, D_SHA, "Enhancement Shaman, Totemic. Talents: Totemic hero tree (Surging Totem at your feet, Primordial Storm). Lava Lash, Stormstrike and Crash Lightning on cooldown build Maelstrom Weapon; Primordial Storm / Lightning Bolt (AoE: Chain Lightning) come about every 7th press so the stacks can build up first. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_SHA, "Enhancement Shaman, Totemic. Totemic hero tree (Surging Totem at your feet, Primordial Storm). Lava Lash, Stormstrike and Crash Lightning on cooldown build Maelstrom Weapon; Primordial Storm / Lightning Bolt (AoE: Chain Lightning) come about every 7th press so the stacks can build up first. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Raid: CcQAAAAAAAAAAAAAAAAAAAAAAMzMzMzMzMzMzMzMzYGAAAAAAAAAsAbwMW0YbAMTwGAzyMmZGLLzYhZmNWmZmZYYMDAgBYMjYmBAGDA | Leveling: take these talents as they unlock. Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Stormstrike"), S("Lava Lash"), S("Voltaic Blaze") },
     { S("Crash Lightning"), S("Stormstrike"), S("Lava Lash") },
     { S("Lightning Bolt"), S("Stormstrike") },
@@ -435,7 +435,7 @@ Retail.RoninDPS_Enh_Totemic_AoE = DPS("RoninDPS_Enh_Totemic_AoE", 263, C_SHA, {
     { S("Voltaic Blaze"), S("Lava Lash"), S("Crash Lightning") },
     { S("Sundering"), S("Crash Lightning"), S("Stormstrike") },
     { S("Surging Totem", "cp"), S("Doom Winds", "c"), S("Sundering"), S("Crash Lightning") },
-}, D_SHA, "Enhancement Shaman, Totemic. Talents: Totemic hero tree (Surging Totem at your feet, Primordial Storm). Lava Lash, Stormstrike and Crash Lightning on cooldown build Maelstrom Weapon; Primordial Storm / Lightning Bolt (AoE: Chain Lightning) come about every 7th press so the stacks can build up first. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_SHA, "Enhancement Shaman, Totemic. Totemic hero tree (Surging Totem at your feet, Primordial Storm). Lava Lash, Stormstrike and Crash Lightning on cooldown build Maelstrom Weapon; Primordial Storm / Lightning Bolt (AoE: Chain Lightning) come about every 7th press so the stacks can build up first. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Enh_Totemic (import string in its Notes). Keys: Shift = Healing Surge, Alt = Capacitor Totem. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Crash Lightning"), S("Stormstrike"), S("Lava Lash") },
     { S("Voltaic Blaze"), S("Crash Lightning"), S("Stormstrike") },
     { S("Chain Lightning"), S("Crash Lightning") },
@@ -448,7 +448,7 @@ Retail.RoninDPS_BM_PackLeader = DPS("RoninDPS_BM_PackLeader", 253, C_HUNP, {
     { S("Barbed Shot"), S("Cobra Shot") },
     { S("Kill Command"), S("Cobra Shot") },
     { S("Bestial Wrath", "c"), S("Kill Command"), S("Barbed Shot") },
-}, D_HUNP, "Beast Mastery Hunter, Pack Leader. Talents: Pack Leader hero tree (Howl of the Pack Leader beasts from Kill Command). Barbed Shot and Kill Command never sit on 2 charges, Cobra Shot fills. AoE: Wild Thrash keeps Beast Cleave up. Calls / revives your pet by itself. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNP, "Beast Mastery Hunter, Pack Leader. Pack Leader hero tree (Howl of the Pack Leader beasts from Kill Command). Barbed Shot and Kill Command never sit on 2 charges, Cobra Shot fills. AoE: Wild Thrash keeps Beast Cleave up. Calls / revives your pet by itself. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: C0PAAAAAAAAAAAAAAAAAAAAAAAMmxwCsBzwQDbAAYGPwMzsMzwMzMjZGMzYmhZGzMzYbmZYMDLDNDAAAAAAAAmHYMzAmZjAmFw2AwA | Raid: C0PAAAAAAAAAAAAAAAAAAAAAAAMmxwCsAzwQDbAAYGGzsMzwMmZYYmxYmxMzYmZGmxYGzgx0MAAAAgZAAAYMzMDYmNCDzCYbAYA | Leveling: take these talents as they unlock. Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Barbed Shot"), S("Kill Command"), S("Cobra Shot") },
     { S("Kill Command"), S("Cobra Shot") },
     { S("Bestial Wrath", "c"), S("Barbed Shot"), S("Cobra Shot") },
@@ -461,7 +461,7 @@ Retail.RoninDPS_BM_PackLeader_AoE = DPS("RoninDPS_BM_PackLeader_AoE", 253, C_HUN
     { S("Wild Thrash"), S("Cobra Shot") },
     { S("Kill Command"), S("Barbed Shot"), S("Cobra Shot") },
     { S("Bestial Wrath", "c"), S("Wild Thrash"), S("Kill Command") },
-}, D_HUNP, "Beast Mastery Hunter, Pack Leader. Talents: Pack Leader hero tree (Howl of the Pack Leader beasts from Kill Command). Barbed Shot and Kill Command never sit on 2 charges, Cobra Shot fills. AoE: Wild Thrash keeps Beast Cleave up. Calls / revives your pet by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNP, "Beast Mastery Hunter, Pack Leader. Pack Leader hero tree (Howl of the Pack Leader beasts from Kill Command). Barbed Shot and Kill Command never sit on 2 charges, Cobra Shot fills. AoE: Wild Thrash keeps Beast Cleave up. Calls / revives your pet by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_BM_PackLeader (import string in its Notes). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Wild Thrash"), S("Barbed Shot"), S("Kill Command") },
     { S("Kill Command"), S("Cobra Shot") },
     { S("Bestial Wrath", "c"), S("Wild Thrash"), S("Cobra Shot") },
@@ -474,7 +474,7 @@ Retail.RoninDPS_BM_DarkRanger = DPS("RoninDPS_BM_DarkRanger", 253, C_HUNP, {
     { S("Barbed Shot"), S("Kill Command"), S("Cobra Shot") },
     { S("Black Arrow"), S("Cobra Shot") },
     { S("Bestial Wrath", "c"), S("Black Arrow"), S("Barbed Shot") },
-}, D_HUNP, "Beast Mastery Hunter, Dark Ranger. Talents: Dark Ranger hero tree (Black Arrow, Withering Fire after Bestial Wrath, Wailing Arrow). AoE: Wild Thrash keeps Beast Cleave up. Calls / revives your pet by itself. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNP, "Beast Mastery Hunter, Dark Ranger. Dark Ranger hero tree (Black Arrow, Withering Fire after Bestial Wrath, Wailing Arrow). AoE: Wild Thrash keeps Beast Cleave up. Calls / revives your pet by itself. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: C0PAAAAAAAAAAAAAAAAAAAAAAYzsNwAGwMsBZsAAgZGzMziZYGmxMjZmZYGzMjZmZsNzMMmhlhmBAAAAMDAAAzDMmZYmBEwsA2GAA | Raid: C0PAAAAAAAAAAAAAAAAAAAAAAYzsNwAGwMsBZsAAgZMjZWMDzYmxMMzYYGzMjZMDzMjZMDGaGAAAAwMAAAMzMzgZGQYYWAbDAD | Leveling: take these talents as they unlock. Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Barbed Shot"), S("Kill Command"), S("Cobra Shot") },
     { S("Kill Command"), S("Cobra Shot") },
     { S("Bestial Wrath", "c"), S("Barbed Shot"), S("Cobra Shot") },
@@ -487,7 +487,7 @@ Retail.RoninDPS_BM_DarkRanger_AoE = DPS("RoninDPS_BM_DarkRanger_AoE", 253, C_HUN
     { S("Kill Command"), S("Barbed Shot"), S("Cobra Shot") },
     { S("Wild Thrash"), S("Black Arrow"), S("Cobra Shot") },
     { S("Bestial Wrath", "c"), S("Wild Thrash"), S("Black Arrow") },
-}, D_HUNP, "Beast Mastery Hunter, Dark Ranger. Talents: Dark Ranger hero tree (Black Arrow, Withering Fire after Bestial Wrath, Wailing Arrow). AoE: Wild Thrash keeps Beast Cleave up. Calls / revives your pet by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNP, "Beast Mastery Hunter, Dark Ranger. Dark Ranger hero tree (Black Arrow, Withering Fire after Bestial Wrath, Wailing Arrow). AoE: Wild Thrash keeps Beast Cleave up. Calls / revives your pet by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_BM_DarkRanger (import string in its Notes). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Wild Thrash"), S("Barbed Shot"), S("Kill Command") },
     { S("Kill Command"), S("Cobra Shot") },
     { S("Bestial Wrath", "c"), S("Wild Thrash"), S("Cobra Shot") },
@@ -500,7 +500,7 @@ Retail.RoninDPS_MM_DarkRanger = DPS("RoninDPS_MM_DarkRanger", 254, C_HUNM, {
     { S("Wailing Arrow"), S("Black Arrow"), S("Arcane Shot") },
     { S("Aimed Shot"), S("Arcane Shot"), S("Steady Shot") },
     { S("Trueshot", "c"), R("/cast [nochanneling,@cursor]Volley"), S("Explosive Shot"), S("Steady Shot") },
-}, D_HUNM, "Marksmanship Hunter, Dark Ranger. Talents: Dark Ranger hero tree (Black Arrow, Wailing Arrow during Trueshot). Aimed Shot and Rapid Fire on cooldown, Arcane Shot (AoE: Multi-Shot for Trick Shots) spends Precise Shots, Steady Shot fills. Volley at your cursor. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Exhilaration, Alt = Binding Shot. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNM, "Marksmanship Hunter, Dark Ranger. Dark Ranger hero tree (Black Arrow, Wailing Arrow during Trueshot). Aimed Shot and Rapid Fire on cooldown, Arcane Shot (AoE: Multi-Shot for Trick Shots) spends Precise Shots, Steady Shot fills. Volley at your cursor. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: C4PAAAAAAAAAAAAAAAAAAAAAAYzsMwAmgZYLwsAAAAAAAAAmxMzMMjZmxMYMNjBzymZMzMzMzMLMzywMAAAzDMmxMzMgsBDwGzsNjB | Raid: C4PAAAAAAAAAAAAAAAAAAAAAAYzsMwAmgZYbAzCAAAAAAAAYGzYGmxMzYGMmmxgx2yMzMzMzMzswMLDGAAg5BmZGzMzACDDwGzsNjB | Leveling: take these talents as they unlock. Keys: Shift = Exhilaration, Alt = Binding Shot. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Aimed Shot"), S("Rapid Fire"), S("Arcane Shot") },
     { S("Kill Shot"), S("Arcane Shot"), S("Steady Shot") },
     { S("Trueshot", "c"), S("Aimed Shot"), S("Steady Shot") },
@@ -513,7 +513,7 @@ Retail.RoninDPS_MM_DarkRanger_AoE = DPS("RoninDPS_MM_DarkRanger_AoE", 254, C_HUN
     { S("Wailing Arrow"), S("Aimed Shot"), S("Steady Shot") },
     { S("Multi-Shot"), S("Aimed Shot"), S("Steady Shot") },
     { S("Trueshot", "c"), S("Explosive Shot"), S("Rapid Fire"), S("Steady Shot") },
-}, D_HUNM, "Marksmanship Hunter, Dark Ranger. Talents: Dark Ranger hero tree (Black Arrow, Wailing Arrow during Trueshot). Aimed Shot and Rapid Fire on cooldown, Arcane Shot (AoE: Multi-Shot for Trick Shots) spends Precise Shots, Steady Shot fills. Volley at your cursor. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Exhilaration, Alt = Binding Shot. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNM, "Marksmanship Hunter, Dark Ranger. Dark Ranger hero tree (Black Arrow, Wailing Arrow during Trueshot). Aimed Shot and Rapid Fire on cooldown, Arcane Shot (AoE: Multi-Shot for Trick Shots) spends Precise Shots, Steady Shot fills. Volley at your cursor. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_MM_DarkRanger (import string in its Notes). Keys: Shift = Exhilaration, Alt = Binding Shot. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Aimed Shot"), S("Rapid Fire"), S("Multi-Shot") },
     { S("Multi-Shot"), S("Steady Shot") },
     { S("Trueshot", "c"), S("Aimed Shot"), S("Steady Shot") },
@@ -526,7 +526,7 @@ Retail.RoninDPS_MM_Sentinel = DPS("RoninDPS_MM_Sentinel", 254, C_HUNM, {
     { S("Kill Shot"), S("Arcane Shot"), S("Aimed Shot") },
     { S("Aimed Shot"), S("Arcane Shot"), S("Steady Shot") },
     { S("Trueshot", "c"), R("/cast [nochanneling,@cursor]Volley"), S("Explosive Shot"), S("Steady Shot") },
-}, D_HUNM, "Marksmanship Hunter, Sentinel. Talents: Sentinel hero tree (Sentinel's Mark, Lunar Storm, Moonlight Chakram). Aimed Shot and Rapid Fire on cooldown, Arcane Shot (AoE: Multi-Shot for Trick Shots) spends Precise Shots, Steady Shot fills. Volley at your cursor. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Exhilaration, Alt = Binding Shot. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNM, "Marksmanship Hunter, Sentinel. Sentinel hero tree (Sentinel's Mark, Lunar Storm, Moonlight Chakram). Aimed Shot and Rapid Fire on cooldown, Arcane Shot (AoE: Multi-Shot for Trick Shots) spends Precise Shots, Steady Shot fills. Volley at your cursor. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: C4PAAAAAAAAAAAAAAAAAAAAAAwGMwMGNWGAzgNAAAAAAAAwMmZmhZMzMmBjpZMYW22mZmZmZmZmFmZZYGAAg5BGzAgZabDGgNmZbGD | Raid: C4PAAAAAAAAAAAAAAAAAAAAAAwCMwMGzYZAMD2AAAAAAAAAzYGzwMmZGzgx0MGM2WmZmZmZmZmFmZZwMAAg5BmZGDgZajhBYjZ2mxA | Leveling: take these talents as they unlock. Keys: Shift = Exhilaration, Alt = Binding Shot. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Aimed Shot"), S("Rapid Fire"), S("Arcane Shot") },
     { S("Kill Shot"), S("Arcane Shot"), S("Steady Shot") },
     { S("Trueshot", "c"), S("Aimed Shot"), S("Steady Shot") },
@@ -539,7 +539,7 @@ Retail.RoninDPS_MM_Sentinel_AoE = DPS("RoninDPS_MM_Sentinel_AoE", 254, C_HUNM, {
     { S("Aimed Shot"), S("Multi-Shot"), S("Steady Shot") },
     { S("Multi-Shot"), S("Aimed Shot"), S("Steady Shot") },
     { S("Trueshot", "c"), S("Explosive Shot"), S("Moonlight Chakram"), S("Steady Shot") },
-}, D_HUNM, "Marksmanship Hunter, Sentinel. Talents: Sentinel hero tree (Sentinel's Mark, Lunar Storm, Moonlight Chakram). Aimed Shot and Rapid Fire on cooldown, Arcane Shot (AoE: Multi-Shot for Trick Shots) spends Precise Shots, Steady Shot fills. Volley at your cursor. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Exhilaration, Alt = Binding Shot. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNM, "Marksmanship Hunter, Sentinel. Sentinel hero tree (Sentinel's Mark, Lunar Storm, Moonlight Chakram). Aimed Shot and Rapid Fire on cooldown, Arcane Shot (AoE: Multi-Shot for Trick Shots) spends Precise Shots, Steady Shot fills. Volley at your cursor. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_MM_Sentinel (import string in its Notes). Keys: Shift = Exhilaration, Alt = Binding Shot. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Aimed Shot"), S("Rapid Fire"), S("Multi-Shot") },
     { S("Multi-Shot"), S("Steady Shot") },
     { S("Trueshot", "c"), S("Aimed Shot"), S("Steady Shot") },
@@ -552,7 +552,7 @@ Retail.RoninDPS_SV_PackLeader = DPS("RoninDPS_SV_PackLeader", 255, C_HUNP, {
     { S("Wildfire Bomb"), S("Raptor Strike"), S("Kill Command") },
     { S("Raptor Strike"), S("Kill Command") },
     { S("Takedown", "c"), S("Boomstick"), S("Wildfire Bomb"), S("Raptor Strike") },
-}, D_HUNP, "Survival Hunter, Pack Leader. Talents: Pack Leader hero tree. Melee: Kill Command builds Tip of the Spear, Raptor Strike (AoE: Raptor Swipe) spends it, Wildfire Bomb and Boomstick on cooldown, Takedown as the burst. Calls / revives your pet by itself. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNP, "Survival Hunter, Pack Leader. Pack Leader hero tree. Melee: Kill Command builds Tip of the Spear, Raptor Strike (AoE: Raptor Swipe) spends it, Wildfire Bomb and Boomstick on cooldown, Takedown as the burst. Calls / revives your pet by itself. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: C8PAAAAAAAAAAAAAAAAAAAAAAMgxMGWILwMM0gFzMzMzMWGAAAAAAmxMzMLbzYMjZwYaGAAAgBAPwYZZm5BWYmZwYMgZ2AYGjZmNDA | Raid: C8PAAAAAAAAAAAAAAAAAAAAAAMgxMGWIbwMM0glZMzMmZWGAAAAAAmxMmZZbGjZMDeATzAAAAMAYGLLzMzixMjxMDgZ2AmFjhxmBA | Leveling: take these talents as they unlock. Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Kill Command"), S("Wildfire Bomb"), S("Raptor Strike") },
     { S("Raptor Strike"), S("Kill Command") },
     { S("Takedown", "c"), S("Wildfire Bomb"), S("Raptor Strike") },
@@ -565,7 +565,7 @@ Retail.RoninDPS_SV_PackLeader_AoE = DPS("RoninDPS_SV_PackLeader_AoE", 255, C_HUN
     { S("Kill Command"), S("Wildfire Bomb"), S("Raptor Swipe") },
     { S("Raptor Swipe"), S("Raptor Strike"), S("Kill Command") },
     { S("Takedown", "c"), S("Boomstick"), S("Flamefang Pitch"), S("Raptor Swipe") },
-}, D_HUNP, "Survival Hunter, Pack Leader. Talents: Pack Leader hero tree. Melee: Kill Command builds Tip of the Spear, Raptor Strike (AoE: Raptor Swipe) spends it, Wildfire Bomb and Boomstick on cooldown, Takedown as the burst. Calls / revives your pet by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNP, "Survival Hunter, Pack Leader. Pack Leader hero tree. Melee: Kill Command builds Tip of the Spear, Raptor Strike (AoE: Raptor Swipe) spends it, Wildfire Bomb and Boomstick on cooldown, Takedown as the burst. Calls / revives your pet by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_SV_PackLeader (import string in its Notes). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Kill Command"), S("Wildfire Bomb"), S("Raptor Swipe") },
     { S("Raptor Swipe"), S("Raptor Strike"), S("Kill Command") },
     { S("Takedown", "c"), S("Wildfire Bomb"), S("Raptor Swipe") },
@@ -578,7 +578,7 @@ Retail.RoninDPS_SV_Sentinel = DPS("RoninDPS_SV_Sentinel", 255, C_HUNP, {
     { S("Wildfire Bomb"), S("Flamefang Pitch"), S("Raptor Strike") },
     { S("Raptor Strike"), S("Kill Command") },
     { S("Takedown", "c"), S("Boomstick"), S("Moonlight Chakram"), S("Raptor Strike") },
-}, D_HUNP, "Survival Hunter, Sentinel. Talents: Sentinel hero tree (Sentinel's Mark, Moonlight Chakram). Melee: Kill Command builds Tip of the Spear, Raptor Strike (AoE: Raptor Swipe) spends it, Wildfire Bomb and Boomstick on cooldown, Takedown as the burst. Calls / revives your pet by itself. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNP, "Survival Hunter, Sentinel. Sentinel hero tree (Sentinel's Mark, Moonlight Chakram). Melee: Kill Command builds Tip of the Spear, Raptor Strike (AoE: Raptor Swipe) spends it, Wildfire Bomb and Boomstick on cooldown, Takedown as the burst. Calls / revives your pet by itself. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: C8PAAAAAAAAAAAAAAAAAAAAAAMWgBmxYGLDgZC2mZmZmZMbzDAAAAAAYGzMzYbGjZMDGTzAAAAMAwYZZmxCmZmxYmBgZsBGjZmNDA | Leveling: take these talents as they unlock. Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Kill Command"), S("Wildfire Bomb"), S("Raptor Strike") },
     { S("Raptor Strike"), S("Kill Command") },
     { S("Takedown", "c"), S("Wildfire Bomb"), S("Raptor Strike") },
@@ -591,7 +591,7 @@ Retail.RoninDPS_SV_Sentinel_AoE = DPS("RoninDPS_SV_Sentinel_AoE", 255, C_HUNP, {
     { S("Wildfire Bomb"), S("Raptor Swipe"), S("Raptor Strike") },
     { S("Raptor Swipe"), S("Kill Command"), S("Raptor Strike") },
     { S("Takedown", "c"), S("Boomstick"), S("Flamefang Pitch"), S("Raptor Swipe") },
-}, D_HUNP, "Survival Hunter, Sentinel. Talents: Sentinel hero tree (Sentinel's Mark, Moonlight Chakram). Melee: Kill Command builds Tip of the Spear, Raptor Strike (AoE: Raptor Swipe) spends it, Wildfire Bomb and Boomstick on cooldown, Takedown as the burst. Calls / revives your pet by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_HUNP, "Survival Hunter, Sentinel. Sentinel hero tree (Sentinel's Mark, Moonlight Chakram). Melee: Kill Command builds Tip of the Spear, Raptor Strike (AoE: Raptor Swipe) spends it, Wildfire Bomb and Boomstick on cooldown, Takedown as the burst. Calls / revives your pet by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_SV_Sentinel (import string in its Notes). Keys: Shift = Exhilaration, Alt = Intimidation. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Kill Command"), S("Wildfire Bomb"), S("Raptor Swipe") },
     { S("Raptor Swipe"), S("Raptor Strike"), S("Kill Command") },
     { S("Takedown", "c"), S("Wildfire Bomb"), S("Raptor Swipe") },
@@ -604,7 +604,7 @@ Retail.RoninDPS_Paladin_Ret_Herald = DPS("RoninDPS_Paladin_Ret_Herald", 70, C_PA
     { S("Judgment"), S("Blade of Justice"), S("Final Verdict") },
     { S("Final Verdict"), S("Templar Strike"), S("Crusader Strike") },
     { S("Avenging Wrath", "c"), S("Wake of Ashes"), S("Execution Sentence"), S("Blade of Justice") },
-}, D_PAL, "Retribution Paladin, Herald of the Sun. Raid and Mythic+: Herald of the Sun (Dawnlight, Execution Sentence, Divine Storm for AoE). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Word of Glory, Alt = Hammer of Justice. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_PAL, "Retribution Paladin, Herald of the Sun. Raid and Mythic+: Herald of the Sun (Dawnlight, Execution Sentence, Divine Storm for AoE). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CYEAAAAAAAAAAAAAAAAAAAAAAAAAAAwoZbbmZWGzMzAAAAAAYmyYGmZsNmthZ2mxYMGmxCbAYWmtZmZrBBAAsAYAwYGGYGzMbAzMDjZMYA | Raid: CYEAAAAAAAAAAAAAAAAAAAAAAAAAAAANbbzMzywMDAAAAAAzUmtZYmx2Y2GmZbGjxYYGLsNAMLz2Mzs1gAAAWAMAYMDDMjZmNgZmhxMGMA | Leveling: take these talents as they unlock. Keys: Shift = Word of Glory, Alt = Hammer of Justice. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Crusader Strike"), S("Judgment"), S("Hammer of Wrath") },
     { S("Blade of Justice"), S("Templar Strike"), S("Judgment") },
     { S("Final Verdict"), S("Wake of Ashes"), S("Avenging Wrath", "c") },
@@ -617,7 +617,7 @@ Retail.RoninDPS_Pal_Ret_Herald_AoE = DPS("RoninDPS_Pal_Ret_Herald_AoE", 70, C_PA
     { S("Judgment"), S("Blade of Justice"), S("Divine Storm") },
     { S("Divine Storm"), S("Templar Strike"), S("Crusader Strike") },
     { S("Avenging Wrath", "c"), S("Wake of Ashes"), S("Execution Sentence"), S("Blade of Justice") },
-}, D_PAL, "Retribution Paladin, Herald of the Sun. Raid and Mythic+: Herald of the Sun (Dawnlight, Execution Sentence, Divine Storm for AoE). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Word of Glory, Alt = Hammer of Justice. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_PAL, "Retribution Paladin, Herald of the Sun. Raid and Mythic+: Herald of the Sun (Dawnlight, Execution Sentence, Divine Storm for AoE). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Paladin_Ret_Herald (import string in its Notes). Keys: Shift = Word of Glory, Alt = Hammer of Justice. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Divine Storm"), S("Judgment"), S("Hammer of Wrath") },
     { S("Blade of Justice"), S("Crusader Strike"), S("Judgment") },
     { S("Wake of Ashes"), S("Avenging Wrath", "c"), S("Divine Storm") },
@@ -630,7 +630,7 @@ Retail.RoninDPS_Paladin_Ret_Templar = DPS("RoninDPS_Paladin_Ret_Templar", 70, C_
     { S("Judgment"), S("Blade of Justice"), S("Final Verdict") },
     { S("Final Verdict"), S("Templar Slash"), S("Templar Strike") },
     { S("Avenging Wrath", "c"), S("Hammer of Light"), S("Wake of Ashes") },
-}, D_PAL, "Retribution Paladin, Templar. Delve: Templar (Hammer of Light, Templar Strikes, Final Verdict / Divine Storm). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Word of Glory, Alt = Hammer of Justice. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_PAL, "Retribution Paladin, Templar. Delve: Templar (Hammer of Light, Templar Strikes, Final Verdict / Divine Storm). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CYEAAAAAAAAAAAAAAAAAAAAAAAAAAAwoZbbmZWGzMzAAAAAAYmyYGmZsNmthZ2mxYMGmxGbAAAZmptZmtZAAbAGAMmhBmxMzGWmBDjZMYA | Raid: CYEAAAAAAAAAAAAAAAAAAAAAAAAAAAANbbzMzywMDAAAAAAzUmtZYmx2Y2GmZbGjxMDzYhtBAAkZm2mZ2mBAsBYAwYGGYGjZDbzghxMGMA | Leveling: take these talents as they unlock. Keys: Shift = Word of Glory, Alt = Hammer of Justice. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Crusader Strike"), S("Judgment"), S("Hammer of Wrath") },
     { S("Blade of Justice"), S("Templar Strike"), S("Judgment") },
     { S("Final Verdict"), S("Wake of Ashes"), S("Avenging Wrath", "c") },
@@ -643,7 +643,7 @@ Retail.RoninDPS_Pal_Ret_Templar_AoE = DPS("RoninDPS_Pal_Ret_Templar_AoE", 70, C_
     { S("Judgment"), S("Blade of Justice"), S("Divine Storm") },
     { S("Divine Storm"), S("Templar Slash"), S("Templar Strike") },
     { S("Avenging Wrath", "c"), S("Hammer of Light"), S("Wake of Ashes") },
-}, D_PAL, "Retribution Paladin, Templar. Delve: Templar (Hammer of Light, Templar Strikes, Final Verdict / Divine Storm). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Word of Glory, Alt = Hammer of Justice. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_PAL, "Retribution Paladin, Templar. Delve: Templar (Hammer of Light, Templar Strikes, Final Verdict / Divine Storm). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Paladin_Ret_Templar (import string in its Notes). Keys: Shift = Word of Glory, Alt = Hammer of Justice. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Divine Storm"), S("Judgment"), S("Hammer of Wrath") },
     { S("Blade of Justice"), S("Crusader Strike"), S("Judgment") },
     { S("Wake of Ashes"), S("Avenging Wrath", "c"), S("Divine Storm") },
@@ -652,11 +652,11 @@ Retail.RoninDPS_Pal_Ret_Templar_AoE = DPS("RoninDPS_Pal_Ret_Templar_AoE", 70, C_
 Retail.RoninDPS_Fury_Slayer = DPS("RoninDPS_Fury_Slayer", 72, C_WARF, {
     { S("Rampage"), S("Execute"), S("Bloodthirst") },
     { S("Execute"), S("Rampage"), S("Raging Blow") },
-    { S("Raging Blow"), S("Bloodthirst"), S("Wrecking Throw") },
+    { S("Raging Blow"), S("Bloodthirst"), S("Rampage") },
     { S("Bloodthirst"), S("Raging Blow"), S("Whirlwind") },
     { S("Rampage"), S("Raging Blow"), S("Whirlwind") },
-    { S("Recklessness", "c"), S("Avatar", "c"), S("Bladestorm", "c"), S("Raging Blow") },
-}, D_WARF, "Fury Warrior, Slayer. Raid: Slayer (Bladestorm, Whirlwind, Recklessness with Avatar). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Impending Victory, Alt = Shockwave. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+    { S("Recklessness", "c"), S("Avatar", "c"), S("Odyn's Fury", "c"), S("Bladestorm", "c"), S("Raging Blow") },
+}, D_WARF, "Fury Warrior, Slayer. Raid: Slayer (Bladestorm, Whirlwind, Recklessness with Avatar). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Raid: CgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGDzMmZ2MzMzMDjZmZGzMzsMzMmZmZzYmBAAixy2ALgJYGmAzwGwMDjNAAYmhxYYMYM | Leveling: take these talents as they unlock. Keys: Shift = Impending Victory, Alt = Storm Bolt. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Bloodthirst"), S("Raging Blow"), S("Rampage") },
     { S("Execute"), S("Rampage"), S("Bloodthirst") },
     { S("Recklessness", "c"), S("Raging Blow"), S("Slam") },
@@ -665,11 +665,11 @@ Retail.RoninDPS_Fury_Slayer = DPS("RoninDPS_Fury_Slayer", 72, C_WARF, {
 Retail.RoninDPS_Fury_Slayer_AoE = DPS("RoninDPS_Fury_Slayer_AoE", 72, C_WARF, {
     { S("Whirlwind"), S("Rampage"), S("Bloodthirst") },
     { S("Execute"), S("Whirlwind"), S("Rampage") },
-    { S("Bladestorm", "c"), S("Whirlwind"), S("Raging Blow") },
+    { S("Odyn's Fury", "c"), S("Bladestorm", "c"), S("Whirlwind"), S("Raging Blow") },
     { S("Whirlwind"), S("Bloodthirst"), S("Raging Blow") },
     { S("Whirlwind"), S("Raging Blow") },
     { S("Recklessness", "c"), S("Avatar", "c"), S("Whirlwind") },
-}, D_WARF, "Fury Warrior, Slayer. Raid: Slayer (Bladestorm, Whirlwind, Recklessness with Avatar). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Impending Victory, Alt = Shockwave. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_WARF, "Fury Warrior, Slayer. Raid: Slayer (Bladestorm, Whirlwind, Recklessness with Avatar). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Fury_Slayer (import string in its Notes). Keys: Shift = Impending Victory, Alt = Storm Bolt. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Whirlwind"), S("Bloodthirst"), S("Raging Blow") },
     { S("Rampage"), S("Execute"), S("Whirlwind") },
     { S("Recklessness", "c"), S("Thunder Clap"), S("Slam") },
@@ -682,7 +682,7 @@ Retail.RoninDPS_Fury_Thane = DPS("RoninDPS_Fury_Thane", 72, C_WARF, {
     { S("Bloodthirst"), S("Raging Blow"), S("Thunder Clap") },
     { S("Raging Blow"), S("Thunder Clap"), S("Bloodthirst") },
     { S("Recklessness", "c"), S("Avatar", "c"), S("Thunder Blast"), S("Raging Blow") },
-}, D_WARF, "Fury Warrior, Mountain Thane. Mythic+ and Delve: Mountain Thane (Thunder Blast, Thunder Clap, Recklessness with Avatar). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Impending Victory, Alt = Shockwave. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_WARF, "Fury Warrior, Mountain Thane. Mythic+ and Delve: Mountain Thane (Thunder Blast, Thunder Clap, Recklessness with Avatar). Single target macro, use the AoE macro for packs (3+ targets). Talents: pick the Mountain Thane hero tree in your talent window (no current top build string for it yet). Keys: Shift = Impending Victory, Alt = Storm Bolt. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Bloodthirst"), S("Raging Blow"), S("Rampage") },
     { S("Execute"), S("Rampage"), S("Bloodthirst") },
     { S("Recklessness", "c"), S("Raging Blow"), S("Slam") },
@@ -695,7 +695,7 @@ Retail.RoninDPS_Fury_Thane_AoE = DPS("RoninDPS_Fury_Thane_AoE", 72, C_WARF, {
     { S("Whirlwind"), S("Bloodthirst"), S("Thunder Clap") },
     { S("Thunder Clap"), S("Raging Blow") },
     { S("Recklessness", "c"), S("Avatar", "c"), S("Thunder Blast"), S("Whirlwind") },
-}, D_WARF, "Fury Warrior, Mountain Thane. Mythic+ and Delve: Mountain Thane (Thunder Blast, Thunder Clap, Recklessness with Avatar). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Impending Victory, Alt = Shockwave. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_WARF, "Fury Warrior, Mountain Thane. Mythic+ and Delve: Mountain Thane (Thunder Blast, Thunder Clap, Recklessness with Avatar). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Fury_Thane (import string in its Notes). Keys: Shift = Impending Victory, Alt = Storm Bolt. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Whirlwind"), S("Bloodthirst"), S("Raging Blow") },
     { S("Rampage"), S("Execute"), S("Whirlwind") },
     { S("Recklessness", "c"), S("Thunder Clap"), S("Slam") },
@@ -708,7 +708,7 @@ Retail.RoninDPS_Arms_Slayer = DPS("RoninDPS_Arms_Slayer", 71, C_WAR, {
     { S("Mortal Strike"), S("Overpower"), S("Slam") },
     { S("Overpower"), S("Slam") },
     { S("Avatar", "c"), S("Bladestorm", "c"), S("Warbreaker", "c"), S("Slam") },
-}, D_WAR, "Arms Warrior, Slayer. Raid single target and Mythic+/Delve: Slayer (Overpower, Reap the Storm, Sweeping Strikes, Bladestorm). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Impending Victory, Alt = Shockwave. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_WAR, "Arms Warrior, Slayer. Raid single target and Mythic+/Delve: Slayer (Overpower, Reap the Storm, Sweeping Strikes, Bladestorm). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CcEASWsDSHNyPDXnbxuIhH3ZdjZmZmFzYmZGAAAghphZGzMWmZmZGMmZAAAAAMWmZgJMW2GYBMgZYCZGsBmZYsNYWmZbAmZAwMMA | Raid: CcEAAAAAAAAAAAAAAAAAAAAAAAzMzsMzMmZGAAAghphZGzMWmZmZGMmZAAAAAMzyMDIMWWGYBMgZYCZGsBmZYsNwyMLDwMDAmhBA | Leveling: take these talents as they unlock. Keys: Shift = Impending Victory, Alt = Storm Bolt. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Mortal Strike"), S("Overpower"), S("Slam") },
     { S("Execute"), S("Colossus Smash"), S("Rend") },
     { S("Bladestorm", "c"), S("Heroic Strike"), S("Slam") },
@@ -721,7 +721,7 @@ Retail.RoninDPS_Arms_Slayer_AoE = DPS("RoninDPS_Arms_Slayer_AoE", 71, C_WAR, {
     { S("Execute"), S("Cleave"), S("Overpower") },
     { S("Cleave"), S("Whirlwind"), S("Mortal Strike") },
     { S("Avatar", "c"), S("Bladestorm", "c"), S("Warbreaker", "c"), S("Slam") },
-}, D_WAR, "Arms Warrior, Slayer. Raid single target and Mythic+/Delve: Slayer (Overpower, Reap the Storm, Sweeping Strikes, Bladestorm). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Impending Victory, Alt = Shockwave. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_WAR, "Arms Warrior, Slayer. Raid single target and Mythic+/Delve: Slayer (Overpower, Reap the Storm, Sweeping Strikes, Bladestorm). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Arms_Slayer (import string in its Notes). Keys: Shift = Impending Victory, Alt = Storm Bolt. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Whirlwind"), S("Mortal Strike"), S("Overpower") },
     { S("Sweeping Strikes", "c"), S("Cleave"), S("Slam") },
     { S("Bladestorm", "c"), S("Thunder Clap"), S("Slam") },
@@ -734,20 +734,20 @@ Retail.RoninDPS_Arms_Colossus = DPS("RoninDPS_Arms_Colossus", 71, C_WAR, {
     { S("Mortal Strike"), S("Overpower"), S("Slam") },
     { S("Overpower"), S("Slam") },
     { S("Avatar", "c"), S("Colossus Smash", "c"), S("Warbreaker", "c"), S("Slam") },
-}, D_WAR, "Arms Warrior, Colossus. Raid multi target: Colossus (Cleave, Demolish, Colossus Smash). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Impending Victory, Alt = Shockwave. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_WAR, "Arms Warrior, Colossus. Raid multi target: Colossus (Cleave, Demolish, Colossus Smash). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CcEAAAAAAAAAAAAAAAAAAAAAAgZmxsMzMzYGAAAghphxYmxyMzMzwMmZAAAAAM2MDMZDYzMGWgBmRb0YwCYmhx2MMbmtBzMAAzwA | Raid: CcEAAAAAAAAAAAAAAAAAAAAAAAzMzsMzMmZAAAAMMNMGzwyMzMzwMmZAAAAAM2mZAZBYzMG2gBmRb0YwCYmBz2MYZmlBzMAgZGGA | Leveling: take these talents as they unlock. Keys: Shift = Impending Victory, Alt = Storm Bolt. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Mortal Strike"), S("Overpower"), S("Slam") },
     { S("Execute"), S("Colossus Smash"), S("Rend") },
     { S("Bladestorm", "c"), S("Heroic Strike"), S("Slam") },
 })
 
 Retail.RoninDPS_Arms_Colossus_AoE = DPS("RoninDPS_Arms_Colossus_AoE", 71, C_WAR, {
-    { S("Thunder Clap"), S("Cleave"), S("Whirlwind") },
+    { S("Cleave"), S("Whirlwind"), S("Mortal Strike") },
     { S("Colossus Smash"), S("Demolish"), S("Cleave") },
     { S("Rend", "s"), S("Cleave"), S("Whirlwind") },
     { S("Execute"), S("Cleave"), S("Overpower") },
     { S("Cleave"), S("Whirlwind"), S("Mortal Strike") },
     { S("Avatar", "c"), S("Sweeping Strikes", "c"), S("Warbreaker", "c"), S("Slam") },
-}, D_WAR, "Arms Warrior, Colossus. Raid multi target: Colossus (Cleave, Demolish, Colossus Smash). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Impending Victory, Alt = Shockwave. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_WAR, "Arms Warrior, Colossus. Raid multi target: Colossus (Cleave, Demolish, Colossus Smash). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Arms_Colossus (import string in its Notes). Keys: Shift = Impending Victory, Alt = Storm Bolt. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Whirlwind"), S("Mortal Strike"), S("Overpower") },
     { S("Sweeping Strikes", "c"), S("Cleave"), S("Slam") },
     { S("Bladestorm", "c"), S("Thunder Clap"), S("Slam") },
@@ -760,7 +760,7 @@ Retail.RoninDPS_Monk_WW_Conduit = DPS("RoninDPS_Monk_WW_Conduit", 269, C_MONK, {
     { R("/castsequence [nochanneling:Fists of Fury] reset=3 Tiger Palm, Blackout Kick, Spinning Crane Kick"), S("Blackout Kick") },
     { S("Touch of Death", "c"), S("Zenith Stomp"), S("Blackout Kick") },
     { S("Invoke Xuen, the White Tiger", "c"), S("Zenith", "c"), S("Tiger Palm") },
-}, D_MONK, "Windwalker Monk, Conduit of the Celestials. Mythic+, Raid and Delve: Conduit of the Celestials (Celestial Conduit after Strike of the Windlord, Zenith with Invoke Xuen). Single target macro; packs: use the AoE macro (Spinning Crane Kick as the main spender). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MONK, "Windwalker Monk, Conduit of the Celestials. Mythic+, Raid and Delve: Conduit of the Celestials (Celestial Conduit after Strike of the Windlord, Zenith with Invoke Xuen). Single target macro; packs: use the AoE macro (Spinning Crane Kick as the main spender). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: C0QAAAAAAAAAAAAAAAAAAAAAAMzYMgxYZmx2MAAAAAAAAAAAALDz0MmhhBMMMzMzwsxMDzyDMBAswsNmxMzMDAgFzsMbjJIAgZMAmBYsMQMzMbG | Raid: C0QAAAAAAAAAAAAAAAAAAAAAAMzYM2GmhlZmZbGAAAAAAAAAAAglhRzYGwAmxwMzMDz2wMMLzEAwiZ2mZGzMzMAAWMzysNmgAAwAYGgxyAxMzs5BA | Leveling: take these talents as they unlock. Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Rising Sun Kick"), S("Tiger Palm"), S("Blackout Kick") },
     { S("Fists of Fury"), S("Strike of the Windlord"), S("Rising Sun Kick") },
     { S("Touch of Death"), S("Spinning Crane Kick"), S("Tiger Palm") },
@@ -773,7 +773,7 @@ Retail.RoninDPS_Monk_WW_Cond_AoE = DPS("RoninDPS_Monk_WW_Cond_AoE", 269, C_MONK,
     { S("Rising Sun Kick"), S("Spinning Crane Kick"), S("Blackout Kick") },
     { S("Celestial Conduit"), S("Touch of Death"), S("Tiger Palm") },
     { S("Invoke Xuen, the White Tiger", "c"), S("Zenith", "c"), S("Tiger Palm") },
-}, D_MONK, "Windwalker Monk, Conduit of the Celestials. Mythic+, Raid and Delve: Conduit of the Celestials (Celestial Conduit after Strike of the Windlord, Zenith with Invoke Xuen). Single target macro; packs: use the AoE macro (Spinning Crane Kick as the main spender). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MONK, "Windwalker Monk, Conduit of the Celestials. Mythic+, Raid and Delve: Conduit of the Celestials (Celestial Conduit after Strike of the Windlord, Zenith with Invoke Xuen). Single target macro; packs: use the AoE macro (Spinning Crane Kick as the main spender). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Monk_WW_Conduit (import string in its Notes). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Fists of Fury"), S("Spinning Crane Kick"), S("Tiger Palm") },
     { S("Strike of the Windlord"), S("Rising Sun Kick"), S("Spinning Crane Kick") },
     { S("Touch of Death"), S("Spinning Crane Kick"), S("Tiger Palm") },
@@ -785,8 +785,8 @@ Retail.RoninDPS_Monk_WW_ShadoPan = DPS("RoninDPS_Monk_WW_ShadoPan", 269, C_MONK,
     { R("/castsequence [nochanneling:Fists of Fury] reset=3 Tiger Palm, Rising Sun Kick"), S("Blackout Kick"), S("Tiger Palm") },
     { R("/castsequence [nochanneling:Fists of Fury] reset=3 Tiger Palm, Blackout Kick, Spinning Crane Kick"), S("Blackout Kick") },
     { S("Touch of Death", "c"), S("Zenith Stomp"), S("Blackout Kick") },
-    { S("Invoke Xuen, the White Tiger", "c"), S("Zenith", "c"), S("Tiger Palm") },
-}, D_MONK, "Windwalker Monk, Shado-Pan. Raid: Shado-Pan (Flurry Strikes, Zenith). Single target macro; packs: use the AoE macro (Whirling Dragon Punch and Strike of the Windlord first, Spinning Crane Kick as the main spender). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+    { S("Zenith", "c"), S("Touch of Death", "c"), S("Tiger Palm") },
+}, D_MONK, "Windwalker Monk, Shado-Pan. Raid: Shado-Pan (Flurry Strikes, Zenith). Single target macro; packs: use the AoE macro (Whirling Dragon Punch and Strike of the Windlord first, Spinning Crane Kick as the main spender). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: C0QAAAAAAAAAAAAAAAAAAAAAAMzYAMGbzMz2MAAAAAAAAAAAALDz0MmhhBMMMzMzwsNMDzyDMBAsYmtZmxMzMDAgNAYWmlmZmZBADMzAwYZgYAD | Raid: C0QAAAAAAAAAAAAAAAAAAAAAAMzYw2MmhlZGbzAAAAAAAAAAAAsMMaGzAGwMGmZmZY2GmhZZmAAWMz2MDzMzMAA2AgZZWamZmFAMwMDAjlBiB8B | Leveling: take these talents as they unlock. Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Rising Sun Kick"), S("Tiger Palm"), S("Blackout Kick") },
     { S("Fists of Fury"), S("Strike of the Windlord"), S("Rising Sun Kick") },
     { S("Touch of Death"), S("Spinning Crane Kick"), S("Tiger Palm") },
@@ -798,8 +798,8 @@ Retail.RoninDPS_Monk_WW_SPan_AoE = DPS("RoninDPS_Monk_WW_SPan_AoE", 269, C_MONK,
     { R("/castsequence [nochanneling:Fists of Fury] reset=3 Tiger Palm, Spinning Crane Kick"), S("Rising Sun Kick"), S("Tiger Palm") },
     { S("Rising Sun Kick"), S("Spinning Crane Kick"), S("Blackout Kick") },
     { S("Touch of Death", "c"), S("Spinning Crane Kick"), S("Tiger Palm") },
-    { S("Invoke Xuen, the White Tiger", "c"), S("Zenith", "c"), S("Tiger Palm") },
-}, D_MONK, "Windwalker Monk, Shado-Pan. Raid: Shado-Pan (Flurry Strikes, Zenith). Single target macro; packs: use the AoE macro (Whirling Dragon Punch and Strike of the Windlord first, Spinning Crane Kick as the main spender). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+    { S("Zenith", "c"), S("Spinning Crane Kick"), S("Tiger Palm") },
+}, D_MONK, "Windwalker Monk, Shado-Pan. Raid: Shado-Pan (Flurry Strikes, Zenith). Single target macro; packs: use the AoE macro (Whirling Dragon Punch and Strike of the Windlord first, Spinning Crane Kick as the main spender). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Monk_WW_ShadoPan (import string in its Notes). Keys: Shift = Vivify, Alt = Leg Sweep. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Fists of Fury"), S("Spinning Crane Kick"), S("Tiger Palm") },
     { S("Strike of the Windlord"), S("Rising Sun Kick"), S("Spinning Crane Kick") },
     { S("Touch of Death"), S("Spinning Crane Kick"), S("Tiger Palm") },
@@ -809,10 +809,10 @@ Retail.RoninDPS_Feral_Wildstalker = DPS("RoninDPS_Feral_Wildstalker", 103, C_FER
     { S("Tiger's Fury", "c"), S("Rake", "s"), S("Shred") },
     { S("Feral Frenzy", "c"), S("Frantic Frenzy", "c"), S("Shred") },
     { R("/castsequence reset=6 Shred, Shred, Shred, Rip"), S("Ferocious Bite"), S("Shred") },
-    { S("Ravage"), S("Ferocious Bite"), S("Shred") },
+    { S("Ferocious Bite"), S("Shred") },
     { S("Rake", "s"), S("Chomp"), S("Shred") },
-    { S("Berserk", "c"), S("Convoke the Spirits", "c"), S("Tiger's Fury", "c"), S("Shred") },
-}, D_FERAL, "Feral Druid, Wildstalker. Raid: Wildstalker (Unseen Predator, Patient Custodian). Mythic+: Wildstalker AoE (Rampant Ferocity, Hunger for Battle). The macro shifts into Cat Form by itself. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+    { S("Incarnation: Avatar of Ashamane", "c"), S("Berserk", "c"), S("Convoke the Spirits", "c"), S("Tiger's Fury", "c"), S("Shred") },
+}, D_FERAL, "Feral Druid, Wildstalker. Raid: Wildstalker (Unseen Predator, Patient Custodian). Mythic+: Wildstalker AoE (Rampant Ferocity, Hunger for Battle). The macro shifts into Cat Form by itself. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CcGAAAAAAAAAAAAAAAAAAAAAAAAAAAAgZmZ2YmZmxY2M2mZZGzMmZAAAAYJY2MMmZUzYWMzMzsMmhBAAAAAAYAAAAEAMLzs0sMzyGYmBYxMYAAMzAgB | Raid: CcGAAAAAAAAAAAAAAAAAAAAAAAAAAAAgZMzGzMzMmZ2WGmZZGzMmZAAAAYJY2gxMjaGzyMzMzYMjZAAAAAAAGAAAABAz2MLNLzstBmZAWMDGAAzMAYA | Leveling: take these talents as they unlock. Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Rake", "s"), S("Shred") },
     { R("/castsequence reset=8 Shred, Shred, Shred, Rip, Shred, Shred, Shred, Ferocious Bite"), S("Shred") },
     { S("Tiger's Fury", "c"), S("Berserk", "c"), S("Shred") },
@@ -822,10 +822,10 @@ Retail.RoninDPS_Feral_Wild_AoE = DPS("RoninDPS_Feral_Wild_AoE", 103, C_FERAL, {
     { S("Tiger's Fury", "c"), S("Primal Wrath"), S("Swipe") },
     { S("Rake", "s"), S("Frantic Frenzy", "c"), S("Swipe") },
     { R("/castsequence reset=6 Swipe, Swipe, Primal Wrath"), S("Ferocious Bite"), S("Swipe") },
-    { S("Ravage"), S("Ferocious Bite"), S("Swipe") },
+    { S("Ferocious Bite"), S("Swipe") },
     { S("Chomp"), S("Swipe") },
-    { S("Berserk", "c"), S("Convoke the Spirits", "c"), S("Tiger's Fury", "c"), S("Swipe") },
-}, D_FERAL, "Feral Druid, Wildstalker. Raid: Wildstalker (Unseen Predator, Patient Custodian). Mythic+: Wildstalker AoE (Rampant Ferocity, Hunger for Battle). The macro shifts into Cat Form by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+    { S("Incarnation: Avatar of Ashamane", "c"), S("Berserk", "c"), S("Convoke the Spirits", "c"), S("Tiger's Fury", "c"), S("Swipe") },
+}, D_FERAL, "Feral Druid, Wildstalker. Raid: Wildstalker (Unseen Predator, Patient Custodian). Mythic+: Wildstalker AoE (Rampant Ferocity, Hunger for Battle). The macro shifts into Cat Form by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Feral_Wildstalker (import string in its Notes). Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Rake", "s"), S("Swipe") },
     { R("/castsequence reset=8 Swipe, Swipe, Swipe, Primal Wrath"), S("Swipe") },
     { S("Tiger's Fury", "c"), S("Berserk", "c"), S("Swipe") },
@@ -838,7 +838,7 @@ Retail.RoninDPS_Balance_Keeper = DPS("RoninDPS_Balance_Keeper", 102, C_BAL, {
     { S("Starsurge"), S("Wrath") },
     { S("Solar Eclipse"), S("Wrath") },
     { S("Celestial Alignment", "c"), S("Convoke the Spirits", "c"), S("Wrath") },
-}, D_BAL, "Balance Druid, Keeper of the Grove. Raid single target: Keeper of the Grove (Force of Nature, Fury of Elune, Starsurge). The macro shifts into Moonkin Form by itself. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_BAL, "Balance Druid, Keeper of the Grove. Raid single target: Keeper of the Grove (Force of Nature, Fury of Elune, Starsurge). The macro shifts into Moonkin Form by itself. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Raid: CYGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWoMbNjxMD8AmFzMzMYYGjZWGbzYGbsMzyYmZGLYYAGgltxGmmZWGBAAAYzMzMzgNDMmBwMDAMA | Leveling: take these talents as they unlock. Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Moonfire", "s"), S("Sunfire", "s"), S("Starsurge") },
     { S("Solar Eclipse"), S("Lunar Eclipse"), S("Starsurge"), S("Wrath") },
     { S("Celestial Alignment", "c"), S("Starsurge"), S("Wrath") },
@@ -851,7 +851,7 @@ Retail.RoninDPS_Bal_Keeper_AoE = DPS("RoninDPS_Bal_Keeper_AoE", 102, C_BAL, {
     { S("Sunfire", "s"), S("Starfall"), S("Wrath") },
     { S("Starfall"), S("Wrath") },
     { S("Celestial Alignment", "c"), S("Convoke the Spirits", "c"), S("Starfall") },
-}, D_BAL, "Balance Druid, Keeper of the Grove. Raid single target: Keeper of the Grove (Force of Nature, Fury of Elune, Starsurge). The macro shifts into Moonkin Form by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_BAL, "Balance Druid, Keeper of the Grove. Raid single target: Keeper of the Grove (Force of Nature, Fury of Elune, Starsurge). The macro shifts into Moonkin Form by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Balance_Keeper (import string in its Notes). Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Moonfire", "s"), S("Sunfire", "s"), S("Starfall") },
     { S("Solar Eclipse"), S("Lunar Eclipse"), S("Starfall"), S("Starfire") },
     { S("Celestial Alignment", "c"), S("Starfall"), S("Starfire") },
@@ -864,7 +864,7 @@ Retail.RoninDPS_Balance_Elune = DPS("RoninDPS_Balance_Elune", 102, C_BAL, {
     { S("Starsurge"), S("Starfire") },
     { S("Lunar Eclipse"), S("Starfire") },
     { S("Incarnation: Chosen of Elune", "c"), S("Convoke the Spirits", "c"), S("Starfire") },
-}, D_BAL, "Balance Druid, Elune's Chosen. Mythic+ and Delve: Elune's Chosen (Lunar Calling, Ascendant Eclipses, Fury of Elune). The macro shifts into Moonkin Form by itself. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_BAL, "Balance Druid, Elune's Chosen. Mythic+ and Delve: Elune's Chosen (Lunar Calling, Ascendant Eclipses, Fury of Elune). The macro shifts into Moonkin Form by itself. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CYGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWoMbNMmZgxsMzMzMLMgxMLzsYMzswyMLjxMjNMAYstNzgxsNCMBAAAYhZmZGsZMjxAAwMDWGA | Raid: CYGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWoMbNjxMDwsMzMzMYYGjZWmhxMWYZmlZGjZ2wAgx2yMDGz2IwEAAAgFzMzMD2MMGzAAYmBLDA | Leveling: take these talents as they unlock. Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Moonfire", "s"), S("Sunfire", "s"), S("Starsurge") },
     { S("Solar Eclipse"), S("Lunar Eclipse"), S("Starsurge"), S("Wrath") },
     { S("Celestial Alignment", "c"), S("Starsurge"), S("Wrath") },
@@ -877,7 +877,7 @@ Retail.RoninDPS_Bal_Elune_AoE = DPS("RoninDPS_Bal_Elune_AoE", 102, C_BAL, {
     { S("Sunfire", "s"), S("Starfall"), S("Starfire") },
     { S("Starfall"), S("Starfire") },
     { S("Incarnation: Chosen of Elune", "c"), S("Convoke the Spirits", "c"), S("Starfall") },
-}, D_BAL, "Balance Druid, Elune's Chosen. Mythic+ and Delve: Elune's Chosen (Lunar Calling, Ascendant Eclipses, Fury of Elune). The macro shifts into Moonkin Form by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_BAL, "Balance Druid, Elune's Chosen. Mythic+ and Delve: Elune's Chosen (Lunar Calling, Ascendant Eclipses, Fury of Elune). The macro shifts into Moonkin Form by itself. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Balance_Elune (import string in its Notes). Keys: Shift = Regrowth, Alt = Mighty Bash. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Moonfire", "s"), S("Sunfire", "s"), S("Starfall") },
     { S("Solar Eclipse"), S("Lunar Eclipse"), S("Starfall"), S("Starfire") },
     { S("Celestial Alignment", "c"), S("Starfall"), S("Starfire") },
@@ -890,7 +890,7 @@ Retail.RoninDPS_Aff_Hellcaller = DPS("RoninDPS_Aff_Hellcaller", 265, C_LOCK, {
     { S("Unstable Affliction"), S("Drain Soul"), S("Shadow Bolt") },
     { S("Drain Soul"), S("Shadow Bolt") },
     { S("Summon Darkglare", "c"), S("Malevolence", "c"), S("Haunt") },
-}, D_LOCK, "Affliction Warlock, Hellcaller. Wither replaces Corruption, Malevolence with Summon Darkglare. Talents: Hellcaller hero tree; Raid single target Haunt, Unstable Affliction, Malefic Grasp; Mythic+ Seed of Corruption. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_LOCK, "Affliction Warlock, Hellcaller. Wither replaces Corruption, Malevolence with Summon Darkglare. Hellcaller hero tree; Raid single target Haunt, Unstable Affliction, Malefic Grasp; Mythic+ Seed of Corruption. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CkQAAAAAAAAAAAAAAAAAAAAAAwMzMzoZjBzMmlBAAYmZZWmZmlxAAWgBmFjGzAysAWGAAAMAAwMDmZGzMMGmZmZmZGMzMzAAmBG | Raid: CkQAAAAAAAAAAAAAAAAAAAAAAwMzMzoZhhZmZmlBAAYmZZWmZmlxAAWgBmFjGzAysBWGAAAmBAAmZAzMjxYGmZMzMGMzMzAAmBG | Leveling: take these talents as they unlock. Keys: Shift = Drain Life, Alt = Mortal Coil. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Agony", "s"), S("Shadow Bolt") },
     { S("Corruption", "s"), S("Wither", "s"), S("Shadow Bolt") },
     { S("Unstable Affliction"), S("Haunt"), S("Shadow Bolt") },
@@ -905,7 +905,7 @@ Retail.RoninDPS_Aff_Hellcaller_AoE = DPS("RoninDPS_Aff_Hellcaller_AoE", 265, C_L
     { S("Seed of Corruption"), S("Unstable Affliction"), S("Shadow Bolt") },
     { S("Shadow Bolt"), S("Drain Soul") },
     { S("Summon Darkglare", "c"), S("Malevolence", "c"), S("Haunt") },
-}, D_LOCK, "Affliction Warlock, Hellcaller. Wither replaces Corruption, Malevolence with Summon Darkglare. Talents: Hellcaller hero tree; Raid single target Haunt, Unstable Affliction, Malefic Grasp; Mythic+ Seed of Corruption. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_LOCK, "Affliction Warlock, Hellcaller. Wither replaces Corruption, Malevolence with Summon Darkglare. Hellcaller hero tree; Raid single target Haunt, Unstable Affliction, Malefic Grasp; Mythic+ Seed of Corruption. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Aff_Hellcaller (import string in its Notes). Keys: Shift = Drain Life, Alt = Mortal Coil. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Agony", "s"), S("Seed of Corruption") },
     { S("Corruption", "s"), S("Wither", "s"), S("Seed of Corruption") },
     { S("Haunt"), S("Summon Darkglare", "c"), S("Seed of Corruption") },
@@ -915,11 +915,11 @@ Retail.RoninDPS_Aff_Hellcaller_AoE = DPS("RoninDPS_Aff_Hellcaller_AoE", 265, C_L
 Retail.RoninDPS_Aff_SoulHarvester = DPS("RoninDPS_Aff_SoulHarvester", 265, C_LOCK, {
     { S("Haunt"), S("Summon Darkglare", "c"), S("Dark Harvest", "c") },
     { S("Agony", "s"), S("Corruption", "s"), S("Shadow Bolt") },
-    { S("Unstable Affliction"), S("Dark Harvest"), S("Malefic Grasp") },
+    { S("Unstable Affliction"), S("Dark Harvest"), S("Shadow Bolt") },
     { S("Dark Harvest"), S("Unstable Affliction"), S("Drain Soul") },
     { S("Drain Soul"), S("Shadow Bolt") },
     { S("Summon Darkglare", "c"), S("Dark Harvest", "c"), S("Haunt") },
-}, D_LOCK, "Affliction Warlock, Soul Harvester. Dark Harvest when you are out of shards. Talents: Soul Harvester hero tree; Raid single target Haunt, Unstable Affliction; Mythic+ Seed of Corruption. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_LOCK, "Affliction Warlock, Soul Harvester. Dark Harvest when you are out of shards. Soul Harvester hero tree; Raid single target Haunt, Unstable Affliction; Mythic+ Seed of Corruption. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CkQAAAAAAAAAAAAAAAAAAAAAAwMMzoZzM2mZmZWGAAwMzsMbzMzyYAgx2yADYCmhtADbDAAAGAAAzMjZMzsNGzgZmZGDzMzAAMDMA | Raid: CkQAAAAAAAAAAAAAAAAAAAAAAwMzMzoZjhZmZmlBAAYmZZ2mZmFzAAjttBGwAmhlADbDAAAzAAAYmZMjZGDDzYmZGDmZmBAYGYA | Leveling: take these talents as they unlock. Keys: Shift = Drain Life, Alt = Mortal Coil. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Agony", "s"), S("Shadow Bolt") },
     { S("Corruption", "s"), S("Wither", "s"), S("Shadow Bolt") },
     { S("Unstable Affliction"), S("Haunt"), S("Shadow Bolt") },
@@ -934,7 +934,7 @@ Retail.RoninDPS_Aff_SoulHarv_AoE = DPS("RoninDPS_Aff_SoulHarv_AoE", 265, C_LOCK,
     { S("Seed of Corruption"), S("Unstable Affliction"), S("Shadow Bolt") },
     { S("Shadow Bolt"), S("Drain Soul") },
     { S("Summon Darkglare", "c"), S("Dark Harvest", "c"), S("Haunt") },
-}, D_LOCK, "Affliction Warlock, Soul Harvester. Dark Harvest when you are out of shards. Talents: Soul Harvester hero tree; Raid single target Haunt, Unstable Affliction; Mythic+ Seed of Corruption. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_LOCK, "Affliction Warlock, Soul Harvester. Dark Harvest when you are out of shards. Soul Harvester hero tree; Raid single target Haunt, Unstable Affliction; Mythic+ Seed of Corruption. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Aff_SoulHarvester (import string in its Notes). Keys: Shift = Drain Life, Alt = Mortal Coil. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Agony", "s"), S("Seed of Corruption") },
     { S("Corruption", "s"), S("Wither", "s"), S("Seed of Corruption") },
     { S("Haunt"), S("Summon Darkglare", "c"), S("Seed of Corruption") },
@@ -945,10 +945,10 @@ Retail.RoninDPS_Demo_Diabolist = DPS("RoninDPS_Demo_Diabolist", 266, C_DEMO, {
     { S("Call Dreadstalkers"), S("Power Siphon"), S("Shadow Bolt") },
     { S("Hand of Gul'dan"), S("Demonbolt"), S("Shadow Bolt") },
     { S("Demonbolt"), S("Hand of Gul'dan"), S("Shadow Bolt") },
-    { S("Grimoire: Fel Ravager", "c"), S("Summon Doomguard", "c"), S("Shadow Bolt") },
+    { S("Grimoire: Fel Ravager", "c"), S("Demonbolt"), S("Shadow Bolt") },
     { S("Grimoire: Imp Lord", "c"), S("Demonbolt"), S("Shadow Bolt") },
     { S("Summon Demonic Tyrant", "c"), S("Summon Vilefiend", "c"), S("Shadow Bolt") },
-}, D_DEMO, "Demonology Warlock, Diabolist. Shadow Bolt builds shards, Hand of Gul'dan at 3+, Demonbolt on Demonic Core. Talents: Diabolist hero tree, Summon Demonic Tyrant. The macro summons your Felguard. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DEMO, "Demonology Warlock, Diabolist. Shadow Bolt builds shards, Hand of Gul'dan at 3+, Demonbolt on Demonic Core. Diabolist hero tree, Summon Demonic Tyrant. The macro summons your Felguard. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CoQAAAAAAAAAAAAAAAAAAAAAAwMzMzoZjxmZGzyAAAAAAAAGzYYBGYb0GNsYYmZZ2mZmxMAwMMmZmZAGzYMbAAgZmZmZGzwyMGwA | Raid: CoQAAAAAAAAAAAAAAAAAAAAAAwMzMzoZjxmZGzyAAAAAAAAGzYYBGYb0GNsYwMLzyMzMmBAmhZmZmZAGzYMbAAgZmZmZGzwyMGwA | Leveling: take these talents as they unlock. Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Call Dreadstalkers"), S("Power Siphon"), S("Shadow Bolt") },
     { S("Hand of Gul'dan"), S("Demonbolt"), S("Shadow Bolt") },
     { S("Summon Demonic Tyrant", "c"), S("Shadow Bolt") },
@@ -957,11 +957,11 @@ Retail.RoninDPS_Demo_Diabolist = DPS("RoninDPS_Demo_Diabolist", 266, C_DEMO, {
 Retail.RoninDPS_Demo_Diab_AoE = DPS("RoninDPS_Demo_Diab_AoE", 266, C_DEMO, {
     { S("Call Dreadstalkers"), S("Summon Demonic Tyrant", "c"), S("Shadow Bolt") },
     { S("Implosion"), S("Hand of Gul'dan"), S("Demonbolt") },
-    { S("Doom", "s"), S("Demonbolt") },
+    { S("Demonbolt"), S("Hand of Gul'dan"), S("Shadow Bolt") },
     { S("Grimoire: Fel Ravager", "c"), S("Grimoire: Imp Lord", "c"), S("Shadow Bolt") },
     { S("Shadow Bolt"), S("Demonbolt") },
     { S("Dominion of Argus", "c"), S("Summon Vilefiend", "c"), S("Implosion"), S("Shadow Bolt") },
-}, D_DEMO, "Demonology Warlock, Diabolist. Shadow Bolt builds shards, Hand of Gul'dan at 3+, Demonbolt on Demonic Core. Talents: Diabolist hero tree, Summon Demonic Tyrant. The macro summons your Felguard. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DEMO, "Demonology Warlock, Diabolist. Shadow Bolt builds shards, Hand of Gul'dan at 3+, Demonbolt on Demonic Core. Diabolist hero tree, Summon Demonic Tyrant. The macro summons your Felguard. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Demo_Diabolist (import string in its Notes). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Call Dreadstalkers"), S("Implosion"), S("Shadow Bolt") },
     { S("Hand of Gul'dan"), S("Implosion"), S("Demonbolt") },
     { S("Summon Demonic Tyrant", "c"), S("Shadow Bolt") },
@@ -971,10 +971,10 @@ Retail.RoninDPS_Demo_SoulHarvester = DPS("RoninDPS_Demo_SoulHarvester", 266, C_D
     { S("Call Dreadstalkers"), S("Power Siphon"), S("Shadow Bolt") },
     { S("Hand of Gul'dan"), S("Demonbolt"), S("Shadow Bolt") },
     { S("Demonbolt"), S("Hand of Gul'dan"), S("Shadow Bolt") },
-    { S("Grimoire: Fel Ravager", "c"), S("Summon Doomguard", "c"), S("Shadow Bolt") },
+    { S("Grimoire: Fel Ravager", "c"), S("Demonbolt"), S("Shadow Bolt") },
     { S("Grimoire: Imp Lord", "c"), S("Demonbolt"), S("Shadow Bolt") },
     { S("Summon Demonic Tyrant", "c"), S("Summon Vilefiend", "c"), S("Shadow Bolt") },
-}, D_DEMO, "Demonology Warlock, Soul Harvester. Dreadstalkers, Hand of Gul'dan and Demonbolt, Tyrant on cooldown. Talents: Soul Harvester hero tree. The macro summons your Felguard. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DEMO, "Demonology Warlock, Soul Harvester. Dreadstalkers, Hand of Gul'dan and Demonbolt, Tyrant on cooldown. Soul Harvester hero tree. The macro summons your Felguard. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CoQAAAAAAAAAAAAAAAAAAAAAAwMzMzoZjxmZGzyAAAAAAAMWWGYADYGWCZsZYmZZ2mZmxMAwMMmZAmZGzYMbAAgZmZmZGzwyMGwA | Raid: CoQAAAAAAAAAAAAAAAAAAAAAAwMzMzoZjxmZGzyAAAAAAAMWWGYADYGWCZsZwMLzyMzMmBAmhZmZAmZGzYMbAAgZmZmZGzwyMGwA | Leveling: take these talents as they unlock. Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Call Dreadstalkers"), S("Power Siphon"), S("Shadow Bolt") },
     { S("Hand of Gul'dan"), S("Demonbolt"), S("Shadow Bolt") },
     { S("Summon Demonic Tyrant", "c"), S("Shadow Bolt") },
@@ -983,11 +983,11 @@ Retail.RoninDPS_Demo_SoulHarvester = DPS("RoninDPS_Demo_SoulHarvester", 266, C_D
 Retail.RoninDPS_Demo_SoulH_AoE = DPS("RoninDPS_Demo_SoulH_AoE", 266, C_DEMO, {
     { S("Call Dreadstalkers"), S("Summon Demonic Tyrant", "c"), S("Shadow Bolt") },
     { S("Implosion"), S("Hand of Gul'dan"), S("Demonbolt") },
-    { S("Doom", "s"), S("Demonbolt") },
+    { S("Demonbolt"), S("Hand of Gul'dan"), S("Shadow Bolt") },
     { S("Grimoire: Fel Ravager", "c"), S("Grimoire: Imp Lord", "c"), S("Shadow Bolt") },
     { S("Shadow Bolt"), S("Demonbolt") },
     { S("Dominion of Argus", "c"), S("Summon Vilefiend", "c"), S("Implosion"), S("Shadow Bolt") },
-}, D_DEMO, "Demonology Warlock, Soul Harvester. Dreadstalkers, Hand of Gul'dan and Demonbolt, Tyrant on cooldown. Talents: Soul Harvester hero tree. The macro summons your Felguard. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_DEMO, "Demonology Warlock, Soul Harvester. Dreadstalkers, Hand of Gul'dan and Demonbolt, Tyrant on cooldown. Soul Harvester hero tree. The macro summons your Felguard. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Demo_SoulHarvester (import string in its Notes). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Call Dreadstalkers"), S("Implosion"), S("Shadow Bolt") },
     { S("Hand of Gul'dan"), S("Implosion"), S("Demonbolt") },
     { S("Summon Demonic Tyrant", "c"), S("Shadow Bolt") },
@@ -1000,7 +1000,7 @@ Retail.RoninDPS_Destro_Hellcaller = DPS("RoninDPS_Destro_Hellcaller", 267, C_LOC
     { S("Conflagrate"), S("Soul Fire"), S("Incinerate") },
     { S("Chaos Bolt"), S("Incinerate") },
     { S("Summon Infernal", "c"), S("Malevolence", "c"), S("Soul Fire"), S("Incinerate") },
-}, D_LOCK, "Destruction Warlock, Hellcaller. Wither, Malevolence on cooldown, Chaos Bolt and Soul Fire. Talents: Hellcaller hero tree, Summon Infernal; AoE: Rain of Fire (cast at your cursor), Cataclysm. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_LOCK, "Destruction Warlock, Hellcaller. Wither, Malevolence on cooldown, Chaos Bolt and Soul Fire. Hellcaller hero tree, Summon Infernal; AoE: Rain of Fire (cast at your cursor), Cataclysm. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CsQAAAAAAAAAAAAAAAAAAAAAAwMmZmpZbMMzMmtZbmZmZxMzyyYAAwMGzMzmFYgZxoxMAmtYjBAAGzwAAgZGwMmZ2AAAMzMDAAMM | Raid: CsQAAAAAAAAAAAAAAAAAAAAAAwMmZmpZbMMzMmtZxMzMLGjFzAAgZmxMzsZBGYWMaMDgZL2YAAgxAjNAgZGYmxMDAAAzMzAAwYYA | Leveling: take these talents as they unlock. Keys: Shift = Drain Life, Alt = Mortal Coil. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Immolate", "s"), S("Incinerate") },
     { S("Wither", "s"), S("Chaos Bolt"), S("Conflagrate") },
     { S("Soul Fire"), S("Chaos Bolt"), S("Incinerate") },
@@ -1014,7 +1014,7 @@ Retail.RoninDPS_Destro_Hell_AoE = DPS("RoninDPS_Destro_Hell_AoE", 267, C_LOCK, {
     { S("Chaos Bolt"), S("Incinerate") },
     { R("/cast [nochanneling,@cursor]Rain of Fire"), S("Incinerate") },
     { S("Summon Infernal", "c"), S("Malevolence", "c"), S("Soul Fire"), S("Incinerate") },
-}, D_LOCK, "Destruction Warlock, Hellcaller. Wither, Malevolence on cooldown, Chaos Bolt and Soul Fire. Talents: Hellcaller hero tree, Summon Infernal; AoE: Rain of Fire (cast at your cursor), Cataclysm. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_LOCK, "Destruction Warlock, Hellcaller. Wither, Malevolence on cooldown, Chaos Bolt and Soul Fire. Hellcaller hero tree, Summon Infernal; AoE: Rain of Fire (cast at your cursor), Cataclysm. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Destro_Hellcaller (import string in its Notes). Keys: Shift = Drain Life, Alt = Mortal Coil. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Immolate", "s"), S("Incinerate") },
     { S("Wither", "s"), R("/cast [nochanneling,@cursor]Rain of Fire"), S("Incinerate") },
     { R("/cast [nochanneling,@cursor]Rain of Fire"), S("Chaos Bolt"), S("Conflagrate") },
@@ -1028,7 +1028,7 @@ Retail.RoninDPS_Destro_Diabolist = DPS("RoninDPS_Destro_Diabolist", 267, C_LOCK,
     { S("Conflagrate"), S("Soul Fire"), S("Incinerate") },
     { S("Chaos Bolt"), S("Incinerate") },
     { S("Summon Infernal", "c"), S("Ruination"), S("Soul Fire"), S("Incinerate") },
-}, D_LOCK, "Destruction Warlock, Diabolist. Immolate, Chaos Bolt for Demonic Art, Ruination with Infernal. Talents: Diabolist hero tree; AoE: Rain of Fire (cast at your cursor), Cataclysm. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_LOCK, "Destruction Warlock, Diabolist. Immolate, Chaos Bolt for Demonic Art, Ruination with Infernal. Diabolist hero tree; AoE: Rain of Fire (cast at your cursor), Cataclysm. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CsQAAAAAAAAAAAAAAAAAAAAAAwMmZmpZbMMzMmtZbmZmZxMzyyYAAwMGzMzGYMjhFyAbDb0YhBAAGzwAAMzAwMmZ2AAAMzMDAAMM | Raid: CsQAAAAAAAAAAAAAAAAAAAAAAwMmZmpZbMMzMmtZxMzMLGjFzAAgZmxMzsBGzYYhMw2wGNWYAAgxAjNAMzAYmxMDAAAzMzAAwYYA | Leveling: take these talents as they unlock. Keys: Shift = Drain Life, Alt = Mortal Coil. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Immolate", "s"), S("Incinerate") },
     { S("Wither", "s"), S("Chaos Bolt"), S("Conflagrate") },
     { S("Soul Fire"), S("Chaos Bolt"), S("Incinerate") },
@@ -1042,7 +1042,7 @@ Retail.RoninDPS_Destro_Diab_AoE = DPS("RoninDPS_Destro_Diab_AoE", 267, C_LOCK, {
     { S("Chaos Bolt"), S("Incinerate") },
     { R("/cast [nochanneling,@cursor]Rain of Fire"), S("Incinerate") },
     { S("Summon Infernal", "c"), S("Ruination"), S("Soul Fire"), S("Incinerate") },
-}, D_LOCK, "Destruction Warlock, Diabolist. Immolate, Chaos Bolt for Demonic Art, Ruination with Infernal. Talents: Diabolist hero tree; AoE: Rain of Fire (cast at your cursor), Cataclysm. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Drain Life, Alt = Shadowfury. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_LOCK, "Destruction Warlock, Diabolist. Immolate, Chaos Bolt for Demonic Art, Ruination with Infernal. Diabolist hero tree; AoE: Rain of Fire (cast at your cursor), Cataclysm. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Destro_Diabolist (import string in its Notes). Keys: Shift = Drain Life, Alt = Mortal Coil. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Immolate", "s"), S("Incinerate") },
     { S("Wither", "s"), R("/cast [nochanneling,@cursor]Rain of Fire"), S("Incinerate") },
     { R("/cast [nochanneling,@cursor]Rain of Fire"), S("Chaos Bolt"), S("Conflagrate") },
@@ -1056,7 +1056,7 @@ Retail.RoninDPS_Frost_Spellslinger = DPS("RoninDPS_Frost_Spellslinger", 64, C_MA
     { S("Ray of Frost"), S("Ice Lance"), S("Frostbolt") },
     { S("Frostbolt"), S("Ice Lance") },
     { S("Icy Veins", "c"), S("Frozen Orb", "c"), S("Frostbolt") },
-}, D_MAGE, "Frost Mage, Spellslinger. Flurry on Brain Freeze, Ice Lance on Fingers of Frost, Glacial Spike, Ray of Frost. Talents: Spellslinger hero tree; AoE: Blizzard (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Frost Mage, Spellslinger. Flurry on Brain Freeze, Ice Lance on Fingers of Frost, Glacial Spike, Ray of Frost. Spellslinger hero tree; AoE: Blizzard (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZm5BmFMzEzMGzMzMziZmZMjZgAAAzMzssMz0GAAsBAAAWAYbZMzMzwsNMmhFAAAmZDYGGDYGMMA | Raid: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZm5BmFMzEzMGzMzMziZmZMjZAAAgZmZWWmZaDAA2AAAALAstMmZmZY2GGzwCAAAzsBMTGDYGMMA | Leveling: take these talents as they unlock. Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,buff:Brain Freeze]Flurry"), S("Frozen Orb", "c"), S("Glacial Spike"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Ray of Frost") },
     { S("Frostbolt"), S("Frostfire Bolt") },
@@ -1069,7 +1069,7 @@ Retail.RoninDPS_Frost_Spell_AoE = DPS("RoninDPS_Frost_Spell_AoE", 64, C_MAGE, {
     { S("Ray of Frost"), S("Ice Lance"), S("Frostbolt") },
     { S("Frostbolt"), S("Ice Lance") },
     { S("Icy Veins", "c"), S("Frozen Orb", "c"), S("Frostbolt") },
-}, D_MAGE, "Frost Mage, Spellslinger. Flurry on Brain Freeze, Ice Lance on Fingers of Frost, Glacial Spike, Ray of Frost. Talents: Spellslinger hero tree; AoE: Blizzard (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Frost Mage, Spellslinger. Flurry on Brain Freeze, Ice Lance on Fingers of Frost, Glacial Spike, Ray of Frost. Spellslinger hero tree; AoE: Blizzard (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Frost_Spellslinger (import string in its Notes). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,@cursor]Blizzard"), R("/cast [nochanneling,buff:Brain Freeze]Flurry"), S("Frozen Orb", "c"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Glacial Spike"), S("Ray of Frost") },
     { S("Frostbolt"), S("Frostfire Bolt") },
@@ -1082,7 +1082,7 @@ Retail.RoninDPS_Frost_Frostfire = DPS("RoninDPS_Frost_Frostfire", 64, C_MAGE, {
     { S("Comet Storm"), S("Ice Lance"), S("Frostfire Bolt") },
     { S("Frostfire Bolt"), S("Ice Lance") },
     { S("Icy Veins", "c"), S("Frozen Orb", "c"), S("Frostfire Bolt") },
-}, D_MAGE, "Frost Mage, Frostfire. Glacial Spike then Comet Storm, Frostfire Bolt as filler. Talents: Frostfire hero tree. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Frost Mage, Frostfire. Glacial Spike then Comet Storm, Frostfire Bolt as filler. Frostfire hero tree. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZmZmFMzEzMGzMzMWMzMzMGzsMTzMLzCAAAaBAA2AAAALAstMmZm5BYMjxM2WAAAAzMYmMGwADD | Raid: CAEAAAAAAAAAAAAAAAAAAAAAAMzwYZm5BmFMzEzMGzMzMWMzMzMGzsMTzMLzCAAAaBAA2AAAALAstMmZmZYMjxM2WAAAAzMYGGDYghB | Leveling: take these talents as they unlock. Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,buff:Brain Freeze]Flurry"), S("Frozen Orb", "c"), S("Glacial Spike"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Ray of Frost") },
     { S("Frostbolt"), S("Frostfire Bolt") },
@@ -1095,7 +1095,7 @@ Retail.RoninDPS_Frost_FF_AoE = DPS("RoninDPS_Frost_FF_AoE", 64, C_MAGE, {
     { S("Comet Storm"), S("Ice Lance"), S("Frostfire Bolt") },
     { S("Frostfire Bolt"), S("Ice Lance") },
     { S("Icy Veins", "c"), S("Frozen Orb", "c"), S("Frostfire Bolt") },
-}, D_MAGE, "Frost Mage, Frostfire. Glacial Spike then Comet Storm, Frostfire Bolt as filler. Talents: Frostfire hero tree. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Frost Mage, Frostfire. Glacial Spike then Comet Storm, Frostfire Bolt as filler. Frostfire hero tree. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Frost_Frostfire (import string in its Notes). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,@cursor]Blizzard"), R("/cast [nochanneling,buff:Brain Freeze]Flurry"), S("Frozen Orb", "c"), S("Frostbolt") },
     { R("/cast [nochanneling,buff:Fingers of Frost]Ice Lance"), S("Glacial Spike"), S("Ray of Frost") },
     { S("Frostbolt"), S("Frostfire Bolt") },
@@ -1108,7 +1108,7 @@ Retail.RoninDPS_Fire_Frostfire = DPS("RoninDPS_Fire_Frostfire", 63, C_MAGE, {
     { S("Frostfire Bolt"), S("Fireball"), S("Scorch") },
     { S("Scorch"), S("Fireball") },
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), S("Fireball") },
-}, D_MAGE, "Fire Mage, Frostfire. Combustion with Meteor, Pyroblast on Hot Streak, Frostfire Bolt filler. Talents: Frostfire hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Fire Mage, Frostfire. Combustion with Meteor, Pyroblast on Hot Streak, Frostfire Bolt filler. Frostfire hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Talents: pick the Frostfire hero tree in your talent window (no current top build string for it yet). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Combustion", "c"), R("/cast [nochanneling,buff:Hot Streak!]Pyroblast"), R("/cast [nochanneling,buff:Heating Up]Fire Blast") },
     { S("Fireball"), S("Scorch"), S("Frostfire Bolt") },
     { S("Scorch"), S("Fireball") },
@@ -1121,7 +1121,7 @@ Retail.RoninDPS_Fire_FF_AoE = DPS("RoninDPS_Fire_FF_AoE", 63, C_MAGE, {
     { S("Frostfire Bolt"), S("Fireball"), S("Scorch") },
     { S("Scorch"), S("Fireball") },
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), S("Fireball") },
-}, D_MAGE, "Fire Mage, Frostfire. Combustion with Meteor, Pyroblast on Hot Streak, Frostfire Bolt filler. Talents: Frostfire hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Fire Mage, Frostfire. Combustion with Meteor, Pyroblast on Hot Streak, Frostfire Bolt filler. Frostfire hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Fire_Frostfire (import string in its Notes). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Combustion", "c"), R("/cast [nochanneling,buff:Hot Streak!,@cursor]Flamestrike"), R("/cast [nochanneling,buff:Heating Up]Fire Blast") },
     { R("/cast [nochanneling,@cursor]Meteor"), S("Fireball"), S("Frostfire Bolt") },
     { S("Scorch"), S("Fireball") },
@@ -1131,10 +1131,10 @@ Retail.RoninDPS_Fire_Sunfury = DPS("RoninDPS_Fire_Sunfury", 63, C_MAGE, {
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), R("/cast [nochanneling,buff:Hot Streak!]Pyroblast"), S("Fireball") },
     { R("/cast [nochanneling,buff:Hot Streak!]Pyroblast"), R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch") },
     { R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch"), S("Fireball") },
-    { S("Fireball"), S("Scorch"), S("Frostfire Bolt") },
+    { S("Fireball"), S("Scorch") },
     { S("Scorch"), S("Fireball") },
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), S("Fireball") },
-}, D_MAGE, "Fire Mage, Sunfury. Combustion summons an Arcane Phoenix, Meteor, Pyroblast on Hot Streak, Scorch kept in your build. Talents: Sunfury hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Fire Mage, Sunfury. Combustion summons an Arcane Phoenix, Meteor, Pyroblast on Hot Streak, Scorch kept in your build. Sunfury hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Raid / Delve: C8DAAAAAAAAAAAAAAAAAAAAAAYGGLzMzswMzIzMGAAAGAwMz0sstMDAwmZmx2MzMzYBAAAAALmZmZAAgZMmZmZMzsMAMzQGjBMDjB | Leveling: take these talents as they unlock. Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Combustion", "c"), R("/cast [nochanneling,buff:Hot Streak!]Pyroblast"), R("/cast [nochanneling,buff:Heating Up]Fire Blast") },
     { S("Fireball"), S("Scorch"), S("Frostfire Bolt") },
     { S("Scorch"), S("Fireball") },
@@ -1144,10 +1144,10 @@ Retail.RoninDPS_Fire_Sun_AoE = DPS("RoninDPS_Fire_Sun_AoE", 63, C_MAGE, {
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), R("/cast [nochanneling,buff:Hot Streak!,@cursor]Flamestrike") },
     { R("/cast [nochanneling,buff:Hot Streak!,@cursor]Flamestrike"), R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch") },
     { R("/cast [nochanneling,buff:Heating Up]Fire Blast"), R("/cast [nochanneling,buff:Heat Shimmer]Scorch"), S("Fireball") },
-    { S("Fireball"), S("Scorch"), S("Frostfire Bolt") },
+    { S("Fireball"), S("Scorch") },
     { S("Scorch"), S("Fireball") },
     { S("Combustion", "c"), R("/cast [nochanneling,@cursor]Meteor"), S("Fireball") },
-}, D_MAGE, "Fire Mage, Sunfury. Combustion summons an Arcane Phoenix, Meteor, Pyroblast on Hot Streak, Scorch kept in your build. Talents: Sunfury hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Fire Mage, Sunfury. Combustion summons an Arcane Phoenix, Meteor, Pyroblast on Hot Streak, Scorch kept in your build. Sunfury hero tree; AoE: Flamestrike on Hot Streak (cast at your cursor). AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Fire_Sunfury (import string in its Notes). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { S("Combustion", "c"), R("/cast [nochanneling,buff:Hot Streak!,@cursor]Flamestrike"), R("/cast [nochanneling,buff:Heating Up]Fire Blast") },
     { R("/cast [nochanneling,@cursor]Meteor"), S("Fireball"), S("Frostfire Bolt") },
     { S("Scorch"), S("Fireball") },
@@ -1160,7 +1160,7 @@ Retail.RoninDPS_Arc_Spellslinger = DPS("RoninDPS_Arc_Spellslinger", 62, C_MAGE, 
     { S("Arcane Barrage"), S("Arcane Blast") },
     { S("Arcane Blast") },
     { S("Touch of the Magi", "c"), S("Arcane Surge", "c"), S("Arcane Blast") },
-}, D_MAGE, "Arcane Mage, Spellslinger. Touch of the Magi into Arcane Surge, Missiles on Clearcasting, Prismatic Bolt. Talents: Spellslinger hero tree. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Arcane Mage, Spellslinger. Touch of the Magi into Arcane Surge, Missiles on Clearcasting, Prismatic Bolt. Spellslinger hero tree. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: C4DAAAAAAAAAAAAAAAAAAAAAAMzwYZmZmFMDamxAAAwAAgAmZmZZZmJWAAYbwMzwmlZMjZMmZmZGWYmZmZGAgBAAYmZDAMDAGmZG | Raid: C4DAAAAAAAAAAAAAAAAAAAAAAMzwYZmZmFMDamxAAAwAAgAmZmZZZmJWAAYDzMzM2sMzMzyMGjZmBLMzMzMDAwAAAMzsAAmBADzMD | Leveling: take these talents as they unlock. Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,buff:Clearcasting]Arcane Missiles"), S("Arcane Orb"), S("Touch of the Magi", "c") },
     { R("/castsequence [nochanneling] reset=10 Arcane Blast, Arcane Blast, Arcane Blast, Arcane Blast, Arcane Barrage"), S("Arcane Blast") },
     { S("Arcane Blast") },
@@ -1169,13 +1169,13 @@ Retail.RoninDPS_Arc_Spellslinger = DPS("RoninDPS_Arc_Spellslinger", 62, C_MAGE, 
 Retail.RoninDPS_Arc_Spell_AoE = DPS("RoninDPS_Arc_Spell_AoE", 62, C_MAGE, {
     { R("/cast [nochanneling,buff:Clearcasting]Arcane Missiles"), S("Arcane Orb"), S("Prismatic Bolt") },
     { R("/castsequence [nochanneling] reset=10 Arcane Blast, Arcane Blast, Arcane Blast, Arcane Blast, Arcane Barrage"), S("Arcane Blast") },
-    { S("Arcane Pulse"), S("Arcane Orb"), S("Arcane Blast") },
+    { S("Arcane Orb"), S("Arcane Blast") },
     { S("Arcane Barrage"), S("Arcane Blast") },
     { S("Arcane Blast") },
     { S("Touch of the Magi", "c"), S("Arcane Surge", "c"), S("Arcane Blast") },
-}, D_MAGE, "Arcane Mage, Spellslinger. Touch of the Magi into Arcane Surge, Missiles on Clearcasting, Prismatic Bolt. Talents: Spellslinger hero tree. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Arcane Mage, Spellslinger. Touch of the Magi into Arcane Surge, Missiles on Clearcasting, Prismatic Bolt. Spellslinger hero tree. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Arc_Spellslinger (import string in its Notes). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,buff:Clearcasting]Arcane Missiles"), S("Arcane Orb"), S("Touch of the Magi", "c") },
-    { S("Arcane Pulse"), S("Arcane Orb"), S("Arcane Blast") },
+    { S("Arcane Orb"), S("Arcane Blast") },
     { S("Arcane Blast") },
 })
 
@@ -1186,7 +1186,7 @@ Retail.RoninDPS_Arc_Sunfury = DPS("RoninDPS_Arc_Sunfury", 62, C_MAGE, {
     { S("Arcane Barrage"), S("Arcane Blast") },
     { S("Arcane Blast") },
     { S("Touch of the Magi", "c"), S("Arcane Surge", "c"), S("Arcane Blast") },
-}, D_MAGE, "Arcane Mage, Sunfury. Touch of the Magi into Arcane Surge, Missiles on Clearcasting, Arcane Barrage at high Salvo. Talents: Sunfury hero tree. Single target macro, use the AoE macro for packs (3+ targets). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Arcane Mage, Sunfury. Touch of the Magi into Arcane Surge, Missiles on Clearcasting, Arcane Barrage at high Salvo. Sunfury hero tree. Single target macro, use the AoE macro for packs (3+ targets). Talents (import in game): Mythic+ / Delve: C4DAAAAAAAAAAAAAAAAAAAAAAMzwYZmZmFMDamxAAAwAAmZmmlllZAgYDAgNYmZYzyMmZZGjZmZmhFmZmZmBAYAAAGgZGwMAYYmZA | Raid: C4DAAAAAAAAAAAAAAAAAAAAAAMzwYZmZmFMDamxAAAwAAmZmmlllZAgYDAgNMzMzYzyMzMLzYMmZGswMzMzMAADAAwAMzAmBADzMD | Leveling: take these talents as they unlock. Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,buff:Clearcasting]Arcane Missiles"), S("Arcane Orb"), S("Touch of the Magi", "c") },
     { R("/castsequence [nochanneling] reset=10 Arcane Blast, Arcane Blast, Arcane Blast, Arcane Blast, Arcane Barrage"), S("Arcane Blast") },
     { S("Arcane Blast") },
@@ -1195,13 +1195,13 @@ Retail.RoninDPS_Arc_Sunfury = DPS("RoninDPS_Arc_Sunfury", 62, C_MAGE, {
 Retail.RoninDPS_Arc_Sun_AoE = DPS("RoninDPS_Arc_Sun_AoE", 62, C_MAGE, {
     { R("/cast [nochanneling,buff:Clearcasting]Arcane Missiles"), S("Arcane Orb"), S("Prismatic Bolt") },
     { R("/castsequence [nochanneling] reset=10 Arcane Blast, Arcane Blast, Arcane Blast, Arcane Blast, Arcane Barrage"), S("Arcane Blast") },
-    { S("Arcane Pulse"), S("Arcane Orb"), S("Arcane Blast") },
+    { S("Arcane Orb"), S("Arcane Blast") },
     { S("Arcane Barrage"), S("Arcane Blast") },
     { S("Arcane Blast") },
     { S("Touch of the Magi", "c"), S("Arcane Surge", "c"), S("Arcane Blast") },
-}, D_MAGE, "Arcane Mage, Sunfury. Touch of the Magi into Arcane Surge, Missiles on Clearcasting, Arcane Barrage at high Salvo. Talents: Sunfury hero tree. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
+}, D_MAGE, "Arcane Mage, Sunfury. Touch of the Magi into Arcane Surge, Missiles on Clearcasting, Arcane Barrage at high Salvo. Sunfury hero tree. AoE macro: use it on packs of 3+ targets (Mythic+ trash, Delve packs). Talents: the same build as RoninDPS_Arc_Sunfury (import string in its Notes). Keys: Shift = Prismatic Barrier, Alt = Frost Nova. Versions: Mythic+ (cooldowns right at the pull, auto next target), Raid (cooldowns early, keeps your target), Delve (solo: cooldowns early + one defensive), Beginner (one defensive included, cooldowns later), Leveling (basic spells, pick it by hand while you level to 90).", {
     { R("/cast [nochanneling,buff:Clearcasting]Arcane Missiles"), S("Arcane Orb"), S("Touch of the Magi", "c") },
-    { S("Arcane Pulse"), S("Arcane Orb"), S("Arcane Blast") },
+    { S("Arcane Orb"), S("Arcane Blast") },
     { S("Arcane Blast") },
 })
 

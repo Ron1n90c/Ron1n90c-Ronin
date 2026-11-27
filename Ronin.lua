@@ -27,7 +27,7 @@ do
     end)
 end
 
-local ADDON_VERSION = "4.2.4"
+local ADDON_VERSION = "4.3.0"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -93,7 +93,7 @@ end
 
 local PACKS = {
     retail = {
-        key = "retail", world = "retail", name = "Retail", version = "7.2.1",
+        key = "retail", world = "retail", name = "Retail", version = "7.3.0",
         sub = "Midnight 12.0",
         seqs = Ronin.RetailSequences or {},
         regkey = "RoninRetail",

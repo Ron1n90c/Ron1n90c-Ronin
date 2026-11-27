@@ -1,3 +1,28 @@
+RONIN - GSE SUITE 4.3.0 - 2026-11-27   (Retail pack 7.3.0)
+ * Talents first: every Retail Tank, DPS and Heal macro is now built on the talent build the top players use.
+   Mythic+ and Raid builds come from the top Mythic+ players and the current Midnight 12.1.5 guides, and the
+   import strings are in the GSE Notes of each macro ("Talents (import in game): Mythic+ / Delve: ... | Raid: ...").
+   Import the string, pick the matching version, press. Every string was decoded and checked against the
+   current talent trees before release.
+ * Spells the build does not take are gone, spells it takes are in:
+   - Blood DK: no Consumption (not in the top builds).
+   - Vengeance DH: Soul Carver only in the Raid version (top Mythic+ players skip it).
+   - Brewmaster: Exploding Keg only in the Raid version; Mythic+ keeps Niuzao at step 2.
+   - Guardian Druid (Elune's Chosen): Raze out, Red Moon in.
+   - Havoc DH (Fel-Scarred, both AoE macros): Essence Break added.
+   - Frost DK Deathbringer: Breath of Sindragosa in the cooldown step (Raid build).
+   - Fury Warrior Slayer: Odyn's Fury added, Wrecking Throw out.
+   - Feral Druid: Incarnation added, Ravage out (a Druid of the Claw talent).
+   - Elemental Stormbringer: Ancestral Swiftness out (a Farseer talent).
+   - Enhancement Stormbringer: Sundering out. Arms Colossus AoE: Thunder Clap out.
+   - Affliction Soul Harvester: Malefic Grasp out. Demonology: Summon Doomguard and Doom out.
+   - Fire Sunfury: Frostfire Bolt out. Arcane AoE: Arcane Pulse out. Windwalker Shado-Pan: Invoke Xuen out.
+   - Restoration Shaman Totemic: Unleash Life, Ancestral Swiftness and Downpour out; Farseer AoE: Downpour out.
+ * Alt key: Arms and Fury use Storm Bolt, Affliction and Destruction use Mortal Coil (what the top builds take).
+ * Hero trees without a current top build (Frost DK Rider, Elemental Stormbringer, Fire Frostfire, Fury Mountain
+   Thane, Guardian Druid of the Claw) keep their macro and say so in the Notes.
+ * WoW: Forever is the same as 4.2.4.
+
 RONIN - GSE SUITE 4.2.4 - 2026-11-26   (Retail pack 7.2.1)
  * Vengeance Demon Hunter (Aldrachi Reaver + Annihilator, all versions): rebuilt on the current Midnight priority.
    Fracture came first in almost every step, so with haste it took nearly every press and Soul Cleave, Spirit Bomb,
