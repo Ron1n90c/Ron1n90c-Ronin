@@ -27,7 +27,7 @@ do
     end)
 end
 
-local ADDON_VERSION = "4.4.0-beta6"
+local ADDON_VERSION = "4.4.0-beta7"
 local MEDIA = "Interface\\AddOns\\Ronin\\Media\\"
 local WHITE = "Interface\\Buttons\\WHITE8x8"
 
@@ -1068,8 +1068,18 @@ local function BuildInstallPage(inner, pack)
         row:SetScript("OnClick", function() cb:SetChecked(not cb:GetChecked()) end)
         row:EnableMouseWheel(true)
         row:SetScript("OnMouseWheel", function(_, delta) page.SetScroll((page.scrollPos or 0) - delta * 60) end)
+        -- "For you": gold accent bar on the left + a soft gold glow (shown by MarkForYou)
+        local fyBar = row:CreateTexture(nil, "OVERLAY")
+        fyBar:SetPoint("TOPLEFT", 0, 0); fyBar:SetPoint("BOTTOMLEFT", 0, 0); fyBar:SetWidth(5)
+        fyBar:SetColorTexture(0.94, 0.73, 0.36, 1); fyBar:Hide()
+        row.fyBar = fyBar
+        local fyGlow = row:CreateTexture(nil, "BACKGROUND", nil, 1)
+        fyGlow:SetAllPoints(); fyGlow:SetColorTexture(0.94, 0.73, 0.36, 0.10); fyGlow:Hide()
+        row.fyGlow = fyGlow
         row:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(0.0, 0.8, 0.78, 0.9) end)
-        row:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(0.10, 0.20, 0.30, 1) end)
+        row:SetScript("OnLeave", function(self)
+            if self.forYou then self:SetBackdropBorderColor(unpack(C.gold)) else self:SetBackdropBorderColor(0.10, 0.20, 0.30, 1) end
+        end)
         page.rows[#page.rows + 1] = row
     end
 
@@ -2033,17 +2043,22 @@ end
 -- rows for your spec: gold border + "for you" (and your hero tree when it is known)
 local function MarkForYou(page)
     if not page or not page.rows then return nil end
+    local retail = IsRetailClient()
     local spec = PlayerSpec()
     local hero = PlayerHero()
     local first
-    local fset                    -- WoW: Forever: the macro(s) of your talent tree
-    if not IsRetailClient() and ForeverTree() then
-        fset = {}
-        for _, n in ipairs(MySequences()) do fset[n] = true end
+    local fset, flabel             -- WoW: Forever: the macro(s) of your talent tree, "Protection - Level 10-40"
+    if not retail then
+        local _, tname = ForeverTree()
+        if tname then
+            fset = {}
+            for _, n in ipairs(MySequences()) do fset[n] = true end
+            flabel = tname .. " - " .. ForeverLabel()
+        end
     end
     for i, r in ipairs(page.rows) do
         local g = r.group
-        local mine = spec and g.specID and g.specID == spec
+        local mine = retail and spec and g.specID and g.specID == spec or false
         if fset then
             mine = false
             for _, key in ipairs(g.seqs or {}) do if fset[key] then mine = true end end
@@ -2051,13 +2066,23 @@ local function MarkForYou(page)
         if mine then
             local h
             for _, key in ipairs(g.seqs) do local m = META[key]; if hero and m and m.hero == hero and not h then h = m.hero end end
-            r.sub:SetText(DIM .. (g.sub or "") .. "|r  " .. GOLD .. "For you" .. (h and (": " .. h) or "") .. "|r")
+            local tag = h or flabel
+            -- "For you" first, so it is never cut off on narrow rows
+            r.sub:SetText(GOLD .. "For you" .. (tag and (": " .. tag) or "") .. "|r" .. DIM .. "   " .. (g.sub or "") .. "|r")
+            r:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 2 })
+            r:SetBackdropColor(unpack(C.row))
             r:SetBackdropBorderColor(unpack(C.gold))
+            if r.fyBar then r.fyBar:Show() end
+            if r.fyGlow then r.fyGlow:Show() end
             r.forYou = true
             first = first or i
         elseif r.forYou then
             r.sub:SetText(DIM .. (g.sub or "") .. "|r"); r.forYou = nil
+            r:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
+            r:SetBackdropColor(unpack(C.row))
             r:SetBackdropBorderColor(0.10, 0.20, 0.30, 1)
+            if r.fyBar then r.fyBar:Hide() end
+            if r.fyGlow then r.fyGlow:Hide() end
         end
     end
     return first

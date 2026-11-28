@@ -1,3 +1,9 @@
+RONIN - GSE SUITE 4.4.0-beta7 - 2026-11-28
+ * "For you" is easy to see now: gold border (thicker), gold bar on the left and a soft gold glow on the row
+   of your spec. "For you: <hero tree>" comes first in the line, so it is never cut off on narrow rows.
+ * Fix: moving the mouse over the "For you" row took the gold border away.
+ * WoW: Forever: "For you: <tree> - <level range>" (for example "For you: Protection - Level 10-40").
+
 RONIN - GSE SUITE 4.4.0-beta6 - 2026-11-27   (Forever pack 4.1.3)
  * /ronin check in WoW: Forever:
    - finds your talent tree (the tree with the most points) and checks only that macro: a Protection Paladin
