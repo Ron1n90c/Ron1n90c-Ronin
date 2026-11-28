@@ -1,3 +1,11 @@
+RONIN - GSE SUITE 4.4.0-beta8 - 2026-11-28   (Retail pack 7.3.6)
+ * Frost Mage: Icy Veins is gone from the game; the cooldown step now uses Ray of Frost (Spellslinger) or
+   Comet Storm (Frostfire) with Frozen Orb.
+ * Survival Hunter: Flamefang Pitch was removed in 12.1; its places use Raptor Swipe, Kill Command and Wildfire Bomb.
+ * GSE Notes: no talent strings any more, they live in the Talents button in /ronin. The Notes keep the
+   description, keys and versions.
+ * Full check of every Retail spell name against the current game data and every talent string (450, all valid).
+
 RONIN - GSE SUITE 4.4.0-beta7 - 2026-11-28
  * "For you" is easy to see now: gold border (thicker), gold bar on the left and a soft gold glow on the row
    of your spec. "For you: <hero tree>" comes first in the line, so it is never cut off on narrow rows.
